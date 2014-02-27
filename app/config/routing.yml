@@ -1,0 +1,4 @@
+knnf_whatsup:
+    resource: "@KnnfWhatsupBundle/Resources/config/routing.yml"
+    prefix:   /
+

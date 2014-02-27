@@ -1,0 +1,7 @@
+knnf_whatsup_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: KnnfWhatsupBundle:Default:index }
+
+index:
+    pattern: /whatsup/index/
+    defaults: { _controller: KnnfWhatsupBundle:Index:index }
