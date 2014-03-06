@@ -3,5 +3,17 @@ knnf_whatsup_homepage:
     defaults: { _controller: KnnfWhatsupBundle:Default:index }
 
 index:
-    pattern: /whatsup/index/
+    pattern: /index/index/
     defaults: { _controller: KnnfWhatsupBundle:Index:index }
+
+user_index:
+    pattern: /user/index/
+    defaults: { _controller: KnnfWhatsupBundle:User:index }
+
+user_add:
+    pattern: /user/add/
+    defaults: { _controller: KnnfWhatsupBundle:User:add }
+
+user_delete:
+    pattern: /user/delete/
+    defaults: { _controller: KnnfWhatsupBundle:User:delete }

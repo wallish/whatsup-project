@@ -3,5 +3,5 @@ parameters:
 
 services:
 #    knnf_whatsup.example:
-#        class: %knnf_whatsup.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+#        class: Knnf\WhatsupBundle\Controller\UserController
+#        arguments: [@doctrine.orm.default_entity_manager]
