@@ -15,7 +15,7 @@ class User
 
     public function __construct()
     {
-        $this->dateinsert = new \Datetime(); // Par défaut, la date de l'article est la date d'aujourd'hui
+        $this->dateinsert = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
     }
 
 
