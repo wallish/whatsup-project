@@ -9,30 +9,38 @@ use Knnf\WhatsupBundle\Entity\Article;
 
 class ArticleController extends Controller
 {
+    protected function _getRepository(){
+        return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Article');
+    }
+
     public function indexAction()
     {
+        //$article = $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Article')->findAll();
         return $this->render('KnnfWhatsupBundle:Article:index.html.twig');
     }
 
     public function addAction(Request $request)
     {
-        //if ($request->isMethod('POST')) {
+       // $categories = $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Category')->fetchPairs();
 
-            $article = new Article();
-            $article->setTitle("poligondor");
+        /** FORM ARTICLE **/
+        $form = $this->createFormBuilder()
+            ->add('title', 'text')
+            ->add('slug', 'text')
+            ->add('content', 'text')
+            ->add('picture', 'text')
+            //->add('categorid', 'choice', array('choices' => $categories))
+            ->add('categorid', 'entity', array('class' => 'KnnfWhatsupBundle:Category','property' => 'name'))
+            ->add('valider', 'submit')
+            ->getForm();
 
-            $category = new Category();
-            $category->setName("Sport");
-            $article->setCategory($category);
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            die(var_dump($data));
 
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($category);
-            $em->persist($article);
-            $em->flush();
-        //}
-
-        return $this->render('KnnfWhatsupBundle:Article:add.html.twig');
+            $foo = $this->_getRepository()->save($data['form']);
+        }
+        return $this->render('KnnfWhatsupBundle:Article:add.html.twig',array('form' => $form->createView()));
     }
 
     public function editAction()
@@ -40,8 +48,16 @@ class ArticleController extends Controller
         return $this->render('KnnfWhatsupBundle:Article:edit.html.twig');
     }
 
-    public function deleteAction()
+    public function deleteAction(Request $request)
     {
+        //if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            $article = $this->_getRepository()->delete(2);
+            
+        //}
+
+        return $this->render('KnnfWhatsupBundle:Article:delete.html.twig');
+
     }
 
     public function activateAction()

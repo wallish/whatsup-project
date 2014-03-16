@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+	public function fetchPairs(){
+		$em = $this->getEntityManager();
+		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
+
+		foreach ($categories as $category) {
+			$data[$category->getId()] = $category->getName();
+		}
+
+		return $data;
+	}
 }

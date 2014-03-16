@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Article
 {
+
+    public function __construct()
+    {
+        $this->dateinsert = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
+    }
+
     /**
      * @var integer
      *

@@ -3,6 +3,7 @@
 namespace Knnf\WhatsupBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Knnf\WhatsupBundle\Entity\Article;
 
 /**
  * ArticleRepository
@@ -12,4 +13,42 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
+
+	
+	public function delete($id){
+			if(!$id) die('Missing parameter');
+
+			$em = $this->getEntityManager();
+            $article = $em->getRepository('KnnfWhatsupBundle:Article')->find($id);
+            $em->remove($article);
+            $em->flush();
+	}
+
+	public function save(array $data){
+
+		$em = $this->getEntityManager();
+
+		$article = new Article();
+
+		if($data['id']){
+			$article->setId($data['id']);
+			$article->setDateupdate(date());
+		} 
+		if($data['title']) $article->setTitle($data['title']);
+		if($data['slug']) $article->setSlug($data['slug']);
+		if($data['content']) $article->setContent($data['content']);
+		if($data['picture']) $article->setPicture($data['picture']);
+		if($data['status']) $article->setStatus($data['status']);
+		if($data['activate']) $article->setActivate($data['activate']);
+		
+
+		$category = $em->getRepository('KnnfWhatsupBundle:Category')->findBy(array('id' => $data['categoryid']));
+		$article->setCategory($category);
+
+		$user = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array('id' => $data['userid']));
+		$article->setUser($user);
+
+		$em->persist($article);
+        $em->flush();
+	}
 }
