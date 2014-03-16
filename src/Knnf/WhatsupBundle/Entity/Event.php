@@ -22,6 +22,12 @@ class Event
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="Knnf\WhatsupBundle\Entity\User")
+     * @ORM\JoinColumn(name="userid", referencedColumnName="id" )
+     */
+    private $user;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -390,5 +396,28 @@ class Event
     public function getDateupdate()
     {
         return $this->dateupdate;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Knnf\WhatsupBundle\Entity\User $user
+     * @return Event
+     */
+    public function setUser(\Knnf\WhatsupBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Knnf\WhatsupBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

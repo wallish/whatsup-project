@@ -22,6 +22,18 @@ class Article
     private $id;
 
     /**
+     * @ORM\OneToOne(targetEntity="Knnf\WhatsupBundle\Entity\Category")
+     * @ORM\JoinColumn(name="categoryid", referencedColumnName="id" )
+     */
+    private $category;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Knnf\WhatsupBundle\Entity\User")
+     * @ORM\JoinColumn(name="userid", referencedColumnName="id" )
+     */
+    private $user;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -270,5 +282,51 @@ class Article
     public function getActivate()
     {
         return $this->activate;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Knnf\WhatsupBundle\Entity\Category $category
+     * @return Article
+     */
+    public function setCategory(\Knnf\WhatsupBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Knnf\WhatsupBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Knnf\WhatsupBundle\Entity\User $user
+     * @return Article
+     */
+    public function setUser(\Knnf\WhatsupBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Knnf\WhatsupBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
