@@ -29,6 +29,7 @@ following command:
 It will automatically create database and table
 
     php app/console doctrine:database:create
+    php app/console doctrine:schema:update --force
 
 3) Url without vhost
 -----------------------------------
