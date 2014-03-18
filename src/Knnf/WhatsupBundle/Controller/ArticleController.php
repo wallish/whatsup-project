@@ -48,13 +48,14 @@ class ArticleController extends Controller
         return $this->render('KnnfWhatsupBundle:Article:edit.html.twig');
     }
 
+    // /article/delete/
     public function deleteAction(Request $request)
     {
-        //if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST')) {
             $data = $request->request->all();
-            $article = $this->_getRepository()->delete(2);
+            $article = $this->_getRepository()->delete($data['id']);
             
-        //}
+        }
 
         return $this->render('KnnfWhatsupBundle:Article:delete.html.twig');
 

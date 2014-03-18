@@ -12,5 +12,41 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+	public function save(array $data){
+		$em = $this->getEntityManager();
+
+		$user = new User();
+
+		if($data['id']){
+			$user->setId($data['id']);
+			$user->setDateupdate(date());
+		} 
+		if($data['firstname']) $user->setFirstname($data['firstname']);
+		if($data['lastname']) $user->setLastname($data['lastname']);
+		if($data['username']) $user->setUsername($data['username']);
+		if($data['email']) $user->setEmail($data['email']);
+		if($data['password']) $user->setPassword($data['password']);
+		if($data['website']) $user->setWebsite($data['website']);
+		if($data['birthday']) $user->setBirthday($data['birthday']);
+		if($data['photo']) $user->setPhoto($data['photo']);
+		if($data['country']) $user->setCountry($data['country']);
+		if($data['city']) $user->setCity($data['city']);
+		if($data['activate']) $user->setActivate($data['activate']);
+		if($data['key']) $user->setKey($data['key']);
+		
+
+
+		$em->persist($user);
+        $em->flush();
+	}
+
+	public function delete($id){
+		if(!$id) die('Missing parameter');
+
+		$em = $this->getEntityManager();
+        $article = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
+        $em->remove($article);
+        $em->flush();
+	}
 
 }

@@ -12,6 +12,34 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+
+
+	public function save(array $data){
+		$em = $this->getEntityManager();
+
+		$user = new Category();
+
+		if($data['id']){
+			$user->setId($data['id']);
+			$user->setDateupdate(date());
+		} 
+		if($data['name']) $user->setName($data['name']);
+		if($data['slug']) $user->setSlug($data['slug']);
+		if($data['activate']) $user->setActivate($data['activate']);
+
+		$em->persist($user);
+        $em->flush();
+	}
+
+	public function delete($id){
+		if(!$id) die('Missing parameter');
+
+		$em = $this->getEntityManager();
+        $article = $em->getRepository('KnnfWhatsupBundle:Category')->find($id);
+        $em->remove($article);
+        $em->flush();
+	}
+
 	public function fetchPairs(){
 		$em = $this->getEntityManager();
 		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
