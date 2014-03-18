@@ -18,35 +18,42 @@ class UserController extends Controller
     public function indexAction()
     {
     	$em = $this->getDoctrine()->getManager();
-    	$foo = $this->_getRepo()->findAll();
+    	$users = $this->_getRepo()->findAll();
 
-
-    	var_dump($foo);
-
-    	return $this->render('KnnfWhatsupBundle:User:index.html.twig',array('users' => $foo));
+    	return $this->render('KnnfWhatsupBundle:User:index.html.twig',array('users' => $users));
     }
 
     public function addAction(Request $request)
     {
-    	if ($request->isMethod('POST')) {
-
-	    	$user = new User();
-		    $user->setFirstname("user".time());
-		    $em = $this->getDoctrine()->getManager();
-
-		    $em->persist($user);
-		    $em->flush();
-		}
+	    if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            $foo = $this->_getRepository()->save($data['form']);
+        }
 
     	return $this->render('KnnfWhatsupBundle:User:add.html.twig');
     }
 
     public function deleteAction(Request $request)
     {
-    	$em = $this->getDoctrine()->getManager();
-    	$foo = $this->_getRepo()->delete($request['id']);
+    	if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$$data['id']) die('Missing parameter');
+
+            $article = $this->_getRepository()->delete($data['id']);
+        }
 
     	return $this->render('KnnfWhatsupBundle:User:delete.html.twig');
+    }
+
+    public function activateAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$$data['id']) die('Missing parameter');
+
+            $foo = $this->_getRepository()->save($data['form']);
+        }   
     }
 
 }

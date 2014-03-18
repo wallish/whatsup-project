@@ -47,8 +47,6 @@ class ArticleRepository extends EntityRepository
 
 		$user = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array('id' => $data['userid']));
 		$article->setUser($user);
-
-		$em->persist($article);
-        $em->flush();
+		
 	}
 }

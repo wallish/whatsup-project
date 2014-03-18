@@ -16,7 +16,9 @@ class ArticleController extends Controller
     public function indexAction()
     {
         //$article = $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Article')->findAll();
-        return $this->render('KnnfWhatsupBundle:Article:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $articles = $this->_getRepo()->findAll();
+        return $this->render('KnnfWhatsupBundle:Article:index.html.twig',array('articles' => $articles));
     }
 
     public function addAction(Request $request)
@@ -36,9 +38,8 @@ class ArticleController extends Controller
 
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
-            die(var_dump($data));
 
-            $foo = $this->_getRepository()->save($data['form']);
+            $result = $this->_getRepository()->save($data['form']);
         }
         return $this->render('KnnfWhatsupBundle:Article:add.html.twig',array('form' => $form->createView()));
     }
@@ -53,8 +54,9 @@ class ArticleController extends Controller
     {
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
+
             $article = $this->_getRepository()->delete($data['id']);
-            
         }
 
         return $this->render('KnnfWhatsupBundle:Article:delete.html.twig');
@@ -63,6 +65,13 @@ class ArticleController extends Controller
 
     public function activateAction()
     {
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
+
+            $result = $this->_getRepository()->save($data['id']);
+        }   
     }
 
 }
