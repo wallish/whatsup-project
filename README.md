@@ -13,9 +13,13 @@ First clone the projet
     git clone https://github.com/wallish/whatsup.git
     
 If you don't have Composer yet, download it following the instructions on
-http://getcomposer.org/ or just run the following command (in the project folder):
+http://getcomposer.org/ or just run the following command (in the project folder). Dont forget to enable OpenSSL in your php.ini:
 
     curl -s http://getcomposer.org/installer | php
+
+Or if you don't have curl:
+
+    php -r "readfile('https://getcomposer.org/installer');" | php
 
 If you downloaded an archive "without vendors", you also need to install all
 the necessary dependencies. Download composer (see above) and run the
