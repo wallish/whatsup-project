@@ -81,3 +81,32 @@ event_delete:
 event_activate:
     pattern: /event/activate/
     defaults: { _controller: KnnfWhatsupBundle:Event:activate }
+
+#MEDIA
+media:
+    pattern: /media/index/
+    defaults: { _controller: KnnfWhatsupBundle:Media:index }
+
+media_show:
+    pattern: /media/show/{id}
+    defaults: { _controller: KnnfWhatsupBundle:Media:show }
+
+media_edit:
+    pattern: /media/edit/{id}
+    defaults: { _controller: KnnfWhatsupBundle:Media:edit }
+
+media_update:
+    pattern: /media/update/{id}
+    defaults: { _controller: KnnfWhatsupBundle:Media:update }
+
+media_delete:
+    pattern: /media/delete/{id}
+    defaults: { _controller: KnnfWhatsupBundle:Media:delete }
+
+media_new:
+    pattern: /media/new/
+    defaults: { _controller: KnnfWhatsupBundle:Media:new }
+
+media_create:
+    pattern: /media/create/
+    defaults: { _controller: KnnfWhatsupBundle:Media:create }

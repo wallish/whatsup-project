@@ -1,0 +1,30 @@
+media:
+    pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Media:index" }
+
+media_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "KnnfWhatsupBundle:Media:show" }
+
+media_new:
+    pattern:  /new
+    defaults: { _controller: "KnnfWhatsupBundle:Media:new" }
+
+media_create:
+    pattern:  /create
+    defaults: { _controller: "KnnfWhatsupBundle:Media:create" }
+    requirements: { _method: post }
+
+media_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "KnnfWhatsupBundle:Media:edit" }
+
+media_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "KnnfWhatsupBundle:Media:update" }
+    requirements: { _method: post|put }
+
+media_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "KnnfWhatsupBundle:Media:delete" }
+    requirements: { _method: post|delete }
