@@ -2,54 +2,101 @@
 
 namespace Knnf\WhatsupBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Knnf\WhatsupBundle\Entity\Category;
-use Knnf\WhatsupBundle\Entity\Article;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Knnf\WhatsupBundle\Entity\Article;
+use Knnf\WhatsupBundle\Form\ArticleType;
+
+/**
+ * Article controller.
+ *
+ */
 class ArticleController extends Controller
 {
+
     protected function _getRepository(){
         return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Article');
     }
 
     public function indexAction()
     {
-        //$article = $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Article')->findAll();
         $em = $this->getDoctrine()->getManager();
-        $articles = $this->_getRepo()->findAll();
-        return $this->render('KnnfWhatsupBundle:Article:index.html.twig',array('articles' => $articles));
+        $entities = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
+
+        return $this->render('KnnfWhatsupBundle:Article:index.html.twig', array(
+            'entities' => $entities,
+        ));
     }
 
-    public function addAction(Request $request)
+    public function showAction($id)
     {
-       // $categories = $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Category')->fetchPairs();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($id);
 
-        /** FORM ARTICLE **/
-        $form = $this->createFormBuilder()
-            ->add('title', 'text')
-            ->add('slug', 'text')
-            ->add('content', 'text')
-            ->add('picture', 'text')
-            //->add('categorid', 'choice', array('choices' => $categories))
-            ->add('categorid', 'entity', array('class' => 'KnnfWhatsupBundle:Category','property' => 'name'))
-            ->add('valider', 'submit')
-            ->getForm();
+        if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
+        
+        return $this->render('KnnfWhatsupBundle:Article:show.html.twig', array(
+            'entity'      => $entity));
+    }
 
-        if ($request->isMethod('POST')) {
-            $data = $request->request->all();
+    public function addAction(Request $request,$id=null)
+    {
+        $entity = new Article();
 
-            $result = $this->_getRepository()->save($data['form']);
+        $form = $this->createForm(new ArticleType(), $entity, array(
+            'action' => $this->generateUrl('article_add'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('article_show', array('id' => $entity->getId())));
         }
-        return $this->render('KnnfWhatsupBundle:Article:add.html.twig',array('form' => $form->createView()));
+
+        return $this->render('KnnfWhatsupBundle:Article:add.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
     }
 
-    public function editAction()
+    public function editAction(Request $request, $id)
     {
-        return $this->render('KnnfWhatsupBundle:Article:edit.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($id);
+
+        if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
+        
+        $editForm = $this->createForm(new ArticleType(), $entity, array(
+            'action' => $this->generateUrl('article_edit', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $editForm->add('submit', 'submit', array('label' => 'Update'));
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+            $this->get('session')->getFlashBag()->add(
+            'notice',
+            'Your changes were saved!'
+        );
+            //return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Article:edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+        ));
     }
 
-    // /article/delete/
     public function deleteAction(Request $request)
     {
         if ($request->isMethod('POST')) {

@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Media</h1>
+    <h1>Category</h1>
 
     <table class="record_properties">
         <tbody>
@@ -10,32 +10,36 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Type</th>
-                <td>{{ entity.type }}</td>
-            </tr>
-            <tr>
                 <th>Name</th>
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
+                <th>Slug</th>
+                <td>{{ entity.slug }}</td>
             </tr>
             <tr>
-                <th>File</th>
-                <td>{{ entity.file }}</td>
+                <th>Activate</th>
+                <td>{{ entity.activate }}</td>
+            </tr>
+            <tr>
+                <th>Dateinsert</th>
+                <td>{{ entity.dateinsert|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Dateupdate</th>
+                <td>{{ entity.dateupdate|date('Y-m-d H:i:s') }}</td>
             </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('media') }}">
+        <a href="{{ path('category') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('media_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('category_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

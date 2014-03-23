@@ -1,0 +1,76 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Event</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Place</th>
+                <td>{{ entity.place }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ entity.address }}</td>
+            </tr>
+            <tr>
+                <th>Orderlink</th>
+                <td>{{ entity.orderlink }}</td>
+            </tr>
+            <tr>
+                <th>Activate</th>
+                <td>{{ entity.activate }}</td>
+            </tr>
+            <tr>
+                <th>Datestart</th>
+                <td>{{ entity.datestart|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Dateend</th>
+                <td>{{ entity.dateend|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Hourstart</th>
+                <td>{{ entity.hourstart }}</td>
+            </tr>
+            <tr>
+                <th>Hourend</th>
+                <td>{{ entity.hourend }}</td>
+            </tr>
+            <tr>
+                <th>Dateinsert</th>
+                <td>{{ entity.dateinsert|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Dateupdate</th>
+                <td>{{ entity.dateupdate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('event') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('event_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>delete</li>
+</ul>
+{% endblock %}

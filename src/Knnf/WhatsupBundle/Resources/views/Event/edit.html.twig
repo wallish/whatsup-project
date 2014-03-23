@@ -1,7 +1,16 @@
-{% extends "::base.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block title %}KnnfWhatsupBundle:Event:edit{% endblock %}
+{% block body -%}
+    <h1>Event edit</h1>
 
-{% block body %}
-<h1>Welcome to the Event:edit page</h1>
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('event') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>delete</li>
+</ul>
 {% endblock %}

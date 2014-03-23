@@ -1,0 +1,30 @@
+event:
+    pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Event:index" }
+
+event_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "KnnfWhatsupBundle:Event:show" }
+
+event_new:
+    pattern:  /new
+    defaults: { _controller: "KnnfWhatsupBundle:Event:new" }
+
+event_create:
+    pattern:  /create
+    defaults: { _controller: "KnnfWhatsupBundle:Event:create" }
+    requirements: { _method: post }
+
+event_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "KnnfWhatsupBundle:Event:edit" }
+
+event_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "KnnfWhatsupBundle:Event:update" }
+    requirements: { _method: post|put }
+
+event_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "KnnfWhatsupBundle:Event:delete" }
+    requirements: { _method: post|delete }

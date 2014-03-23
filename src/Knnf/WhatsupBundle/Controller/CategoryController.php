@@ -2,49 +2,98 @@
 
 namespace Knnf\WhatsupBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Knnf\WhatsupBundle\Entity\Category;
+use Knnf\WhatsupBundle\Form\CategoryType;
+
+/**
+ * Category controller.
+ *
+ */
 class CategoryController extends Controller
 {
+
+
     public function indexAction()
     {
-
         $em = $this->getDoctrine()->getManager();
-        $category = $this->_getRepo()->findAll();
 
-        return $this->render('KnnfWhatsupBundle:Category:index.html.twig',array('category' => $category));
+        $entities = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
+
+        return $this->render('KnnfWhatsupBundle:Category:index.html.twig', array(
+            'entities' => $entities,
+        ));
     }
-
-    public function addAction()
+  
+    public function showAction($id)
     {
-         if ($request->isMethod('POST')) {
-            $data = $request->request->all();
-            $result = $this->_getRepository()->save($data['form']);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('KnnfWhatsupBundle:Category')->find($id);
+
+        if (!$entity) throw $this->createNotFoundException('Unable to find Category entity.');
+
+        return $this->render('KnnfWhatsupBundle:Category:show.html.twig', array(
+            'entity'      => $entity));
+    }
+    
+    public function addAction(Request $request)
+    {
+        $entity = new Category();
+
+        $form = $this->createForm(new CategoryType(), $entity, array(
+            'action' => $this->generateUrl('category_add'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('category_show', array('id' => $entity->getId())));
         }
-        return $this->render('KnnfWhatsupBundle:Category:add.html.twig');
+
+        return $this->render('KnnfWhatsupBundle:Category:add.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
     }
 
-    public function editAction()
-    {
-        return $this->render('KnnfWhatsupBundle:Category:edit.html.twig');
-    }
 
-    public function deleteAction()
+ 
+
+    public function editAction(Request $request, $id)
     {
-        if ($request->isMethod('POST')) {
-            $data = $request->request->all();
-            $article = $this->_getRepository()->delete($data['id']);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('KnnfWhatsupBundle:Category')->find($id);
+
+        if (!$entity) throw $this->createNotFoundException('Unable to find Category entity.');
+
+        $editForm = $this->createForm(new CategoryType(), $entity, array(
+            'action' => $this->generateUrl('category_edit', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $editForm->add('submit', 'submit', array('label' => 'Update'));
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('category_edit', array('id' => $id)));
         }
-    }
 
-   public function activateAction()
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-        if ($request->isMethod('POST')) {
-            if(!$id) die('Missing parameter');
-            $data = $request->request->all();
-            $foo = $this->_getRepository()->save($data['form']);
-        }   
+        return $this->render('KnnfWhatsupBundle:Category:edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+        ));
     }
 
 }

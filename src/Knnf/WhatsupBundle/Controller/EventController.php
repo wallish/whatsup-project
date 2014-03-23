@@ -2,51 +2,111 @@
 
 namespace Knnf\WhatsupBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Knnf\WhatsupBundle\Entity\Event;
+use Knnf\WhatsupBundle\Form\EventType;
+
+/**
+ * Event controller.
+ *
+ */
 class EventController extends Controller
 {
+
+    /**
+     * Lists all Event entities.
+     *
+     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $events = $this->_getRepo()->findAll();
 
-        return $this->render('KnnfWhatsupBundle:Event:index.html.twig',array('events' => $events));
+        $entities = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
+
+        return $this->render('KnnfWhatsupBundle:Event:index.html.twig', array(
+            'entities' => $entities
+        ));
     }
-
-    public function addAction()
+  
+    public function showAction($id)
     {
-        if ($request->isMethod('POST')) {
-            $data = $request->request->all();
-            $result = $this->_getRepository()->save($data['form']);
-        }   
-        return $this->render('KnnfWhatsupBundle:Event:add.html.twig');
-    }
+        $em = $this->getDoctrine()->getManager();
 
-    public function editAction()
-    {
-        return $this->render('KnnfWhatsupBundle:Event:edit.html.twig');
-    }
+        $entity = $em->getRepository('KnnfWhatsupBundle:Event')->find($id);
 
-    public function deleteAction()
-    {
-        if ($request->isMethod('POST')) {
-            $data = $request->request->all();
-            if(!$id) die('Missing parameter');
-
-            $article = $this->_getRepository()->delete($data['id']);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Event entity.');
         }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('KnnfWhatsupBundle:Event:show.html.twig', array(
+            'entity'      => $entity));
     }
 
-   public function activateAction()
+    public function addAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
-        if ($request->isMethod('POST')) {
-            $data = $request->request->all();
-            if(!$id) die('Missing parameter');
+        $entity = new Event();
 
-            $foo = $this->_getRepository()->save($data['form']);
-        }   
+        $form = $this->createForm(new EventType(), $entity, array(
+            'action' => $this->generateUrl('event_add'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('event_show', array('id' => $entity->getId())));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Event:add.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
     }
 
+ 
+
+
+   
+
+  
+ 
+    public function editAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('KnnfWhatsupBundle:Event')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Event entity.');
+        }
+
+         $editForm = $this->createForm(new EventType(), $entity, array(
+            'action' => $this->generateUrl('event_edit', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $editForm->add('submit', 'submit', array('label' => 'Update'));
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('event_edit', array('id' => $id)));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Event:edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+        ));
+    }
+  
 }

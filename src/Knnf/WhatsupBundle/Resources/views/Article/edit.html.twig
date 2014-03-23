@@ -1,7 +1,21 @@
-{% extends "::base.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block title %}KnnfWhatsupBundle:Article:edit{% endblock %}
+{% block body -%}
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <p class="bg-success">{{ flashMessage }}</p>
+{% endfor %}
 
-{% block body %}
-<h1>Welcome to the Article:edit page</h1>
+    <h1>Article edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('article') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>delete</li>
+</ul>
+
 {% endblock %}

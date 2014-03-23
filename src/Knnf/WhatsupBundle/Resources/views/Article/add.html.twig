@@ -1,8 +1,15 @@
-{% extends "::base.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block title %}KnnfWhatsupBundle:Article:add{% endblock %}
+{% block body -%}
+    <h1>Article creation</h1>
 
-{% block body %}
-<h1>Welcome to the Article:add page</h1>
-{{form(form)}}
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('article') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
 {% endblock %}

@@ -140,4 +140,50 @@ class Category
     {
         return $this->activate;
     }
+
+    /**
+     * Set dateinsert
+     *
+     * @param \DateTime $dateinsert
+     * @return Category
+     */
+    public function setDateinsert($dateinsert)
+    {
+        $this->dateinsert = $dateinsert;
+
+        return $this;
+    }
+
+    /**
+     * Get dateinsert
+     *
+     * @return \DateTime 
+     */
+    public function getDateinsert()
+    {
+        return $this->dateinsert;
+    }
+
+    /**
+     * Set dateupdate
+     *
+     * @param \DateTime $dateupdate
+     * @return Category
+     */
+    public function setDateupdate($dateupdate)
+    {
+        $this->dateupdate = $dateupdate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateupdate
+     *
+     * @return \DateTime 
+     */
+    public function getDateupdate()
+    {
+        return $this->dateupdate;
+    }
 }

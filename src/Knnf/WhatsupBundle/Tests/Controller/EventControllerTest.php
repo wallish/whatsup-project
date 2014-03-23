@@ -6,39 +6,50 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class EventControllerTest extends WebTestCase
 {
-    public function testIndex()
+    /*
+    public function testCompleteScenario()
     {
+        // Create a new client to browse the application
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/index');
+        // Create a new entry in the database
+        $crawler = $client->request('GET', '/event/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /event/");
+        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+
+        // Fill in the form and submit it
+        $form = $crawler->selectButton('Create')->form(array(
+            'knnf_whatsupbundle_eventtype[field_name]'  => 'Test',
+            // ... other fields to fill
+        ));
+
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+
+        // Check data in the show view
+        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
+
+        // Edit the entity
+        $crawler = $client->click($crawler->selectLink('Edit')->link());
+
+        $form = $crawler->selectButton('Edit')->form(array(
+            'knnf_whatsupbundle_eventtype[field_name]'  => 'Foo',
+            // ... other fields to fill
+        ));
+
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+
+        // Check the element contains an attribute with value equals "Foo"
+        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
+
+        // Delete the entity
+        $client->submit($crawler->selectButton('Delete')->form());
+        $crawler = $client->followRedirect();
+
+        // Check the entity has been delete on the list
+        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
 
-    public function testAdd()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/add');
-    }
-
-    public function testEdit()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/edit');
-    }
-
-    public function testDelete()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/delete');
-    }
-
-    public function testActivate()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/activate');
-    }
-
+    */
 }
