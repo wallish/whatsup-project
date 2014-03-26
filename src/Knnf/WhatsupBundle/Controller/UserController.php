@@ -33,9 +33,8 @@ class UserController extends Controller
 
         $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
+        if (!$entity)throw $this->createNotFoundException('Unable to find User entity.');
+        
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -74,9 +73,8 @@ class UserController extends Controller
 
         $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
-        }
+        if (!$entity) throw $this->createNotFoundException('Unable to find User entity.');
+        
 
         $editForm = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_edit', array('id' => $entity->getId())),
@@ -97,6 +95,18 @@ class UserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
         ));
+    }
+
+    public function profilAction(){
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('userid' => $id));
+
+        if (!$articles) throw $this->createNotFoundException('Unable to find Articles.');
+
+        return $this->render('KnnfWhatsupBundle:User:profil.html.twig', array(
+            'articles'      => $articles,
+        ));
+        
     }
  
 }

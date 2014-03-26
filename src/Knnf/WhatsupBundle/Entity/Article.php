@@ -28,14 +28,14 @@ class Article
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Knnf\WhatsupBundle\Entity\Category")
-     * @ORM\JoinColumn(name="categoryid", referencedColumnName="id" )
+     * @ORM\ManyToOne(targetEntity="Knnf\WhatsupBundle\Entity\Category")
+     * @ORM\JoinColumn(name="categoryid", referencedColumnName="id",unique=false )
      */
     private $category;
 
     /**
-     * @ORM\OneToOne(targetEntity="Knnf\WhatsupBundle\Entity\User")
-     * @ORM\JoinColumn(name="userid", referencedColumnName="id" )
+     * @ORM\ManyToOne(targetEntity="Knnf\WhatsupBundle\Entity\User")
+     * @ORM\JoinColumn(name="userid", referencedColumnName="id",unique=false )
      */
     private $user;
 

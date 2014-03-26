@@ -25,8 +25,8 @@ class EventType extends AbstractType
             ->add('dateend')
             ->add('hourstart')
             ->add('hourend')
-            ->add('dateinsert')
-            ->add('dateupdate')
+            //->add('dateinsert')
+            //->add('dateupdate')
             ->add('user')
         ;
     }

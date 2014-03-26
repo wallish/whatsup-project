@@ -22,7 +22,7 @@ class Event
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Knnf\WhatsupBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Knnf\WhatsupBundle\Entity\User")
      * @ORM\JoinColumn(name="userid", referencedColumnName="id" )
      */
     private $user;

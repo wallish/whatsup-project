@@ -18,8 +18,8 @@ class CategoryType extends AbstractType
             ->add('name')
             ->add('slug')
             ->add('activate')
-            ->add('dateinsert')
-            ->add('dateupdate')
+            //->add('dateinsert')
+            //->add('dateupdate')
         ;
     }
     

@@ -27,9 +27,9 @@ class UserType extends AbstractType
             ->add('country')
             ->add('city')
             ->add('zipcode')
-            ->add('dateinsert')
-            ->add('dateupdate')
-            ->add('activate')
+            //->add('dateinsert')
+            //->add('dateupdate')
+            //->add('activate')
         ;
     }
     
