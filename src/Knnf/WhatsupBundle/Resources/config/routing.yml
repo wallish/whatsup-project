@@ -148,3 +148,27 @@ user_delete:
     pattern:  /user/{id}/delete
     defaults: { _controller: "KnnfWhatsupBundle:User:delete" }
     requirements: { _method: post|delete }
+
+admin_index:
+    pattern: /admin/index/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:index }
+
+admin_article:
+    pattern: /admin/article/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:article }
+
+admin_user:
+    pattern: /admin/user/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:user }
+
+admin_category:
+    pattern: /admin/category/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:category }
+
+admin_media:
+    pattern: /admin/media/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:media }
+
+admin_event:
+    pattern: /admin/event/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:event }
