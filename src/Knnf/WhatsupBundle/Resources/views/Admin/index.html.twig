@@ -14,6 +14,46 @@
                     <a class="btn"><i class="glyphicon glyphicon-shopping-cart"></i></a>
                 </div>
             </div>
+
+            	{# Tableau listing article#}
+				<div class="widget-content nopadding">
+					<table class="table table-bordered table-striped table-hover">
+						<thead>
+							<tr>
+								<th>id</th>
+								<th>titre</th>
+								<th>slug</th>
+								<th>content</th>
+								<th>dateinsert</th>
+								<th>dateupdate</th>
+							</tr>
+						</thead>
+						<tbody>
+						{# articleS est la variable que j'ai envoyé depuis le controller 
+						   et article est l'objet
+						#}
+						{% for article in articles %}
+							<tr>
+								<td>{{ article.id }}</td>
+								<td>{{ article.title }}</td>
+								<td>{{ article.slug }}</td>
+								<td>{{ article.content }}</td>
+								<td>{{ article.dateinsert|date("m/d/Y") }}</td>
+								<td>{{ article.dateupdate|date("m/d/Y") }}</td>
+							</tr>
+						</tbody>
+						{% endfor %}
+						</table>							
+				</div>
+				{# Fin Tableau listing article#}
+
+
+
+
+
+
+
+
             <div id="breadcrumb">
                 <a href="#" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
                 <a href="#" class="current">Dashboard</a>

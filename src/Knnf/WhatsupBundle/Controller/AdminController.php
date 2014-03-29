@@ -23,7 +23,7 @@ class AdminController extends Controller
         $medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
 
-
+        
         return $this->render('KnnfWhatsupBundle:Admin:index.html.twig', array(
            'articles' => $articles,
            'users' => $users,
