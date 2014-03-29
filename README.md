@@ -25,17 +25,24 @@ If you downloaded an archive "without vendors", you also need to install all
 the necessary dependencies. Download composer (see above) and run the
 following command:
 
+    php composer.phar selfupdate
     php composer.phar install
 
 2) Generate database with doctrine
 -----------------------------------
 
 It will automatically create database and table
-
+    
+    php composer.phar update
     php app/console doctrine:database:create
-    php app/console doctrine:schema:update --force
+    php app/console doctrine:schema:update --force 
 
-3) Url without vhost
+
+3) Add symlink for public files
+-----------------------------------
+    php app/console assets:install web --symlink
+
+4) Url without vhost
 -----------------------------------
 
     http://localhost/whatsup/web/app_dev.php/whatsup/index/index/
