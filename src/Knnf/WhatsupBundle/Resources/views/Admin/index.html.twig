@@ -26,6 +26,7 @@
 								<th>content</th>
 								<th>dateinsert</th>
 								<th>dateupdate</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,6 +41,7 @@
 								<td>{{ article.content }}</td>
 								<td>{{ article.dateinsert|date("m/d/Y") }}</td>
 								<td>{{ article.dateupdate|date("m/d/Y") }}</td>
+								<td><button class="btn btn-danger btn-mini" onclick="deleteArticle('{{ article.id }}')" >delete</button></td>
 							</tr>
 						</tbody>
 						{% endfor %}
@@ -232,5 +234,30 @@
                 
             </div>
         </div>
+{% block javascripts %}
+
+<script>
+function deleteArticle(id){
+    $.ajax({
+        url: "{{ path('article_delete')}}",
+        type: "post",
+        data: {id : id},
+        success: function(){
+            alert("success");
+            //$("#result").html('Submitted successfully');
+        },
+        error:function(){
+            alert("failure");
+            //$("#result").html('There is error while submit');
+        }
+    });
+};
+
+
+</script>
+ {% endblock %}
         {% endblock %}
+
 {% endblock %}
+
+

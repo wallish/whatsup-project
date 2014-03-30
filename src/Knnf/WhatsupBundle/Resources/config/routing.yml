@@ -25,7 +25,7 @@ article_update:
     #requirements: { _method: post|put }
 
 article_delete:
-    pattern:  /article/{id}/delete
+    pattern:  /article/delete/
     defaults: { _controller: "KnnfWhatsupBundle:Article:delete" }
    # requirements: { _method: post|delete }
 category:
