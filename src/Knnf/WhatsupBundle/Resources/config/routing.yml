@@ -29,7 +29,7 @@ article_update:
     #requirements: { _method: post|put }
 
 article_delete:
-    pattern:  /article/{id}/delete
+    pattern:  /article/delete/
     defaults: { _controller: "KnnfWhatsupBundle:Article:delete" }
    # requirements: { _method: post|delete }
 category:
@@ -59,7 +59,7 @@ category_update:
     requirements: { _method: post|put }
 
 category_delete:
-    pattern:  /category/{id}/delete
+    pattern:  /category/delete/
     defaults: { _controller: "KnnfWhatsupBundle:Category:delete" }
     requirements: { _method: post|delete }
 event:
@@ -89,7 +89,7 @@ event_update:
     requirements: { _method: post|put }
 
 event_delete:
-    pattern:  /event/{id}/delete
+    pattern:  /event/delete/
     defaults: { _controller: "KnnfWhatsupBundle:Event:delete" }
     requirements: { _method: post|delete }
 media:
@@ -119,7 +119,7 @@ media_update:
     requirements: { _method: post|put }
 
 media_delete:
-    pattern:  /media/{id}/delete
+    pattern:  /media/delete/
     defaults: { _controller: "KnnfWhatsupBundle:Media:delete" }
     requirements: { _method: post|delete }
 user:
@@ -149,7 +149,7 @@ user_update:
     requirements: { _method: post|put }
 
 user_delete:
-    pattern:  /user/{id}/delete
+    pattern:  /user/delete/
     defaults: { _controller: "KnnfWhatsupBundle:User:delete" }
     requirements: { _method: post|delete }
 

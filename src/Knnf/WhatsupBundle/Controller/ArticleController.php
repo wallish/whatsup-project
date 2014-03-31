@@ -102,11 +102,13 @@ class ArticleController extends Controller
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
             if(!$data['id']) die('Missing parameter');
-
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($data['id']);
             $article = $this->_getRepository()->delete($data['id']);
         }
 
         return $this->render('KnnfWhatsupBundle:Article:delete.html.twig');
+        //return true;
 
     }
 
