@@ -42,8 +42,11 @@ class AdminController extends Controller
 
     public function userAction()
     {
+		$em = $this->getDoctrine()->getManager();
+		$users = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
+		
         return $this->render('KnnfWhatsupBundle:Admin:user.html.twig', array(
-           
+           'users' => $users,
         ));
     }
 
