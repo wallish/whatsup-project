@@ -1,3 +1,7 @@
+index:
+    pattern: /index/index/
+    defaults: { _controller: "KnnfWhatsupBundle:Index:index" }
+
 article:
     pattern:  /article/index/
     defaults: { _controller: "KnnfWhatsupBundle:Article:index" }
