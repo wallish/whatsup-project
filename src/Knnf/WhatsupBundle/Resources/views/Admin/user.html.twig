@@ -58,7 +58,7 @@
 													<button class="btn btn-info btn-sm">
 														<i class="fa fa-edit"></i> Edit
 													</button>
-													<button class="btn btn-danger btn-sm">
+													<button class="btn btn-danger btn-sm" onclick="deleteUser('{{ user.id }}')">
 														<i class="fa fa-edit"></i> Delete
 													</button>
 												</td>
@@ -76,5 +76,24 @@
 			</div>
 			
 		</div>
+		
+		{% block javascripts %}
+			<script>
+				function deleteUser(id)
+				{
+					$.ajax({
+						url: "{{ path('user_delete')}}",
+						type: "post",
+						data: {id : id},
+						success: function(){
+							alert("success");
+						},
+						error:function(){
+							alert("failure");
+						}
+					});
+				};
+			</script>
+		{% endblock %}
 	{% endblock %}
 {% endblock %}

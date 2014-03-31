@@ -97,6 +97,32 @@ class UserController extends Controller
         ));
     }
 
+    public function deleteAction(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($data['id']);
+            $user = $this->_getRepository()->delete($data['id']);
+        }
+
+        return $this->render('KnnfWhatsupBundle:User:delete.html.twig');
+        //return true;
+
+    }
+
+    public function activateAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
+
+            $result = $this->_getRepository()->save($data['id']);
+        }   
+    }
+
     public function profilAction(){
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('userid' => $id));
