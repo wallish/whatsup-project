@@ -15,7 +15,10 @@ use Knnf\WhatsupBundle\Form\UserType;
 class UserController extends Controller
 {
 
- 
+    protected function _getRepository(){
+        return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:User');
+    }
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -42,11 +45,11 @@ class UserController extends Controller
             'entity'      => $entity));
     }
 
-    public function addAction(Request $request)
+    public function adduserAction(Request $request)
     {
         $entity = new User();
         $form = $this->createForm(new UserType(), $entity, array(
-            'action' => $this->generateUrl('user_create'),
+            'action' => $this->generateUrl('admin_add_user'),
             'method' => 'POST',
         ));
 
@@ -58,10 +61,10 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_add', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_add_user', array('id' => $entity->getId())));
         }
 
-        return $this->render('KnnfWhatsupBundle:User:add.html.twig', array(
+        return $this->render('KnnfWhatsupBundle:Admin:adduser.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -97,22 +100,9 @@ class UserController extends Controller
         ));
     }
 
-    public function deleteAction(Request $request)
-    {
-        if ($request->isMethod('POST')) {
-            $data = $request->request->all();
-            if(!$data['id']) die('Missing parameter');
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($data['id']);
-            $user = $this->_getRepository()->delete($data['id']);
-        }
 
-        return $this->render('KnnfWhatsupBundle:User:delete.html.twig');
-        //return true;
 
-    }
-
-    public function activateAction()
+    public function activateAction(Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
         if ($request->isMethod('POST')) {

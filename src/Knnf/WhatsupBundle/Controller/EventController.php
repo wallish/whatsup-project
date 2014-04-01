@@ -19,6 +19,10 @@ class EventController extends Controller
      * Lists all Event entities.
      *
      */
+    protected function _getRepository(){
+        return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Event');
+    }
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();

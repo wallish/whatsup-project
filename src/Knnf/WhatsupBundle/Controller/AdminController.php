@@ -9,6 +9,8 @@ use Knnf\WhatsupBundle\Entity\User;
 use Knnf\WhatsupBundle\Entity\Category;
 use Knnf\WhatsupBundle\Entity\Media;
 use Knnf\WhatsupBundle\Entity\Event;
+use Symfony\Component\HttpFoundation\Request;
+use Knnf\WhatsupBundle\Form\UserType;
 
 
 class AdminController extends Controller
@@ -40,6 +42,67 @@ class AdminController extends Controller
         ));
     }
 
+    public function addUserAction(Request $request)
+    {
+        $entity = new User();
+        $form = $this->createForm(new UserType(), $entity, array(
+            'action' => $this->generateUrl('admin_add_user'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_add_user', array('id' => $entity->getId())));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Admin:adduser.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
+        public function edituserAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
+
+        if (!$entity) throw $this->createNotFoundException('Unable to find User entity.');
+        
+
+        $editForm = $this->createForm(new UserType(), $entity, array(
+            'action' => $this->generateUrl('admin_edit_user', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $editForm->add('submit', 'submit', array('label' => 'Update'));
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_edit_user', array('id' => $id)));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Admin:edituser.html.twig', array(
+            'entity'      => $entity,
+            'form'   => $editForm->createView(),
+        ));
+    }
+
+
+
+
+
+
+
+
     public function userAction()
     {
 		$em = $this->getDoctrine()->getManager();
@@ -47,6 +110,7 @@ class AdminController extends Controller
 		
         return $this->render('KnnfWhatsupBundle:Admin:user.html.twig', array(
            'users' => $users,
+           'count' => count($users),
         ));
     }
 

@@ -16,6 +16,9 @@ class User
     public function __construct()
     {
         $this->dateinsert = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
+        $this->dateupdate = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
+        $this->activate = 1; // Par défaut, la date de création est la date d'aujourd'hui
+
     }
 
 

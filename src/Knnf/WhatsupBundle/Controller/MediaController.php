@@ -19,6 +19,10 @@ class MediaController extends Controller
      * Lists all Media entities.
      *
      */
+    protected function _getRepository(){
+        return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Media');
+    }
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();

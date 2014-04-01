@@ -15,7 +15,9 @@ use Knnf\WhatsupBundle\Form\CategoryType;
 class CategoryController extends Controller
 {
 
-
+    protected function _getRepository(){
+        return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Category');
+    }
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();

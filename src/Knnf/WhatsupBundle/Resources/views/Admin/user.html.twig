@@ -14,20 +14,21 @@
 					<a class="btn"><i class="glyphicon glyphicon-shopping-cart"></i></a>
 				</div>
 			</div>
-		
+			
 			<div id="breadcrumb">
-				<a href="#" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
-				<a href="#" class="current">Utilisateurs</a>
+				<a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
+				<a href="{{ path('admin_user')}}" class="current">Utilisateurs</a>
 			</div>
 			
 			<div class="container-fluid">
 				
 				<div class="row">
 					<div class="col-12">
+					<button class="btn btn-default" onclick='window.location.href = "{{ url('admin_add_user')}}"'> Ajouter </a></button>
 						<div class="widget-box">
 							<div class="widget-title">
 								<span class="icon"><i class="glyphicon glyphicon-user"></i></span>
-								<h5>LISTE DES UTILISATEURS</h5><span title="88 utilisateurs" class="label label-info tip-left">88</span>
+								<h5>LISTE DES UTILISATEURS</h5><span title="{{count}} utilisateurs" class="label label-info tip-left">{{count}}</span>
 							</div>
 							<div class="widget-content nopadding">
 								{# Tableau listing utilisateurs #}
@@ -52,13 +53,13 @@
 												<td>{{ user.username }}</td>
 												<td>{{ user.email }}</td>
 												<td>
-													<button class="btn btn-success btn-sm">
+													<button class="btn btn-success btn-mini" onclick="activateUser('{{ user.id }}')">
 														<i class="fa fa-edit"></i> Validate
 													</button>
-													<button class="btn btn-info btn-sm">
+													<button class="btn btn-info btn-mini" onclick='window.location.href = "{{ path('admin_edit_user', { 'id': user.id }) }}"'>
 														<i class="fa fa-edit"></i> Edit
 													</button>
-													<button class="btn btn-danger btn-sm" onclick="deleteUser('{{ user.id }}')">
+													<button class="btn btn-danger btn-mini" onclick="deleteUser('{{ user.id }}')">
 														<i class="fa fa-edit"></i> Delete
 													</button>
 												</td>
@@ -87,6 +88,23 @@
 						data: {id : id},
 						success: function(){
 							alert("success");
+							window.location.reload();
+						},
+						error:function(){
+							alert("failure");
+						}
+					});
+				};
+
+				function activateUser(id)
+				{
+					$.ajax({
+						url: "{{ path('user_activate')}}",
+						type: "post",
+						data: {id : id},
+						success: function(){
+							alert("success");
+							window.location.reload();
 						},
 						error:function(){
 							alert("failure");
