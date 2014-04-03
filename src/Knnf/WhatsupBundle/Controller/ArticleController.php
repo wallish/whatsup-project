@@ -112,7 +112,7 @@ class ArticleController extends Controller
 
     }
 
-    public function activateAction()
+    public function activateAction(Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
         if ($request->isMethod('POST')) {
