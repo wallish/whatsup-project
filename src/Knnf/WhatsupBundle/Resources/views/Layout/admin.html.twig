@@ -42,12 +42,47 @@
             <!--<a href="#" class="hide"><i class="glyphicon glyphicon-home"></i> Dashboard</a>-->
             <ul>
                 <li class="active"><a href="{{ url('admin_index', { 'slug': '' }) }}"><i class="glyphicon glyphicon-home"></i> <span>Dashboard</span></a></li>
-                <li><a href="{{ url('admin_user', { 'slug': 'utilisateurs' }) }}"><i class="glyphicon glyphicon-tint"></i> <span>Utilisateurs</span></a></li>
-                <li><a href="{{ url('admin_article', { 'slug': 'articles' }) }}"><i class="glyphicon glyphicon-tint"></i> <span>Articles</span></a></li>
-                <li><a href="{{ url('admin_category', { 'slug': 'categories' }) }}"><i class="glyphicon glyphicon-tint"></i> <span>Catégories</span></a></li>
-                <li><a href="{{ url('admin_media', { 'slug': 'media' }) }}"><i class="glyphicon glyphicon-tint"></i> <span>Media</span></a></li>
-                <li><a href="{{ url('admin_event', { 'slug': 'evenement' }) }}"><i class="glyphicon glyphicon-tint"></i> <span>Evénements</span></a></li>
-                <li><a href="{{ url('admin_event', { 'slug': 'stat' }) }}"><i class="glyphicon glyphicon-tint"></i> <span>Statistiques</span></a></li>
+				<li class="submenu">
+					<a href="#"><i class="glyphicon glyphicon-user"></i> <span>Utilisateurs</span> <span class="label">3</span></a>
+					<ul>
+						<li><a href="{{ url('admin_user', { 'slug': 'utilisateurs' }) }}">Liste</a></li>
+						<li><a href="chat.html">Support chat</a></li>
+						<li><a href="calendar.html">Calendar</a></li>
+					</ul>
+				</li>
+				<li class="submenu">
+					<a href="#"><i class="glyphicon glyphicon-file"></i> <span>Articles</span> <span class="label">3</span></a>
+					<ul>
+						<li><a href="{{ url('admin_article', { 'slug': 'articles' }) }}">Liste</a></li>
+						<li><a href="chat.html">Support chat</a></li>
+						<li><a href="calendar.html">Calendar</a></li>
+					</ul>
+				</li>
+				<li class="submenu">
+					<a href="#"><i class="glyphicon glyphicon-th-list"></i> <span>Catégories</span> <span class="label">3</span></a>
+					<ul>
+						<li><a href="{{ url('admin_category', { 'slug': 'categories' }) }}">Liste</a></li>
+						<li><a href="chat.html">Support chat</a></li>
+						<li><a href="calendar.html">Calendar</a></li>
+					</ul>
+				</li>
+				<li class="submenu">
+					<a href="#"><i class="glyphicon glyphicon-camera"></i> <span>Médias</span> <span class="label">3</span></a>
+					<ul>
+						<li><a href="{{ url('admin_media', { 'slug': 'medias' }) }}">Liste</a></li>
+						<li><a href="chat.html">Support chat</a></li>
+						<li><a href="calendar.html">Calendar</a></li>
+					</ul>
+				</li>
+				<li class="submenu">
+					<a href="#"><i class="glyphicon glyphicon-calendar"></i> <span>Evénements</span> <span class="label">3</span></a>
+					<ul>
+						<li><a href="{{ url('admin_event', { 'slug': 'evenements' }) }}">Liste</a></li>
+						<li><a href="chat.html">Support chat</a></li>
+						<li><a href="calendar.html">Calendar</a></li>
+					</ul>
+				</li>
+                <li><a href="{{ url('admin_event', { 'slug': 'stat' }) }}"><i class="glyphicon glyphicon-signal"></i> <span>Statistiques</span></a></li>
             </ul>
         
         </div>
