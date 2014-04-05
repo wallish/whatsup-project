@@ -37,8 +37,12 @@ class AdminController extends Controller
 
     public function articleAction()
     {
+		$em = $this->getDoctrine()->getManager();
+		$articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
+		
         return $this->render('KnnfWhatsupBundle:Admin:article.html.twig', array(
-           
+           'articles' => $articles,
+           'count' => count($articles),
         ));
     }
 
@@ -116,22 +120,34 @@ class AdminController extends Controller
 
     public function categoryAction()
     {
+		$em = $this->getDoctrine()->getManager();
+		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
+		
         return $this->render('KnnfWhatsupBundle:Admin:category.html.twig', array(
-           
+           'categories' => $categories,
+           'count' => count($categories),
         ));
     }
 
     public function mediaAction()
     {
+		$em = $this->getDoctrine()->getManager();
+		$medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
+		
         return $this->render('KnnfWhatsupBundle:Admin:media.html.twig', array(
-           
+           'medias' => $medias,
+           'count' => count($medias),
         ));
     }
 
     public function eventAction()
     {
+		$em = $this->getDoctrine()->getManager();
+		$events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
+		
         return $this->render('KnnfWhatsupBundle:Admin:event.html.twig', array(
-           
+           'events' => $events,
+           'count' => count($events),
         ));
     }
 
