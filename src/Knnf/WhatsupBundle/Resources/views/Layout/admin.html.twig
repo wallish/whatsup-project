@@ -41,7 +41,9 @@
         <div id="sidebar">
             <!--<a href="#" class="hide"><i class="glyphicon glyphicon-home"></i> Dashboard</a>-->
             <ul>
-                <li class="active"><a href="{{ url('admin_index', { 'slug': '' }) }}"><i class="glyphicon glyphicon-home"></i> <span>Dashboard</span></a></li>
+                <li class="active"><a href="{{ url('admin_index', { 'slug': '' }) }}"><i class="glyphicon glyphicon-home"></i>
+                 <span>Dashboard</span></a></li>
+                 
                 <li><a href="{{ url('admin_user', { 'slug': 'utilisateurs' }) }}"><i class="glyphicon glyphicon-tint"></i> <span>Utilisateurs</span></a></li>
                 <li><a href="{{ url('admin_article', { 'slug': 'articles' }) }}"><i class="glyphicon glyphicon-tint"></i> <span>Articles</span></a></li>
                 <li><a href="{{ url('admin_category', { 'slug': 'categories' }) }}"><i class="glyphicon glyphicon-tint"></i> <span>Catégories</span></a></li>

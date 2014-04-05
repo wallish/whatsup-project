@@ -202,3 +202,23 @@ admin_add_user:
 admin_edit_user:
     pattern: /admin/{id}/edituser/
     defaults: { _controller: KnnfWhatsupBundle:Admin:edituser }
+
+admin_edit_article:
+    pattern: /admin/{id}/editarticle/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editarticle }
+
+admin_add_article:
+    pattern: /admin/addarticle/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:addarticle }
+
+admin_add_event:
+    pattern: /admin/addevent/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:addevent }
+
+admin_edit_event:
+    pattern: /admin/{id}/editevent/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editevent }
+
+admin_edit_category:
+    pattern: /admin/{id}/editarticle/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editarticle }
