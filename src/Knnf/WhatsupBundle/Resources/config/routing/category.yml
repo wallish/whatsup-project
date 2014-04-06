@@ -1,5 +1,9 @@
-category:
+category_home:
     pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Category:index" }
+
+category:
+    pattern:  /index/
     defaults: { _controller: "KnnfWhatsupBundle:Category:index" }
 
 category_show:
@@ -10,10 +14,10 @@ category_new:
     pattern:  /new
     defaults: { _controller: "KnnfWhatsupBundle:Category:new" }
 
-category_create:
-    pattern:  /create
-    defaults: { _controller: "KnnfWhatsupBundle:Category:create" }
-    requirements: { _method: post }
+category_add:
+    pattern:  /add
+    defaults: { _controller: "KnnfWhatsupBundle:Category:add" }
+    #requirements: { _method: post }
 
 category_edit:
     pattern:  /{id}/edit
@@ -25,6 +29,11 @@ category_update:
     requirements: { _method: post|put }
 
 category_delete:
-    pattern:  /{id}/delete
+    pattern:  /delete/
     defaults: { _controller: "KnnfWhatsupBundle:Category:delete" }
+    requirements: { _method: post|delete }
+
+category_activate:
+    pattern:  /activate/
+    defaults: { _controller: "KnnfWhatsupBundle:Category:activate" }
     requirements: { _method: post|delete }

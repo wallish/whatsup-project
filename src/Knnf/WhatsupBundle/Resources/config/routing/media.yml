@@ -1,5 +1,9 @@
-media:
+media_home:
     pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Media:index" }
+
+media:
+    pattern:  /index/
     defaults: { _controller: "KnnfWhatsupBundle:Media:index" }
 
 media_show:
@@ -10,10 +14,10 @@ media_new:
     pattern:  /new
     defaults: { _controller: "KnnfWhatsupBundle:Media:new" }
 
-media_create:
-    pattern:  /create
-    defaults: { _controller: "KnnfWhatsupBundle:Media:create" }
-    requirements: { _method: post }
+media_add:
+    pattern:  /add
+    defaults: { _controller: "KnnfWhatsupBundle:Media:add" }
+    #requirements: { _method: post }
 
 media_edit:
     pattern:  /{id}/edit
@@ -25,6 +29,11 @@ media_update:
     requirements: { _method: post|put }
 
 media_delete:
-    pattern:  /{id}/delete
+    pattern:  /delete/
     defaults: { _controller: "KnnfWhatsupBundle:Media:delete" }
+    requirements: { _method: post|delete }
+
+media_activate:
+    pattern:  /activate/
+    defaults: { _controller: "KnnfWhatsupBundle:Media:activate" }
     requirements: { _method: post|delete }

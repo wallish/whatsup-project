@@ -2,223 +2,26 @@ index:
     pattern: /index/index/
     defaults: { _controller: "KnnfWhatsupBundle:Index:index" }
 
+admin:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/admin.yml"
+  prefix: /admin
+
+user:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/user.yml"
+  prefix: /user
+
 article:
-    pattern:  /article/index/
-    defaults: { _controller: "KnnfWhatsupBundle:Article:index" }
-
-article_show:
-    pattern:  /article/{id}/show
-    defaults: { _controller: "KnnfWhatsupBundle:Article:show" }
-
-article_new:
-    pattern:  /article/new
-    defaults: { _controller: "KnnfWhatsupBundle:Article:new" }
-
-article_add:
-    pattern:  /article/add/
-    defaults: { _controller: "KnnfWhatsupBundle:Article:add" }
-    #requirements: { _method: post|put }
-
-article_edit:
-    pattern:  /article/{id}/edit
-    defaults: { _controller: "KnnfWhatsupBundle:Article:edit" }
-
-article_update:
-    pattern:  /article/{id}/update
-    defaults: { _controller: "KnnfWhatsupBundle:Article:update" }
-    #requirements: { _method: post|put }
-
-article_delete:
-    pattern:  /article/delete/
-    defaults: { _controller: "KnnfWhatsupBundle:Article:delete" }
-   # requirements: { _method: post|delete }
-
-
-
-
-
-
-
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/article.yml"
+  prefix: /article
 
 category:
-    pattern:  /category/index/
-    defaults: { _controller: "KnnfWhatsupBundle:Category:index" }
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/category.yml"
+  prefix: /category
 
-category_show:
-    pattern:  /category/{id}/show
-    defaults: { _controller: "KnnfWhatsupBundle:Category:show" }
-
-category_new:
-    pattern:  /category/new
-    defaults: { _controller: "KnnfWhatsupBundle:Category:new" }
-
-category_add:
-    pattern:  /category/add
-    defaults: { _controller: "KnnfWhatsupBundle:Category:add" }
-    #requirements: { _method: post }
-
-category_edit:
-    pattern:  /category/{id}/edit
-    defaults: { _controller: "KnnfWhatsupBundle:Category:edit" }
-
-category_update:
-    pattern:  /category/{id}/update
-    defaults: { _controller: "KnnfWhatsupBundle:Category:update" }
-    requirements: { _method: post|put }
-
-category_delete:
-    pattern:  /category/delete/
-    defaults: { _controller: "KnnfWhatsupBundle:Category:delete" }
-    requirements: { _method: post|delete }
 event:
-    pattern:  /event/index/
-    defaults: { _controller: "KnnfWhatsupBundle:Event:index" }
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/event.yml"
+  prefix: /event
 
-event_show:
-    pattern:  /event/{id}/show
-    defaults: { _controller: "KnnfWhatsupBundle:Event:show" }
-
-event_new:
-    pattern:  /event/new
-    defaults: { _controller: "KnnfWhatsupBundle:Event:new" }
-
-event_add:
-    pattern:  /event/add
-    defaults: { _controller: "KnnfWhatsupBundle:Event:add" }
-    #requirements: { _method: post }
-
-event_edit:
-    pattern:  /event/{id}/edit
-    defaults: { _controller: "KnnfWhatsupBundle:Event:edit" }
-
-event_update:
-    pattern:  /event/{id}/update
-    defaults: { _controller: "KnnfWhatsupBundle:Event:update" }
-    requirements: { _method: post|put }
-
-event_delete:
-    pattern:  /event/delete/
-    defaults: { _controller: "KnnfWhatsupBundle:Event:delete" }
-    requirements: { _method: post|delete }
 media:
-    pattern:  /media/index/
-    defaults: { _controller: "KnnfWhatsupBundle:Media:index" }
-
-media_show:
-    pattern:  /media/{id}/show
-    defaults: { _controller: "KnnfWhatsupBundle:Media:show" }
-
-media_new:
-    pattern:  /media/new
-    defaults: { _controller: "KnnfWhatsupBundle:Media:new" }
-
-media_add:
-    pattern:  /media/add
-    defaults: { _controller: "KnnfWhatsupBundle:Media:add" }
-    #requirements: { _method: post }
-
-media_edit:
-    pattern:  /media/{id}/edit
-    defaults: { _controller: "KnnfWhatsupBundle:Media:edit" }
-
-media_update:
-    pattern:  /media/{id}/update
-    defaults: { _controller: "KnnfWhatsupBundle:Media:update" }
-    requirements: { _method: post|put }
-
-media_delete:
-    pattern:  /media/delete/
-    defaults: { _controller: "KnnfWhatsupBundle:Media:delete" }
-    requirements: { _method: post|delete }
-user:
-    pattern:  /user/index/
-    defaults: { _controller: "KnnfWhatsupBundle:User:index" }
-
-user_show:
-    pattern:  /user/{id}/show
-    defaults: { _controller: "KnnfWhatsupBundle:User:show" }
-
-user_new:
-    pattern:  /user/new
-    defaults: { _controller: "KnnfWhatsupBundle:User:new" }
-
-user_add:
-    pattern:  /user/add
-    defaults: { _controller: "KnnfWhatsupBundle:User:add" }
-    #requirements: { _method: post }
-
-user_edit:
-    pattern:  /user/{id}/edit
-    defaults: { _controller: "KnnfWhatsupBundle:User:edit" }
-
-user_update:
-    pattern:  /user/{id}/update
-    defaults: { _controller: "KnnfWhatsupBundle:User:update" }
-    requirements: { _method: post|put }
-
-user_delete:
-    pattern:  /user/delete/
-    defaults: { _controller: "KnnfWhatsupBundle:User:delete" }
-    requirements: { _method: post|delete }
-
-user_activate:
-    pattern:  /user/activate/
-    defaults: { _controller: "KnnfWhatsupBundle:User:delete" }
-    requirements: { _method: post|delete }
-
-admin_index:
-    pattern: /admin/index/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:index }
-
-admin_article:
-    pattern: /admin/article/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:article }
-
-admin_user:
-    pattern: /admin/user/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:user }
-
-admin_category:
-    pattern: /admin/category/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:category }
-
-admin_media:
-    pattern: /admin/media/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:media }
-
-admin_event:
-    pattern: /admin/event/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:event }
-
-admin_add_article:
-    pattern: /admin/addarticle/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:event }
-    requirements: { _method: post|delete }
-
-admin_add_user:
-    pattern: /admin/adduser/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:adduser }
-
-admin_edit_user:
-    pattern: /admin/{id}/edituser/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:edituser }
-
-admin_edit_article:
-    pattern: /admin/{id}/editarticle/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:editarticle }
-
-admin_add_article:
-    pattern: /admin/addarticle/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:addarticle }
-
-admin_add_event:
-    pattern: /admin/addevent/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:addevent }
-
-admin_edit_event:
-    pattern: /admin/{id}/editevent/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:editevent }
-
-admin_edit_category:
-    pattern: /admin/{id}/editarticle/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:editarticle }
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/media.yml"
+  prefix: /media

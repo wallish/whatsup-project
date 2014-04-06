@@ -1,0 +1,81 @@
+
+admin_index:
+    pattern: /index/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:index }
+
+admin_article:
+    pattern: /article/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:article }
+
+admin_user:
+    pattern: /user/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:user }
+
+admin_category:
+    pattern: /category/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:category }
+
+admin_media:
+    pattern: /media/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:media }
+
+admin_event:
+    pattern: /event/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:event }
+
+admin_add_media:
+    pattern: /addmedia/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:addmedia }
+    requirements: { _method: post|delete }
+
+admin_edit_media:
+    pattern: /editmedia/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editmedia }
+    requirements: { _method: post|delete }
+
+admin_add_event:
+    pattern: /addevent/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:addevent }
+    requirements: { _method: post|delete }
+
+admin_edit_event:
+    pattern: /editevent/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editevent }
+    requirements: { _method: post|delete }
+
+admin_add_article:
+    pattern: /addarticle/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:event }
+    requirements: { _method: post|delete }
+
+admin_add_user:
+    pattern: /adduser/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:adduser }
+
+admin_edit_user:
+    pattern: /{id}/edituser/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:edituser }
+
+admin_edit_article:
+    pattern: /{id}/editarticle/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editarticle }
+
+admin_add_article:
+    pattern: /addarticle/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:addarticle }
+
+admin_add_event:
+    pattern: /addevent/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:addevent }
+
+admin_edit_event:
+    pattern: /{id}/editevent/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editevent }
+
+admin_edit_category:
+    pattern: /{id}/editarticle/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editarticle }
+
+admin_add_category:
+    pattern: /addarticle/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:addarticle }

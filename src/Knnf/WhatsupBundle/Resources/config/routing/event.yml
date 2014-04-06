@@ -1,5 +1,9 @@
-event:
+event_home:
     pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Event:index" }
+
+event:
+    pattern:  /event/index/
     defaults: { _controller: "KnnfWhatsupBundle:Event:index" }
 
 event_show:
@@ -10,10 +14,10 @@ event_new:
     pattern:  /new
     defaults: { _controller: "KnnfWhatsupBundle:Event:new" }
 
-event_create:
-    pattern:  /create
-    defaults: { _controller: "KnnfWhatsupBundle:Event:create" }
-    requirements: { _method: post }
+event_add:
+    pattern:  /add
+    defaults: { _controller: "KnnfWhatsupBundle:Event:add" }
+    #requirements: { _method: post }
 
 event_edit:
     pattern:  /{id}/edit
@@ -25,6 +29,11 @@ event_update:
     requirements: { _method: post|put }
 
 event_delete:
-    pattern:  /{id}/delete
+    pattern:  /delete/
     defaults: { _controller: "KnnfWhatsupBundle:Event:delete" }
+    requirements: { _method: post|delete }
+
+event_activate:
+    pattern:  /activate/
+    defaults: { _controller: "KnnfWhatsupBundle:Event:activate" }
     requirements: { _method: post|delete }

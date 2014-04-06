@@ -35,16 +35,11 @@ class AdminController extends Controller
         ));
     }
 
-    public function articleAction()
-    {
-		$em = $this->getDoctrine()->getManager();
-		$articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
-		
-        return $this->render('KnnfWhatsupBundle:Admin:article.html.twig', array(
-           'articles' => $articles,
-           'count' => count($articles),
-        ));
-    }
+
+
+   
+
+  
 
     public function addUserAction(Request $request)
     {
@@ -70,7 +65,7 @@ class AdminController extends Controller
         ));
     }
 
-        public function edituserAction(Request $request, $id)
+    public function edituserAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -100,12 +95,76 @@ class AdminController extends Controller
         ));
     }
 
+    public function addArticleAction(Request $request,$id=null)
+    {
+        $entity = new Article();
+
+        $form = $this->createForm(new ArticleType(), $entity, array(
+            'action' => $this->generateUrl('admin_add_article'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('article_show', array('id' => $entity->getId())));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Admin:addarticle.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
+    public function editArticleAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($id);
+
+        if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
+        
+        $editForm = $this->createForm(new ArticleType(), $entity, array(
+            'action' => $this->generateUrl('admin_edit_article', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $editForm->add('submit', 'submit', array('label' => 'Update'));
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+            $this->get('session')->getFlashBag()->add(
+            'notice',
+            'Your changes were saved!'
+        );
+            //return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Article:editarticle.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+        ));
+    }
 
 
 
 
-
-
+    public function articleAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
+        
+        return $this->render('KnnfWhatsupBundle:Admin:article.html.twig', array(
+           'articles' => $articles,
+           'count' => count($articles),
+        ));
+    }
 
     public function userAction()
     {

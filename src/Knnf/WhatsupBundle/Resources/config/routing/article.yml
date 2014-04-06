@@ -1,5 +1,9 @@
-article:
+article_home:
     pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Article:index" }
+
+article:
+    pattern:  /index/
     defaults: { _controller: "KnnfWhatsupBundle:Article:index" }
 
 article_show:
@@ -10,10 +14,10 @@ article_new:
     pattern:  /new
     defaults: { _controller: "KnnfWhatsupBundle:Article:new" }
 
-article_create:
-    pattern:  /article/create/{id}
-    defaults: { _controller: "KnnfWhatsupBundle:Article:create" }
-    requirements: { _method: post }
+article_add:
+    pattern:  /add/
+    defaults: { _controller: "KnnfWhatsupBundle:Article:add" }
+    #requirements: { _method: post|put }
 
 article_edit:
     pattern:  /{id}/edit
@@ -22,9 +26,14 @@ article_edit:
 article_update:
     pattern:  /{id}/update
     defaults: { _controller: "KnnfWhatsupBundle:Article:update" }
-    requirements: { _method: post|put }
+    #requirements: { _method: post|put }
 
 article_delete:
-    pattern:  /{id}/delete
+    pattern:  /delete/
     defaults: { _controller: "KnnfWhatsupBundle:Article:delete" }
-    requirements: { _method: post|delete }
+   # requirements: { _method: post|delete }
+    
+article_activate:
+    pattern:  /activate/
+    defaults: { _controller: "KnnfWhatsupBundle:Article:activate" }
+   # requirements: { _method: post|delete }

@@ -1,5 +1,9 @@
-user:
+user_home:
     pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:User:index" }
+
+user:
+    pattern:  /index/
     defaults: { _controller: "KnnfWhatsupBundle:User:index" }
 
 user_show:
@@ -10,10 +14,10 @@ user_new:
     pattern:  /new
     defaults: { _controller: "KnnfWhatsupBundle:User:new" }
 
-user_create:
-    pattern:  /create
-    defaults: { _controller: "KnnfWhatsupBundle:User:create" }
-    requirements: { _method: post }
+user_add:
+    pattern:  /add
+    defaults: { _controller: "KnnfWhatsupBundle:User:add" }
+    #requirements: { _method: post }
 
 user_edit:
     pattern:  /{id}/edit
@@ -25,6 +29,11 @@ user_update:
     requirements: { _method: post|put }
 
 user_delete:
-    pattern:  /{id}/delete
+    pattern:  /delete/
     defaults: { _controller: "KnnfWhatsupBundle:User:delete" }
+    requirements: { _method: post|delete }
+
+user_activate:
+    pattern:  /activate/
+    defaults: { _controller: "KnnfWhatsupBundle:User:activate" }
     requirements: { _method: post|delete }
