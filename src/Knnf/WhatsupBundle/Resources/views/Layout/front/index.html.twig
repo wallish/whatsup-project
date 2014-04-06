@@ -8,7 +8,9 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-    <script src="/bundles/knnfwhatsup/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+    
+
+
     <!-- Latest compiled and minified JavaScript -->
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
@@ -368,13 +370,14 @@
 
 {% block javascripts %}
 
-<script>
-$(function(){
-    $('#toto').slimScroll({
-        color: '#fff',
-        height : '500px'
+    <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/js/jquery.slimscroll.min.js')}}"></script>
+    <script>
+    $(function(){
+        $('#toto').slimScroll({
+            color: '#fff',
+            height : '500px'
+        });
     });
-});
 
-</script>
+    </script>
  {% endblock %}
