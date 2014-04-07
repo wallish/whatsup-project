@@ -11,6 +11,10 @@ use Knnf\WhatsupBundle\Entity\Media;
 use Knnf\WhatsupBundle\Entity\Event;
 use Symfony\Component\HttpFoundation\Request;
 use Knnf\WhatsupBundle\Form\UserType;
+use Knnf\WhatsupBundle\Form\ArticleType;
+use Knnf\WhatsupBundle\Form\CategoryType;
+use Knnf\WhatsupBundle\Form\MediaType;
+use Knnf\WhatsupBundle\Form\EventType;
 
 
 class AdminController extends Controller
@@ -25,6 +29,9 @@ class AdminController extends Controller
         $medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
 
+        $foo = explode('/',$_SERVER["REQUEST_URI"]);
+        //var_dump($foo[6]);
+        
         
         return $this->render('KnnfWhatsupBundle:Admin:index.html.twig', array(
            'articles' => $articles,
@@ -151,6 +158,122 @@ class AdminController extends Controller
             'edit_form'   => $editForm->createView(),
         ));
     }
+
+        public function addcategoryAction(Request $request)
+    {
+        $entity = new Category();
+
+        $form = $this->createForm(new CategoryType(), $entity, array(
+            'action' => $this->generateUrl('admin_add_category'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity->setActivate(1);
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_edit_category', array('id' => $entity->getId())));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Admin:addcategory.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
+
+ 
+
+    public function editcategoryAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('KnnfWhatsupBundle:Category')->find($id);
+
+        if (!$entity) throw $this->createNotFoundException('Unable to find Category entity.');
+
+        $editForm = $this->createForm(new CategoryType(), $entity, array(
+            'action' => $this->generateUrl('admin_edit_category', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $editForm->add('submit', 'submit', array('label' => 'Update'));
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_edit_category', array('id' => $id)));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Admin:editcategory.html.twig', array(
+            'entity' => $entity,
+            'form'   => $editForm->createView(),
+        ));
+    }
+
+    public function addeventAction(Request $request)
+    {
+        $entity = new Event();
+
+        $form = $this->createForm(new EventType(), $entity, array(
+            'action' => $this->generateUrl('admin_add_event'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_edit_event', array('id' => $entity->getId())));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Event:addevent.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+ 
+    public function editeventAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('KnnfWhatsupBundle:Event')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Event entity.');
+        }
+
+         $editForm = $this->createForm(new EventType(), $entity, array(
+            'action' => $this->generateUrl('admin_edit_event', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $editForm->add('submit', 'submit', array('label' => 'Update'));
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_edit_event', array('id' => $id)));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Event:editevent.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+        ));
+    }
+
 
 
 

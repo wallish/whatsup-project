@@ -23,8 +23,8 @@
 
             <div id="breadcrumb">
                 <a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
-                <a href="{{ path('admin_user')}}" class="current">Utilisateurs</a>
-                <a href="{{ path('admin_add_user')}}" class="current">Ajouter</a>
+                <a href="{{ path('admin_article')}}" class="current">Article</a>
+                <a href="{{ path('admin_add_article')}}" class="current">Ajouter</a>
             </div>
             <div class="container-fluid">
                
@@ -36,98 +36,44 @@
 								<span class="icon">
 									<i class="glyphicon glyphicon-plus"></i>
 								</span>
-								<h5>Ajouter un nouveau utilisateur</h5>
+								<h5>Ajouter un nouvel article</h5>
 							</div>
 							<div class="widget-content nopadding">
 								<form id="form-wizard" class="form-horizontal" method="post">
 									<div id="form-wizard-1" class="step">
+									
 										<div class="form-group">
-											<label class="control-label">Prénom</label>
+											<label class="control-label">Titre</label>
 											<div class="controls">
 												
-											{{ form_widget(form.firstname, {'attr': {'class': 'form-control input-small'}})}}
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="control-label">Nom</label>
-											<div class="controls">
-												
-											{{ form_widget(form.lastname, {'attr': {'class': 'form-control input-small'}})}}
+											{{ form_widget(form.title, {'attr': {'class': 'form-control input-small'}})}}
 											</div>
 										</div>
 																	<div class="form-group">
-											<label class="control-label">Pseudo</label>
+											<label class="control-label">Slug</label>
 											<div class="controls">
 												
-											{{ form_widget(form.username, {'attr': {'class': 'form-control input-small'}})}}
+											{{ form_widget(form.slug, {'attr': {'class': 'form-control input-small'}})}}
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label">surname</label>
+											<label class="control-label">Description</label>
 											<div class="controls">
 												
-											{{ form_widget(form.surname, {'attr': {'class': 'form-control input-small'}})}}
+											{{ form_widget(form.content, {'attr': {'class': 'form-control input-small'}})}}
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="control-label">Password</label>
+											<label class="control-label">Image vedette</label>
 											<div class="controls">
-												{{ form_widget(form.password, {'attr': {'class': 'form-control input-small'}})}}
+												{{ form_widget(form.picture, {'attr': {'class': 'form-control input-small'}})}}
 												
 											</div>
 										</div>
 					
 										
 									</div>
-									<div id="form-wizard-2" class="step">
-										<div class="form-group">
-											<label class="control-label">Email</label>
-											<div class="controls">
-												{{ form_widget(form.email, {'attr': {'class': 'form-control input-small'}})}}
-											</div>
-									</div>
-									<div id="form-wizard-2" class="step">
-										<div class="form-group">
-											<label class="control-label">site web</label>
-											<div class="controls">
-											{{ form_widget(form.website, {'attr': {'class': 'form-control input-small'}})}}
-											</div>
-									</div>
-									<div id="form-wizard-2" class="step">
-										<div class="form-group">
-											<label class="control-label">Pays</label>
-											<div class="controls">
-											{{ form_widget(form.country, {'attr': {'class': 'form-control input-small'}})}}
-											</div>
-									</div>
-									<div id="form-wizard-2" class="step">
-										<div class="form-group">
-											<label class="control-label">Ville</label>
-											<div class="controls">
-											{{ form_widget(form.city, {'attr': {'class': 'form-control input-small'}})}}
-											</div>
-									</div>
-									<div id="form-wizard-2" class="step">
-										<div class="form-group">
-											<label class="control-label">Code postal</label>
-											<div class="controls">
-											{{ form_widget(form.zipcode, {'attr': {'class': 'form-control input-small'}})}}
-											</div>
-									</div>
-									<div id="form-wizard-2" class="step">
-										<div class="form-group">
-											<label class="control-label">Date de naissance</label>
-											<div class="controls">
-											{{ form_widget(form.birthday, {'attr': {'class': 'datepicker form-control input-small','data-date-format' : 'dd-mm-yyyy'}})}}
-											</div>
-									</div>
-									<div id="form-wizard-2" class="step">
-										<div class="form-group">
-											<label class="control-label">Photo</label>
-											<div class="controls">
-											{{ form_widget(form.photo, {'attr': {'class': 'form-control input-small'}})}}
-											</div>
-									</div>
+								
 									{{ form_widget(form._token) }}
 									<div class="form-actions">
 											{{ form_widget(form.submit)}}
@@ -143,6 +89,45 @@
 
             </div>
         </div>
+
+
+		{% block javascripts %}
+			<script>
+				function deleteArticle(id)
+				{
+					$.ajax({
+						url: "{{ path('article_delete')}}",
+						type: "post",
+						data: {id : id},
+						success: function(){
+							alert("success");
+							window.location.reload();
+						},
+						error:function(){
+							alert("failure");
+						}
+					});
+				};
+
+				function activateArticle(id)
+				{
+					$.ajax({
+						url: "{{ path('article_activate')}}",
+						type: "post",
+						data: {id : id},
+						success: function(){
+							alert("success");
+							window.location.reload();
+						},
+						error:function(){
+							alert("failure");
+						}
+					});
+				};
+			</script>
+		{% endblock %}
+
+
 	{% endblock %}
 
 {% endblock %}

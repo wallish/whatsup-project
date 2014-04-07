@@ -75,13 +75,6 @@ class EventController extends Controller
             'form'   => $form->createView(),
         ));
     }
-
- 
-
-
-   
-
-  
  
     public function editAction(Request $request, $id)
     {

@@ -73,9 +73,9 @@ admin_edit_event:
     defaults: { _controller: KnnfWhatsupBundle:Admin:editevent }
 
 admin_edit_category:
-    pattern: /{id}/editarticle/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:editarticle }
+    pattern: /{id}/editcategory/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editcategory }
 
 admin_add_category:
-    pattern: /addarticle/
-    defaults: { _controller: KnnfWhatsupBundle:Admin:addarticle }
+    pattern: /addcategory/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:addcategory }

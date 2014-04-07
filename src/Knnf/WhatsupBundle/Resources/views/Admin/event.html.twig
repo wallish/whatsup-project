@@ -49,7 +49,7 @@
 												<td>{{ event.id }}</td>
 												<td>{{ event.title }}</td>
 												<td>{{ event.description }}</td>
-												<td>{{ event.datestart }}</td>
+												<td>{{ event.datestart | date('Y-m-d') }}</td>
 												<td>
 													<button class="btn btn-success btn-mini" onclick="activateEvent('{{ event.id }}')">
 														<i class="fa fa-edit"></i> Validate
