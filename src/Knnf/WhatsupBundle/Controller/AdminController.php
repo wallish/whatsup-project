@@ -151,7 +151,7 @@ class AdminController extends Controller
             'notice',
             'Your changes were saved!'
         );
-            //return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_edit_article', array('id' => $id)));
         }
 
         return $this->render('KnnfWhatsupBundle:Admin:editarticle.html.twig', array(
