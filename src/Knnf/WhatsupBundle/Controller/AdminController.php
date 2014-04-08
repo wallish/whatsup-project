@@ -116,10 +116,11 @@ class AdminController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //die(var_dump($entity));
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('article_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_edit_article', array('id' => $entity->getId())));
         }
 
         return $this->render('KnnfWhatsupBundle:Admin:addarticle.html.twig', array(
@@ -153,9 +154,9 @@ class AdminController extends Controller
             //return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
         }
 
-        return $this->render('KnnfWhatsupBundle:Article:editarticle.html.twig', array(
+        return $this->render('KnnfWhatsupBundle:Admin:editarticle.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
         ));
     }
 
