@@ -29,7 +29,7 @@ class AdminController extends Controller
         $medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
 
-        $foo = explode('/',$_SERVER["REQUEST_URI"]);
+       // $foo = explode('/',$_SERVER["REQUEST_URI"]);
         //var_dump($foo[6]);
         
         
@@ -233,6 +233,7 @@ class AdminController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setActivate(1);
             $em->persist($entity);
             $em->flush();
 
@@ -271,7 +272,7 @@ class AdminController extends Controller
 
         return $this->render('KnnfWhatsupBundle:Admin:editevent.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
         ));
     }
 

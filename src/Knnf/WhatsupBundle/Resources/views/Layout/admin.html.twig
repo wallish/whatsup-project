@@ -47,32 +47,29 @@
 				<li class="submenu">
 					<a href="#"><i class="glyphicon glyphicon-user"></i> <span>Utilisateurs</span> <span class="label">3</span></a>
 					<ul>
-						<li><a href="{{ url('admin_user', { 'slug': 'utilisateurs' }) }}">Liste</a></li>
-						<li><a href="chat.html">Support chat</a></li>
-						<li><a href="calendar.html">Calendar</a></li>
+						<li><a href="{{ url('admin_user', { 'slug': 'utilisateurs' }) }}">Tous les utilisateurs</a></li>
+                        <li><a href="{{ path('admin_add_user')}}">Ajouter</a></li>
+						<li><a href="{{ path('admin_add_user')}}">Organigramme</a></li>
 					</ul>
 				</li>
 				<li class="submenu">
 					<a href="#"><i class="glyphicon glyphicon-file"></i> <span>Articles</span> <span class="label">3</span></a>
 					<ul>
-						<li><a href="{{ url('admin_article')}}">Liste</a></li>
-						<li><a href="chat.html">Support chat</a></li>
-						<li><a href="calendar.html">Calendar</a></li>
+						<li><a href="{{ url('admin_article')}}">Tous les articles</a></li>
+                        <li><a href="{{ path('admin_add_article')}}">Ajouter</a></li>
 					</ul>
 				</li>
 				<li class="submenu">
 					<a href="#"><i class="glyphicon glyphicon-th-list"></i> <span>Catégories</span> <span class="label">3</span></a>
 					<ul>
-						<li><a href="{{ url('admin_category')}}">Liste</a></li>
-						<li><a href="chat.html">Support chat</a></li>
-						<li><a href="calendar.html">Calendar</a></li>
+						<li><a href="{{ url('admin_category')}}">Tous les catégories</a></li>
+                        <li><a href="{{ path('admin_add_category')}}">Ajouter</a></li>
 					</ul>
 				</li>
 				<li class="submenu">
 					<a href="#"><i class="glyphicon glyphicon-camera"></i> <span>Médias</span> <span class="label">3</span></a>
 					<ul>
-						<li><a href="{{ url('admin_media')}}">Liste</a></li>
-						<li><a href="chat.html">Support chat</a></li>
+						<li><a href="{{ url('admin_media')}}">Bibliothèque</a></li>
                         <li><a href="calendar.html">Facebook</a></li>
 						<li><a href="calendar.html">Twitter</a></li>
 					</ul>
@@ -80,9 +77,8 @@
 				<li class="submenu">
 					<a href="#"><i class="glyphicon glyphicon-calendar"></i> <span>Evénements</span> <span class="label">3</span></a>
 					<ul>
-						<li><a href="{{ url('admin_event')}}">Liste</a></li>
-						<li><a href="chat.html">Support chat</a></li>
-						<li><a href="calendar.html">Calendar</a></li>
+						<li><a href="{{ url('admin_event')}}">Tous les événements</a></li>
+                        <li><a href="{{ path('admin_add_event')}}">Ajouter</a></li>
 					</ul>
 				</li>
                 <li><a href="{{ url('stat_index', { 'slug': 'stat' }) }}"><i class="glyphicon glyphicon-signal"></i> <span>Statistiques</span></a></li>
@@ -104,7 +100,7 @@
      {% block content %}{% endblock %}
         <div class="row">
             <div id="footer" class="col-12">
-                2013 - 2014 &copy; What's Up Admin<a href="https://wrapbootstrap.com/user/diablo9983">diablo9983</a>
+                2013 - 2014 &copy; What's Up Admin<a href="#">Knnf</a>
             </div>
         </div>
         <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/development-bundle/ui/jquery.ui.datepicker.js')}}"></script>
