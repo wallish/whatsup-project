@@ -70,7 +70,7 @@
 										<div class="form-group">
 											<label class="control-label">Date début</label>
 											<div class="controls">
-											{{ form_widget(form.datestart, {'attr': {'class': 'datepicker form-control input-small','data-date-format' : 'dd-mm-yyyy'}})}}
+											<input type="text" class="datepicker" id="tata" name="tata">
 											</div>
 									</div>
 									<div id="form-wizard-2" class="step">
@@ -109,6 +109,16 @@
 
             </div>
         </div>
+<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+<input class="span2" size="16" type="text" value="12-02-2012">
+<span class="add-on"><i class="icon-th"></i></span>
+</div>
+        {% block javascripts %}
+			<script>
+			jQuery.noConflict();
+					$('#dp3').datepicker()
+			</script>
+		{% endblock %}
 	{% endblock %}
 
 {% endblock %}

@@ -25,3 +25,7 @@ event:
 media:
   resource: "@KnnfWhatsupBundle/Resources/config/routing/media.yml"
   prefix: /media
+
+stat:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/stat.yml"
+  prefix: /stat

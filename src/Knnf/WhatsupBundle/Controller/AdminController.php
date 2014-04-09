@@ -239,7 +239,7 @@ class AdminController extends Controller
             return $this->redirect($this->generateUrl('admin_edit_event', array('id' => $entity->getId())));
         }
 
-        return $this->render('KnnfWhatsupBundle:Event:addevent.html.twig', array(
+        return $this->render('KnnfWhatsupBundle:Admin:addevent.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -269,7 +269,7 @@ class AdminController extends Controller
             return $this->redirect($this->generateUrl('admin_edit_event', array('id' => $id)));
         }
 
-        return $this->render('KnnfWhatsupBundle:Event:editevent.html.twig', array(
+        return $this->render('KnnfWhatsupBundle:Admin:editevent.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
         ));

@@ -11,6 +11,7 @@
                 <link href="{{ asset('bundles/knnfwhatsup/css/fullcalendar.css') }}" type="text/css" rel="stylesheet" />
                 <link href="{{ asset('bundles/knnfwhatsup/css/unicorn.main.css') }}" type="text/css" rel="stylesheet" />
                 <link href="{{ asset('bundles/knnfwhatsup/css/unicorn.grey.css') }}" type="text/css" rel="stylesheet" class="skin-color"/>
+                <link href="{{ asset('bundles/knnfwhatsup/css/ui-lightness/jquery-ui-1.10.4.custom.css') }}" type="text/css" rel="stylesheet"/>
             {% endblock %}
     </head>
     <body>
@@ -72,7 +73,8 @@
 					<ul>
 						<li><a href="{{ url('admin_media')}}">Liste</a></li>
 						<li><a href="chat.html">Support chat</a></li>
-						<li><a href="calendar.html">Calendar</a></li>
+                        <li><a href="calendar.html">Facebook</a></li>
+						<li><a href="calendar.html">Twitter</a></li>
 					</ul>
 				</li>
 				<li class="submenu">
@@ -83,7 +85,7 @@
 						<li><a href="calendar.html">Calendar</a></li>
 					</ul>
 				</li>
-                <li><a href="{{ url('admin_event', { 'slug': 'stat' }) }}"><i class="glyphicon glyphicon-signal"></i> <span>Statistiques</span></a></li>
+                <li><a href="{{ url('stat_index', { 'slug': 'stat' }) }}"><i class="glyphicon glyphicon-signal"></i> <span>Statistiques</span></a></li>
 
             </ul>
         
@@ -105,7 +107,7 @@
                 2013 - 2014 &copy; What's Up Admin<a href="https://wrapbootstrap.com/user/diablo9983">diablo9983</a>
             </div>
         </div>
-      
+        <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/development-bundle/ui/jquery.ui.datepicker.js')}}"></script>
         <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/js/jquery.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/js/jquery-ui.custom.js')}}"></script>
         <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/js/bootstrap.min.js')}}"></script>
@@ -116,7 +118,5 @@
         <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/js/unicorn.js')}}"></script>
         <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/js/unicorn.dashboard.js')}}"></script>
         <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/js/ckeditor/ckeditor.js')}}"></script>
-        
-
     </body>
 </html>

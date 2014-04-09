@@ -1,0 +1,15 @@
+stat_index:
+    pattern: /index
+    defaults: { _controller: KnnfWhatsupBundle:Stat:index }
+
+stat_google:
+    pattern: /google
+    defaults: { _controller: KnnfWhatsupBundle:Stat:google }
+
+stat_facebook:
+    pattern: /facebook
+    defaults: { _controller: KnnfWhatsupBundle:Stat:facebook }
+
+stat_twitter:
+    pattern: /twitter
+    defaults: { _controller: KnnfWhatsupBundle:Stat:twitter }

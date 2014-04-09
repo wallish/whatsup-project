@@ -16,7 +16,7 @@ class EventType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('description')
+            ->add('description', 'textarea', array('attr' => array('class' => 'ckeditor')))
             ->add('place')
             ->add('address')
             ->add('orderlink')
@@ -27,7 +27,7 @@ class EventType extends AbstractType
             ->add('hourend')
             //->add('dateinsert')
             //->add('dateupdate')
-            ->add('user')
+            //->add('user')
         ;
     }
     

@@ -70,7 +70,7 @@
                             <div class="widget-title"><span class="icon"><i class="glyphicon glyphicon-file"></i></span><h5>Derniers articles</h5><span title="{{ articles|length }} total posts" class="label label-info tip-left">{{ articles|length }}</span></div>
                             <div class="widget-content nopadding">
                                 <ul class="recent-posts">
-                                    {% for article in articles %}
+                                    {% for article in articles|slice(0, 3) %}
                                     <li>
                                         <div class="user-thumb">
                                             <img width="40" height="40" alt="User" src="/whatsup/web/bundles/knnfwhatsup/img/demo/av2.jpg">
@@ -96,7 +96,7 @@
                             <div class="widget-title"><span class="icon"><i class="glyphicon glyphicon-comment"></i></span><h5>Derniers événements</h5><span title="{{ events|length }} total comments" class="label label-info tip-left">{{ events|length }}</span></div>
                             <div class="widget-content nopadding">
                                 <ul class="recent-comments">
-                                    {% for event in events %}
+                                    {% for event in events|slice(0, 3) %}
                                     <li>
                                         <div class="user-thumb">
                                             <img width="40" height="40" alt="User" src="/whatsup/web/bundles/knnfwhatsup/img/demo/av1.jpg">
