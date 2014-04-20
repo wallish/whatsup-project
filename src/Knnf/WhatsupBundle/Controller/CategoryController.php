@@ -18,14 +18,15 @@ class CategoryController extends Controller
     protected function _getRepository(){
         return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Category');
     }
-    public function indexAction()
+    public function indexAction($slug)
     {
+        echo $slug;
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
+        $category = $em->getRepository('KnnfWhatsupBundle:Category')->findOneBy(array('slug' => $slug));
 
         return $this->render('KnnfWhatsupBundle:Category:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $category,
         ));
     }
   

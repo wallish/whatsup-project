@@ -1,52 +1,12 @@
-{% extends '::base.html.twig' %}
+{% extends "KnnfWhatsupBundle:Layout/front:index.html.twig" %}
 
-{% block body -%}
+
+
+
+
+{% block body %}
+{% block content %}
     <h1>Article list</h1>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Slug</th>
-                <th>Content</th>
-                <th>Picture</th>
-                <th>Status</th>
-                <th>Dateinsert</th>
-                <th>Dateupdate</th>
-                <th>Activate</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.title }}</td>
-                <td>{{ entity.slug }}</td>
-                <td>{{ entity.content }}</td>
-                <td>{{ entity.picture }}</td>
-                <td>{{ entity.status }}</td>
-                <td>{% if entity.dateinsert %}{{ entity.dateinsert|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.dateupdate %}{{ entity.dateupdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.activate }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('article_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('article_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                      <li>
-                        <a href="#">delete</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-<button onclick="self.location.href='{{ path('article_add') }}'" type="button" class="btn btn-primary">Create a new entry</button>
- 
+    {% endblock %}
     {% endblock %}

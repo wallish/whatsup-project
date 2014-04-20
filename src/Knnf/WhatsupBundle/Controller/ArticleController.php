@@ -23,9 +23,10 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
-
+        $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         return $this->render('KnnfWhatsupBundle:Article:index.html.twig', array(
             'entities' => $entities,
+            'categories' => $categories,
         ));
     }
 
