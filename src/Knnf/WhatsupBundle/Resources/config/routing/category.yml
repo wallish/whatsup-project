@@ -2,16 +2,16 @@ category_home:
     pattern:  /
     defaults: { _controller: "KnnfWhatsupBundle:Category:index" }
 
-category_slug:
-    pattern:  /{slug}
-    defaults: { _controller: "KnnfWhatsupBundle:Category:index" }
+#category_slug:
+#    pattern:  /{slug}
+#    defaults: { _controller: "KnnfWhatsupBundle:Category:index" }
 
-category:
-    pattern:  /index/
-    defaults: { _controller: "KnnfWhatsupBundle:Category:index" }
+#category:
+#    pattern:  /index/
+#    defaults: { _controller: "KnnfWhatsupBundle:Category:index" }
 
 category_show:
-    pattern:  /{id}/show
+    pattern:  /{slug}
     defaults: { _controller: "KnnfWhatsupBundle:Category:show" }
 
 category_new:
