@@ -7,7 +7,7 @@ article:
     defaults: { _controller: "KnnfWhatsupBundle:Article:index" }
 
 article_show:
-    pattern:  /{id}/show
+    pattern:  /{slug}
     defaults: { _controller: "KnnfWhatsupBundle:Article:show" }
 
 article_new:

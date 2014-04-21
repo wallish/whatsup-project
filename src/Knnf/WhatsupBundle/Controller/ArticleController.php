@@ -30,15 +30,36 @@ class ArticleController extends Controller
         ));
     }
 
-    public function showAction($id)
+    //Récupération des commentaires d'un article, avec gestion des droits pour l'affichage du champ de saisie de commentaire
+    public function commentAction($article_id){
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$article_id));
+
+        return $this->render("KnnfWhatsupBundle:Article:comment.html.twig", array(
+            "comments"=>$comments
+        ));
+    }
+
+    //Récupéraiton des articles d'un auteur 
+    public function authorArticlesAction($author, $limit = 0)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($id);
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $author), null, $limit);
+
+        return $this->render("KnnfWhatsupBundle:Article:authorArticles.html.twig", array(
+            "articles"=>$articles
+        ));
+    }
+
+    public function showAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("slug"=>$slug));
 
         if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
         
         return $this->render('KnnfWhatsupBundle:Article:show.html.twig', array(
-            'entity'      => $entity));
+            'article'      => $entity));
     }
 
     public function addAction(Request $request,$id=null)

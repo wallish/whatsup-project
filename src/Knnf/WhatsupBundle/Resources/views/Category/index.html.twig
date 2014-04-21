@@ -4,7 +4,7 @@
     <h1>{{entity.name}}</h1>
 
     {% for article in articles %}
-        <div>{{ article.title }}</div>
+        <div><a href="{{ path('article_show', { 'slug': article.slug }) }}">{{ article.title }}</a></div>
     {% endfor %}
 
 

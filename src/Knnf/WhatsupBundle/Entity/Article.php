@@ -98,7 +98,6 @@ class Article
      */
     private $activate;
 
-
     /**
      * Get id
      *
@@ -338,4 +337,6 @@ class Article
     {
         return $this->user;
     }
+
+
 }

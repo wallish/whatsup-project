@@ -42,8 +42,6 @@ class CategoryController extends Controller
 
         $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("category"=> $entity->getId()));
 
-        //echo "<pre>".print_r($articles,true)."</pre>";
-
         return $this->render('KnnfWhatsupBundle:Category:index.html.twig', array(
           'entity'=> $entity,
           'articles' => $articles
