@@ -11,11 +11,24 @@ class IndexController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
     		
+
 		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
 		$articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
     	return $this->render('KnnfWhatsupBundle:Index:index.html.twig',array(
     		'categories' => $categories,
     		'articles' => $articles
+        ));
+            
+    }
+
+    public function menuAction()
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
+
+    	return $this->render('KnnfWhatsupBundle:Index:menu.html.twig',array(
+    		'categories' => $categories,
+
     	));
     }
 

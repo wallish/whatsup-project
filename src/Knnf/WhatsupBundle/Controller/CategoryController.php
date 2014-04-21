@@ -18,29 +18,39 @@ class CategoryController extends Controller
     protected function _getRepository(){
         return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Category');
     }
+
+    //Affichage de la liste des catégories, lors d'un clic sur le menu 'Catégories'
     public function indexAction($slug)
     {
-        echo $slug;
+        //echo $slug;
         $em = $this->getDoctrine()->getManager();
 
-        $category = $em->getRepository('KnnfWhatsupBundle:Category')->findOneBy(array('slug' => $slug));
+        $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
 
-        return $this->render('KnnfWhatsupBundle:Category:index.html.twig', array(
-            'entities' => $category,
+        return $this->render('KnnfWhatsupBundle:Category:list.html.twig', array(
+            'categories' => $categories,
         ));
     }
   
-    public function showAction($id)
+    //Récupération de la liste des articles d'une catégories 
+    public function showAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('KnnfWhatsupBundle:Category')->find($id);
+        $entity = $em->getRepository('KnnfWhatsupBundle:Category')->findOneBy(array('slug' => $slug));
 
-        if (!$entity) throw $this->createNotFoundException('Unable to find Category entity.');
+        if (!$entity ) throw $this->createNotFoundException('Unable to find Category entity.');
 
-        return $this->render('KnnfWhatsupBundle:Category:show.html.twig', array(
-            'entity'      => $entity));
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("category"=> $entity->getId()));
+
+        //echo "<pre>".print_r($articles,true)."</pre>";
+
+        return $this->render('KnnfWhatsupBundle:Category:index.html.twig', array(
+          'entity'=> $entity,
+          'articles' => $articles
+        ));
     }
     
+    //Ajout d'une catégorie
     public function addAction(Request $request)
     {
         $entity = new Category();
@@ -68,9 +78,7 @@ class CategoryController extends Controller
         ));
     }
 
-
- 
-
+    //Edition d'une catégorie
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -99,7 +107,7 @@ class CategoryController extends Controller
         ));
     }
 
-
+    //Suppression d'une catégorie
     public function deleteAction(Request $request)
     {
         if ($request->isMethod('POST')) {

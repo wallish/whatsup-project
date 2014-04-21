@@ -1,3 +1,0 @@
-knnf_user_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: KnnfUserBundle:Default:index }
