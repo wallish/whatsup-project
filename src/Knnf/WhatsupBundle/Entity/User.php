@@ -4,6 +4,7 @@ namespace Knnf\WhatsupBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * User
@@ -11,11 +12,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Knnf\WhatsupBundle\Entity\UserRepository")
  */
-class User
+class User extends BaseUser
 {
 
     public function __construct()
     {
+        parent::__construct();
         $this->dateinsert = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
         $this->dateupdate = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
         $this->activate = 1; // Par défaut, la date de création est la date d'aujourd'hui
@@ -34,7 +36,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -62,21 +64,21 @@ class User
      *
      * @ORM\Column(name="username", type="string", length=255)
      */
-    private $username;
+    // protected $username;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
      */
-    private $email;
+    // protected $email;
 
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
-    private $password;
+    // protected $password;
 
     /**
      * @var string
