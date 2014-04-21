@@ -3,12 +3,8 @@
 #        Symfony\Component\Security\Core\User\User: plaintext
 security:
     encoders:
-<<<<<<< HEAD
         Knnf\UserBundle\Entity\User: sha512
-=======
         Symfony\Component\Security\Core\User\User: plaintext
-        Knnf\WhatsupBundle\Entity\User: sha512
->>>>>>> 6bbee3121ecdb5daf3b2cae37f9561fa75aadaf5
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -43,29 +39,22 @@ security:
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
-<<<<<<< HEAD
-        # … le pare-feu « dev »
-        # Firewall principal pour le reste de notre site
-=======
->>>>>>> 6bbee3121ecdb5daf3b2cae37f9561fa75aadaf5
+
         main:
             pattern:        ^/
             anonymous:      true
             provider:       main
             form_login:
-<<<<<<< HEAD
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
             logout:
                 path:       fos_user_security_logout
                 target:     /whatsup/index/index
-=======
                 login_path: login
                 check_path: login_check
             logout:
                 path:       logout
                 target:     /whatsup
->>>>>>> 6bbee3121ecdb5daf3b2cae37f9561fa75aadaf5
             remember_me:
                 key:        %secret% # %secret% est un paramètre de parameters.yml
 
