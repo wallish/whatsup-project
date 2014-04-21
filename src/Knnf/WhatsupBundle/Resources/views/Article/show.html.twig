@@ -1,60 +1,93 @@
-{% extends '::base.html.twig' %}
+{% extends "KnnfWhatsupBundle:Layout/front:index.html.twig" %}
 
-{% block body -%}
-    <h1>Article</h1>
+{% block content %}
+    <div class="row">
 
-    <table class="table table-striped">
+        {# partie gauche de la page article #}
+        <div class="col-md-8">
+            {# Article #}
+            <div>
+                <h3>{{ article.title }}</h3>
+                <div>
+                    {{ article.content | raw }}
+                </div>
+            </div>
+            <div>
+                <h5>Profil rédacteur</h5>
+            </div>
+            <div>
+                <h5>Commentaires</h5>
+                {{ render(controller("KnnfWhatsupBundle:Article:comment", {"article_id": article.id} )) }}
+            </div>
+        </div>
+
+        {# partie droite de la page article #}
+        <div class="col-md-4">
+            <div>
+                <h4>Articles relatifs</h4>
+            </div>
+            <div>
+                <h4>Derniers articles de l'auteur</h4>
+                {{ render(controller("KnnfWhatsupBundle:Article:authorArticles", {"author": article.user, "limit":5} )) }}
+
+            </div>
+        </div>
+
+    </div>
+
+    {# <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ entity.id }}</td>
+                <td>{{ article.id }}</td>
             </tr>
             <tr>
                 <th>Title</th>
-                <td>{{ entity.title }}</td>
+                <td>{{ article.title }}</td>
             </tr>
             <tr>
                 <th>Slug</th>
-                <td>{{ entity.slug }}</td>
+                <td>{{ article.slug }}</td>
             </tr>
             <tr>
                 <th>Content</th>
-                <td>{{ entity.content }}</td>
+                <td>{{ article.content }}</td>
             </tr>
             <tr>
                 <th>Picture</th>
-                <td>{{ entity.picture }}</td>
+                <td>{{ article.picture }}</td>
             </tr>
             <tr>
                 <th>Status</th>
-                <td>{{ entity.status }}</td>
+                <td>{{ article.status }}</td>
             </tr>
             <tr>
                 <th>Dateinsert</th>
-                <td>{{ entity.dateinsert|date('Y-m-d H:i:s') }}</td>
+                <td>{{ article.dateinsert|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Dateupdate</th>
-                <td>{{ entity.dateupdate|date('Y-m-d H:i:s') }}</td>
+                <td>{{ article.dateupdate|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Activate</th>
-                <td>{{ entity.activate }}</td>
+                <td>{{ article.activate }}</td>
             </tr>
         </tbody>
-    </table>
+    </table> 
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('article') }}">
             Back to the list
-        </a>
+        </a
     </li>
     <li>
-        <a href="{{ path('article_show', { 'id': entity.id }) }}">
+        <a href="{{ path('article_show', { 'slug': article.slug }) }}">
             Edit
         </a>
     </li>
     <li>delete</li>
-</ul>
+    </ul>
+    #}
 {% endblock %}

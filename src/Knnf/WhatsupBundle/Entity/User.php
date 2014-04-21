@@ -3,6 +3,7 @@
 namespace Knnf\WhatsupBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -18,10 +19,13 @@ class User
         $this->dateinsert = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
         $this->dateupdate = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
         $this->activate = 1; // Par défaut, la date de création est la date d'aujourd'hui
-
+        $this->comments = new ArrayCollection();
     }
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="Annotation", mappedBy="user")
+     */
+    protected $comments;
 
     /**
      * @var integer
@@ -491,5 +495,38 @@ class User
     public function getActivate()
     {
         return $this->activate;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Knnf\WhatsupBundle\Entity\Annotation $comments
+     * @return User
+     */
+    public function addComment(\Knnf\WhatsupBundle\Entity\Annotation $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Knnf\WhatsupBundle\Entity\Annotation $comments
+     */
+    public function removeComment(\Knnf\WhatsupBundle\Entity\Annotation $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

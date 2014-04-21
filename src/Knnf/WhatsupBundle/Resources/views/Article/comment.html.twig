@@ -1,0 +1,6 @@
+{% for comment in comments %}
+<div>
+	<div>{{ comment.user.username }}</div>
+	{{comment.AnnotationContent}}
+</div>
+{% endfor %}
