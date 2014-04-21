@@ -1,3 +1,7 @@
+knnf_user:
+    resource: "@KnnfUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 knnf_whatsup:
     resource: "@KnnfWhatsupBundle/Resources/config/routing.yml"
     prefix:   /whatsup

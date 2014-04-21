@@ -12,9 +12,10 @@ class IndexController extends Controller
         $em = $this->getDoctrine()->getManager();
     		
 		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
+		$articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
     	return $this->render('KnnfWhatsupBundle:Index:index.html.twig',array(
     		'categories' => $categories,
-
+    		'articles' => $articles
     	));
     }
 
