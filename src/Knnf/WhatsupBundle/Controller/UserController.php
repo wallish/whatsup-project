@@ -139,5 +139,16 @@ class UserController extends Controller
         //return true;
 
     }
+
+
+    public function loginAction(){
+
+        return $this->render('KnnfWhatsupBundle:User:login.html.twig', array(
+        ));
+    }
+
+    public function registerAction(){
+        
+    }
  
 }

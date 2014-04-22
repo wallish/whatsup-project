@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Knnf\WhatsupBundle\Entity\Article;
 use Knnf\WhatsupBundle\Form\ArticleType;
-
+use Doctrine\ORM\Query;
 /**
  * Article controller.
  *
@@ -143,6 +143,17 @@ class ArticleController extends Controller
 
             $result = $this->_getRepository()->save($data['id']);
         }   
+    }
+
+    public function getArticlesAction(Request $request)
+    {
+        /*$em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('KnnfWhatsupBundle:Article')->findAll(Query::HYDRATE_ARRAY);*/
+        $em = $this->getDoctrine()->getEntityManager();
+        $query = $em->createQuery('SELECT a FROM KnnfWhatsupBundle:Article a');
+        $myArray = $query->getArrayResult();
+        die(json_encode((($myArray))));
+        return new Response();
     }
 
 }

@@ -37,3 +37,8 @@ user_activate:
     pattern:  /activate/
     defaults: { _controller: "KnnfWhatsupBundle:User:activate" }
     requirements: { _method: post|delete }
+
+user_activate:
+    pattern:  /login/
+    defaults: { _controller: "KnnfWhatsupBundle:User:login" }
+    #requirements: { _method: post|delete }

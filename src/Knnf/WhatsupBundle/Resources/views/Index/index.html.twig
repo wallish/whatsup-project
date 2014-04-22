@@ -3,6 +3,10 @@
 
 {% block body %}
 {% block content %}
+
+
+
+
             <div class="row">
                 <div class="col-md-8">
                   <div class="row" style="background:url({{asset('bundles/knnfwhatsup/img/paris-newyork.jpg')}}) no-repeat scroll left center / cover;">
@@ -230,7 +234,24 @@
             </div>
         </div>
     </div>
-
+{% block javascripts %}
+            <script>
+                function getArticles()
+                {
+                    $.ajax({
+                        url: "{{ path('article_getarticles')}}",
+                        type: "post",
+                        success: function(data){
+                            alert(data);
+                            //window.location.reload();
+                        },
+                        error:function(){
+                            alert("failure");
+                        }
+                    });
+                };
+            </script>
+        {% endblock %}
 {% endblock %}
 {% endblock %}
 

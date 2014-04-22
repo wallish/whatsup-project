@@ -36,4 +36,9 @@ article_delete:
 article_activate:
     pattern:  /activate/
     defaults: { _controller: "KnnfWhatsupBundle:Article:activate" }
-   # requirements: { _method: post|delete }
+
+article_getarticles:
+    pattern:  /getarticles/
+    defaults: { _controller: "KnnfWhatsupBundle:Article:getarticles" }
+    #condition: "request.headers.get('X-Requested-With') == 'XmlHttpRequest'"
+    requirements: { _method: post|delete }
