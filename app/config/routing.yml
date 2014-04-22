@@ -1,6 +1,9 @@
 #knnf_user:
 #    resource: "@KnnfUserBundle/Resources/config/routing.yml"
 #    prefix:   /
+home:
+    pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Index:index" }
 
 knnf_whatsup:
     resource: "@KnnfWhatsupBundle/Resources/config/routing.yml"
@@ -8,7 +11,7 @@ knnf_whatsup:
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-    prefix: /
+    prefix: /whatsup
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
     prefix: /profile

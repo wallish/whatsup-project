@@ -47,7 +47,7 @@ security:
             anonymous:      true
             provider:       main
             form_login:
-                login_path: /whatsup/user/login
+                login_path: fos_user_security_login
                 #login_path: ^/whatsup/user/login/
                 check_path: fos_user_security_check
             logout:
