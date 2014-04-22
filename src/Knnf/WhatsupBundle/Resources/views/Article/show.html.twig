@@ -6,9 +6,9 @@
         {# partie gauche de la page article #}
         <div class="col-md-8">
             {# Article #}
-            <div>
-                <h3>{{ article.title }}</h3>
-                <div>
+            <div class="whatsup-article">
+                <h3 class="whatsup-article-title">{{ article.title }}</h3>
+                <div class="whatsup-article-body">
                     {{ article.content | raw }}
                 </div>
             </div>

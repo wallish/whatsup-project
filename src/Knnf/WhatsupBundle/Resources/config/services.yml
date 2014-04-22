@@ -2,6 +2,8 @@ parameters:
 #    knnf_whatsup.example.class: Knnf\WhatsupBundle\Example
 
 services:
-#    knnf_whatsup.example:
-#        class: Knnf\WhatsupBundle\Controller\UserController
-#        arguments: [@doctrine.orm.default_entity_manager]
+    knnf_user.registration.form.type:
+        class: Knnf\WhatsupBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: knnf_user_registration }

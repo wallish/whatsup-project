@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Knnf\WhatsupBundle\Entity\User;
 use Knnf\WhatsupBundle\Form\UserType;
+use Knnf\WhatsupBundle\Form\Type\RegistrationFormType;
 
 /**
  * User controller.
@@ -142,8 +143,13 @@ class UserController extends Controller
 
 
     public function loginAction(){
+        $entity = new User();
 
-        return $this->render('KnnfWhatsupBundle:User:login.html.twig');
+        $registrationForm = $this->createForm(new RegistrationFormType());
+
+        return $this->render('KnnfWhatsupBundle:User:login.html.twig', array(
+            'form' => $registrationForm,
+        ));
     }
 
     public function registerAction(){
