@@ -4,7 +4,7 @@
     <div class="row">
 
         {# partie gauche de la page article #}
-        <div class="col-md-8">
+        <div class="col-md-8 whatsup-singlearticle-left">
             {# Article #}
             <div class="whatsup-article">
                 <h3 class="whatsup-article-title">{{ article.title }}</h3>
@@ -12,10 +12,21 @@
                     {{ article.content | raw }}
                 </div>
             </div>
-            <div>
+            <div class="whatsup-article-author">
                 <h5>Profil rédacteur</h5>
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="{{ (article.user.photo|length  > 0) ? asset('bundles/knnfwhatsup/img/avatar/') ~ article.user.photo  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
+                    </div>
+                    <div class="col-md-10">
+                        <div class="whatsup-username">{{ article.user.username }}</div>
+                        <div>{{ (article.user.comments|length > 1) ? article.user.comments|length ~ ' commentaires' : article.user.comments|length ~ ' commentaire' }} </div>
+                        <div>0 like</div>
+                        <div></div>
+                    </div>
+                </div>
             </div>
-            <div>
+            <div class="whatsup-article-comments">
                 <h5>Commentaires</h5>
                 {{ render(controller("KnnfWhatsupBundle:Article:comment", {"article_id": article.id} )) }}
             </div>
@@ -25,10 +36,12 @@
         <div class="col-md-4">
             <div>
                 <h4>Articles relatifs</h4>
+                {{ render(controller("KnnfWhatsupBundle:Article:categoryArticles", {"category":article.category, "limit":3} )) }}
+
             </div>
             <div>
                 <h4>Derniers articles de l'auteur</h4>
-                {{ render(controller("KnnfWhatsupBundle:Article:authorArticles", {"author": article.user, "limit":5} )) }}
+                {{ render(controller("KnnfWhatsupBundle:Article:authorArticles", {"author": article.user, "limit":3} )) }}
 
             </div>
         </div>

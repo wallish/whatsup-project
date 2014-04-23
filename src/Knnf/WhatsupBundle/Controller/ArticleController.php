@@ -40,13 +40,24 @@ class ArticleController extends Controller
         ));
     }
 
+    //Liste les articles d'une catégorie donnée
+    public function categoryArticlesAction($category, $limit = 0)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("category" => $category), null, $limit);
+        
+        return $this->render("KnnfWhatsupBundle:Article:miniListArticles.html.twig", array(
+            "articles"=>$articles
+        ));
+    }
+
     //Récupéraiton des articles d'un auteur 
     public function authorArticlesAction($author, $limit = 0)
     {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $author), null, $limit);
 
-        return $this->render("KnnfWhatsupBundle:Article:authorArticles.html.twig", array(
+        return $this->render("KnnfWhatsupBundle:Article:miniListArticles.html.twig", array(
             "articles"=>$articles
         ));
     }
