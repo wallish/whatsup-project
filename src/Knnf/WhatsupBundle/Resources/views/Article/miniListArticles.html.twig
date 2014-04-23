@@ -1,10 +1,10 @@
 <div>
 {% for article in articles %}
-	<div class="whatsup-item-bloc">
-		<a href="{{ path('article_show', { 'slug': article.slug }) }}">
+	<a href="{{ path('article_show', { 'slug': article.slug }) }}">
+		<div class="whatsup-item-bloc">
 			<h4>{{ article.title }}</h4>
 			<div>{{ article.content }}</div>
-		</a>
-	</div>
+		</div>
+	</a>
 {% endfor %}
 </div>
