@@ -99,6 +99,13 @@ class Article
     private $activate;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="views", type="integer")
+     */
+    private $views;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -336,6 +343,29 @@ class Article
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set views
+     *
+     * @param string $views
+     * @return Article
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return string 
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 
 

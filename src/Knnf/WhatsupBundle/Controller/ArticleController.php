@@ -40,6 +40,39 @@ class ArticleController extends Controller
         ));
     }
 
+    //Récupération de l'article du mois
+    public function articleOfTheMonthAction($category = null){
+        $em = $this->getDoctrine()->getManager();
+        if($category != null){
+            $query = $em->createQuery(
+                'SELECT art
+                FROM KnnfWhatsupBundle:Article art
+                WHERE art.dateinsert like :month
+                AND art.category = :category
+                ORDER BY art.views DESC'
+            )->setParameters(array(
+                'month' => date('Y').'-'.date('m').'%',
+                'category' => $category
+            ))->setMaxResults(1);
+        }else {
+            $query =  $em->createQuery(
+                'SELECT art
+                FROM KnnfWhatsupBundle:Article art
+                WHERE art.dateinsert like :month
+                ORDER BY art.views DESC'
+            )->setParameter(
+                'month', date('Y').'-'.date('m').'%'
+            )->setMaxResults(1);
+        }
+        try {
+            $article = $query->getSingleResult();
+        } catch (\Doctrine\Orm\NoResultException $e) {
+            $article = null;
+        }
+
+        return $this->render("KnnfWhatsupBundle:Article:articleofthemonth.html.twig", array("article"=>$article));
+    }
+
     //Liste les articles d'une catégorie donnée
     public function categoryArticlesAction($category, $limit = 0)
     {
