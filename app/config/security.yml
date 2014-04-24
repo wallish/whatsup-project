@@ -60,5 +60,5 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/whatsup/admin/index/, role: ROLE_ADMIN }
+       # - { path: ^/whatsup/admin/index/, role: ROLE_ADMIN }
         #- { path: ^/whatsup/category*, role: ROLE_ADMIN }

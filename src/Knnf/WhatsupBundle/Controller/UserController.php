@@ -4,7 +4,7 @@ namespace Knnf\WhatsupBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\Form\Form;
 use Knnf\WhatsupBundle\Entity\User;
 use Knnf\WhatsupBundle\Form\UserType;
 use Knnf\WhatsupBundle\Form\Type\RegistrationFormType;
@@ -145,8 +145,10 @@ class UserController extends Controller
     public function loginAction(){
         $entity = new User();
 
-        $registrationForm = $this->createForm(new RegistrationFormType());
-
+        $registrationForm = $this->createForm(new RegistrationFormType(), $entity, array(
+            'action' => $this->generateUrl('admin_add_user'),
+            'method' => 'POST',
+        ));
         return $this->render('KnnfWhatsupBundle:User:login.html.twig', array(
             'form' => $registrationForm,
         ));

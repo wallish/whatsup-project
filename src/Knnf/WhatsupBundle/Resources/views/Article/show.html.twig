@@ -16,11 +16,12 @@
                 <h5>Profil rédacteur</h5>
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="{{ (article.user.photo|length  > 0) ? asset('bundles/knnfwhatsup/img/avatar/') ~ article.user.photo  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
+                        {#<img src="{{ (article.user.photo|length  > 0) ? asset('bundles/knnfwhatsup/img/avatar/') ~ article.user.photo  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />#}
+                        <img src="{{asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
                     </div>
                     <div class="col-md-10">
-                        <div class="whatsup-username">{{ article.user.username }}</div>
-                        <div>{{ (article.user.comments|length > 1) ? article.user.comments|length ~ ' commentaires' : article.user.comments|length ~ ' commentaire' }} </div>
+                        <div class="whatsup-username">{#article.user.username#} toto</div>
+                        <div>{#{ (article.user.comments|length > 1) ? article.user.comments|length ~ ' commentaires' : article.user.comments|length ~ ' commentaire' }#} commentaire</div>
                         <div>0 like</div>
                         <div></div>
                     </div>

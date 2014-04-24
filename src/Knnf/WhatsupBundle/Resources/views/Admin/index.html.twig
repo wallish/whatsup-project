@@ -117,6 +117,61 @@
                             </div>
                         </div>
                     </div>
+
+                </div>
+                <div class="row">
+                       <div class="col-12 col-sm-6">
+                        <div class="widget-box">
+                            <div class="widget-title"><span class="icon"><i class="glyphicon glyphicon-comment"></i></span><h5>Derniers articles signalé</h5><span title="{{ events|length }} total comments" class="label label-info tip-left">{{ events|length }}</span></div>
+                            <div class="widget-content nopadding">
+                                <ul class="recent-comments">
+                                    {% for event in events|slice(0, 3) %}
+                                    <li>
+                                        <div class="user-thumb">
+                                            <img width="40" height="40" alt="User" src="/whatsup/web/bundles/knnfwhatsup/img/demo/av1.jpg">
+                                        </div>
+                                        <div class="comments">
+                                            <span class="user-info"> By: neytiri on {{event.dateinsert|date('Y-m-d')}} AM, IP: 186.56.45.7  </span>
+                                            <p>
+                                                <a href="#">{{event.title}}</a>
+                                            </p>
+                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': event.id }) }}"'>Edit</a> <a href="#" class="btn btn-success btn-mini" onclick="activateEvent('{{ event.id }}')" >Publish</a> <a href="#" class="btn btn-danger btn-mini" onclick="deleteEvent('{{ event.id }}')" >Delete</a> <a href="#" class="btn btn-warning btn-mini">Mark as spam</a>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                    <li class="viewall">
+                                        <a title="View all comments" class="tip-top" href="{{path('admin_event')}}"> + Voir les articles signalés + </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                                          <div class="col-12 col-sm-6">
+                        <div class="widget-box">
+                            <div class="widget-title"><span class="icon"><i class="glyphicon glyphicon-comment"></i></span><h5>Articles les mieux notés</h5><span title="{{ events|length }} total comments" class="label label-info tip-left">{{ events|length }}</span></div>
+                            <div class="widget-content nopadding">
+                                <ul class="recent-comments">
+                                    {% for event in events|slice(0, 3) %}
+                                    <li>
+                                        <div class="user-thumb">
+                                            <img width="40" height="40" alt="User" src="/whatsup/web/bundles/knnfwhatsup/img/demo/av1.jpg">
+                                        </div>
+                                        <div class="comments">
+                                            <span class="user-info"> By: neytiri on {{event.dateinsert|date('Y-m-d')}} AM, IP: 186.56.45.7  </span>
+                                            <p>
+                                                <a href="#">{{event.title}}</a>
+                                            </p>
+                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': event.id }) }}"'>Edit</a> <a href="#" class="btn btn-success btn-mini" onclick="activateEvent('{{ event.id }}')" >Publish</a> <a href="#" class="btn btn-danger btn-mini" onclick="deleteEvent('{{ event.id }}')" >Delete</a> <a href="#" class="btn btn-warning btn-mini">Mark as spam</a>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                    <li class="viewall">
+                                        <a title="View all comments" class="tip-top" href="{{path('admin_event')}}"> + Voir les articles les mieux notés + </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
