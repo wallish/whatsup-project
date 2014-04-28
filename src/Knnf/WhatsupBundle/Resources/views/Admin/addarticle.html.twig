@@ -39,7 +39,7 @@
 								<h5>Ajouter un nouvel article</h5>
 							</div>
 							<div class="widget-content nopadding">
-								<form id="form-wizard" class="form-horizontal" method="post">
+								<form id="form-wizard" class="form-horizontal" method="post" {{ form_enctype(form) }}>
 									<div id="form-wizard-1" class="step">
 									
 										<div class="form-group">
@@ -62,10 +62,11 @@
 											{{ form_widget(form.content)}}
 											</div>
 										</div>
+								
 										<div class="form-group">
 											<label class="control-label">Image vedette</label>
 											<div class="controls">
-												{{ form_widget(form.picture, {'attr': {'class': 'form-control input-small'}})}}
+												{{ form_widget(form.file)}}
 												
 											</div>
 										</div>

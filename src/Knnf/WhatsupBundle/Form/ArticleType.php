@@ -19,11 +19,13 @@ class ArticleType extends AbstractType
             ->add('slug')
            // ->add('content')
             ->add('content', 'textarea', array('attr' => array('class' => 'ckeditor')))
-            ->add('picture')
+            //->add('picture')
             //->add('status')
             //->add('dateinsert')
             //->add('dateupdate')
             //->add('activate')
+            ->add('file','file')
+            ->add('path')
             ->add('category','entity', array('class' => 'KnnfWhatsupBundle:Category','property' => 'name'))
             ->add('user','entity', array('class' => 'KnnfWhatsupBundle:User','property' => 'id'))
         ;
@@ -46,17 +48,4 @@ class ArticleType extends AbstractType
     {
         return 'knnf_whatsupbundle_article';
     }
-
-    
-    /*private function createEditForm(Article $entity)
-    {
-        $form = $this->createForm(new ArticleType(), $entity, array(
-            'action' => $this->generateUrl('article_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }*/
 }
