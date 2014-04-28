@@ -108,19 +108,22 @@ class AdminController extends Controller
             'action' => $this->generateUrl('admin_add_article'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Create'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             //die(var_dump($entity));
+            
+            //if($entity->slug != null)
+            $entity->setSlug($this->to_slug($entity->getTitle()));
+            
+            $entity->upload();
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_edit_article', array('id' => $entity->getId())));
         }
-$form->createView();
 
         return $this->render('KnnfWhatsupBundle:Admin:addarticle.html.twig', array(
             'entity' => $entity,
@@ -136,7 +139,7 @@ $form->createView();
         if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
         
         $editForm = $this->createForm(new ArticleType(), $entity, array(
-            'action' => $this->generateUrl('admin_edit_article', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('admin_edit_article', array('id' => $entity->getId(),'path' => $entity->getAbsolutePath())),
             'method' => 'PUT',
         ));
 
@@ -211,7 +214,6 @@ $form->createView();
 
             return $this->redirect($this->generateUrl('admin_edit_category', array('id' => $id)));
         }
-
         return $this->render('KnnfWhatsupBundle:Admin:editcategory.html.twig', array(
             'entity' => $entity,
             'form'   => $editForm->createView(),
@@ -332,6 +334,10 @@ $form->createView();
            'events' => $events,
            'count' => count($events),
         ));
+    }
+
+     function to_slug($string){
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
     }
 
 }
