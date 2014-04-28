@@ -136,18 +136,23 @@
     </div>
 {% block javascripts %}
             <script>
+            var config = {
+                interval: 3000,
+                articleCount:4,
+                carouselInterval: 300
+            }
+
             var whatsup = {};
+            
             whatsup.app = {
+                firstTime: true,
                 initialize: function() {
                     var self = this;
                     $.ajax({
                         url: "{{ path('article_getarticles')}}",
                         type: "post",
                         success: function(data){
-                            var articles = JSON.parse(data);
-                            self.startCarrouselWith(articles);
-                            console.log(articles);
-                            // self.updateArticleRow(articles);
+                            self.startCarrouselWith(JSON.parse(data));
                         },
                         error:function(){
                             console.log("[WHATSUP] Cannot load datas from : {{ path('article_getarticles')}}");
@@ -155,48 +160,48 @@
                     });
                 },
                 startCarrouselWith: function (datas) {
-                    var self = this;
-                    var start = 0;
-                    var articleNumber = 4;
-                    carouselInterval = setInterval(function () {
+                    var self = this,
+                    start = 0,
+                    articleNumber = config.articleCount;
+
+                    var parseArrays = function () {
                         var arrayToSend;
-                        if((start + articleNumber) < datas.length){
-                            var arrayToSend = datas.slice(start, articleNumber);
-                            start = start + articleNumber - 1;
+                        if((start + articleNumber) <= datas.length){
+                            arrayToSend = datas.slice(start, start + articleNumber);
+                            start = start + articleNumber;
 
                         }else{
-                            console.log('data length :: ', datas, 'and start :: ', start);
-                            var articleLeftLength = datas.length - start - 1;
-                            console.log('articleLeftLength', articleLeftLength);
+                            // article left in the current array
+                            var articleLeftLength = datas.length - start;
 
-                            var arrayFound = datas.slice(start + 1, datas.length);
-                            console.log('array found :: ', arrayFound);
+                            // get the remaining items
+                            var arrayFound = datas.slice(datas.length - articleLeftLength, datas.length);
 
-
+                            // the new index to start OR the item.length to refrive in the new array
                             var newIndexToStart = 4 - articleLeftLength;
-                            console.log('newIndexToStart', newIndexToStart);
 
+                            // get the count from the first element
                             var arrayFound2 = datas.slice(0, newIndexToStart);
-                            console.log('array found2 :: ', arrayFound2.length);
 
-                            var arrayToSend = arrayFound.concat(arrayFound2)
+                            // merge them all
+                            arrayToSend = arrayFound.concat(arrayFound2);
+
+                            // define a new start index
                             start = newIndexToStart;
 
-                            console.log('now start at :: ', start);
                         }
+                        // update the view
                         self.updateArticleRow(arrayToSend);
-                    }, 3000);
-
-
-
-
+                    }
+                    parseArrays();
+                    var dataInterval = setInterval(parseArrays, config.interval);
                 },
                 updateArticleRow: function (datas) {
-                    var contentToPush = [];
+                    var self = this,
+                    contentToPush = [];
                     for (var i = datas.length - 1; i >= 0; i--) {
                         var resu = datas[i];
                         var slug = "/whatsup/web/app_dev.php/whatsup/article/" + resu.slug;
-                        // console.log(slug);
                         var htmlToAppend = 
                         '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url('+ resu.picture  +') no-repeat scroll left center / cover;">'+
                             '<div class="contentItem">'+
@@ -210,7 +215,17 @@
                         '</a>';
                         contentToPush.push(htmlToAppend);
                     };
-                    $('.row.articles').html(contentToPush.join(' '));
+                    if(self.firstTime){
+                        self.firstTime = false;                   
+                        $('.row.articles').html(contentToPush.join(' '));
+
+                    }else{
+                        $('.row.articles').fadeOut(config.carouselInterval, function () {                    
+                            $(this).html(contentToPush.join(' '));
+                            $(this).fadeIn(config.carouselInterval);
+                        });
+                    }
+
                 }
             }
 
