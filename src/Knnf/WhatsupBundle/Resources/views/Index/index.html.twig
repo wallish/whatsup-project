@@ -143,7 +143,7 @@
             }
 
             var whatsup = {};
-            
+
             whatsup.app = {
                 firstTime: true,
                 initialize: function() {
@@ -230,43 +230,9 @@
             }
 
             window.onload = function () {
+                $("#event_description").css("display","none");
                 whatsup.app.initialize();
             }
-
-
-
-
-                // $(document).ready(function(){
-                //     $("#event_description").css("display","none");
-                //     // getArticles();
-                // });
-
-                // function displayEvent(id){
-                //     $('#agenda_content_description'+id).dialog({
-                //         width:'440px',
-                //         heigh:'200px',
-                //         resizable: true,
-                //         dialogClass:'agenda_content_description_dialog'
-                //     });
-
-                        
-                // }
-
-                // function getArticles()
-                // {
-                //     $.ajax({
-                //         url: "{{ path('article_getarticles')}}",
-                //         type: "post",
-                //         success: function(data){
-                //             console.log(JSON.parse(data));
-                //             //window.location.reload();
-                //         },
-                //         error:function(){
-                //             alert("failure");
-                //         }
-                //     });
-                // };
-
 
             </script>
         {% endblock %}
