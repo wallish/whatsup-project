@@ -87,18 +87,17 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-                <div class="col-md-3">
-                    <div class="box-head">
-                                <h1 style="font-family:'lighthouse_personal_useRg'; text-align:right;">My Shoes</h1>
+            <div class="row articles">
+                <a href="#" class="col-md-3 articleItem" style="background:url() no-repeat scroll left center / cover;">
+                    <div class="contentItem">
+                        <div class="backgroundContent"></div>
+                        <h3>My Shoes</h3>
+                        <div class="line"></div>
+                        <h4 class="author">
+                            Nirunthan Parameswaran
+                        </h4>
                     </div>
-                    <div style="text-align:justify">
-                        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                    </div>
-                </div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel2.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/blanche.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
+                </a>
             </div>
             <div class="row">
                 <div class="col-md-3">
@@ -137,36 +136,121 @@
     </div>
 {% block javascripts %}
             <script>
-                $(document).ready(function(){
-                    $("#event_description").css("display","none");
-                    
-                });
-
-                function displayEvent(id){
-                    $('#agenda_content_description'+id).dialog({
-                        width:'440px',
-                        heigh:'200px',
-                        resizable: true,
-                        dialogClass:'agenda_content_description_dialog'
-                    });
-
-                        
-                }
-
-                function getArticles()
-                {
+            var whatsup = {};
+            whatsup.app = {
+                initialize: function() {
+                    var self = this;
                     $.ajax({
                         url: "{{ path('article_getarticles')}}",
                         type: "post",
                         success: function(data){
-                            alert(data);
-                            //window.location.reload();
+                            var articles = JSON.parse(data);
+                            self.startCarrouselWith(articles);
+                            console.log(articles);
+                            // self.updateArticleRow(articles);
                         },
                         error:function(){
-                            alert("failure");
+                            console.log("[WHATSUP] Cannot load datas from : {{ path('article_getarticles')}}");
                         }
                     });
-                };
+                },
+                startCarrouselWith: function (datas) {
+                    var self = this;
+                    var start = 0;
+                    var articleNumber = 4;
+                    carouselInterval = setInterval(function () {
+                        var arrayToSend;
+                        if((start + articleNumber) < datas.length){
+                            var arrayToSend = datas.slice(start, articleNumber);
+                            start = start + articleNumber - 1;
+
+                        }else{
+                            console.log('data length :: ', datas, 'and start :: ', start);
+                            var articleLeftLength = datas.length - start - 1;
+                            console.log('articleLeftLength', articleLeftLength);
+
+                            var arrayFound = datas.slice(start + 1, datas.length);
+                            console.log('array found :: ', arrayFound);
+
+
+                            var newIndexToStart = 4 - articleLeftLength;
+                            console.log('newIndexToStart', newIndexToStart);
+
+                            var arrayFound2 = datas.slice(0, newIndexToStart);
+                            console.log('array found2 :: ', arrayFound2.length);
+
+                            var arrayToSend = arrayFound.concat(arrayFound2)
+                            start = newIndexToStart;
+
+                            console.log('now start at :: ', start);
+                        }
+                        self.updateArticleRow(arrayToSend);
+                    }, 3000);
+
+
+
+
+                },
+                updateArticleRow: function (datas) {
+                    var contentToPush = [];
+                    for (var i = datas.length - 1; i >= 0; i--) {
+                        var resu = datas[i];
+                        var slug = "/whatsup/web/app_dev.php/whatsup/article/" + resu.slug;
+                        // console.log(slug);
+                        var htmlToAppend = 
+                        '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url('+ resu.picture  +') no-repeat scroll left center / cover;">'+
+                            '<div class="contentItem">'+
+                                '<div class="backgroundContent"></div>'+
+                                '<h3>' + resu.title + '</h3>'+
+                                '<div class="line"></div>'+
+                                '<h4 class="author">'+
+                                    (resu.author || 'Nirunthan Parameswaran') +
+                                '</h4>'+
+                            '</div>'+
+                        '</a>';
+                        contentToPush.push(htmlToAppend);
+                    };
+                    $('.row.articles').html(contentToPush.join(' '));
+                }
+            }
+
+            window.onload = function () {
+                whatsup.app.initialize();
+            }
+
+
+
+
+                // $(document).ready(function(){
+                //     $("#event_description").css("display","none");
+                //     // getArticles();
+                // });
+
+                // function displayEvent(id){
+                //     $('#agenda_content_description'+id).dialog({
+                //         width:'440px',
+                //         heigh:'200px',
+                //         resizable: true,
+                //         dialogClass:'agenda_content_description_dialog'
+                //     });
+
+                        
+                // }
+
+                // function getArticles()
+                // {
+                //     $.ajax({
+                //         url: "{{ path('article_getarticles')}}",
+                //         type: "post",
+                //         success: function(data){
+                //             console.log(JSON.parse(data));
+                //             //window.location.reload();
+                //         },
+                //         error:function(){
+                //             alert("failure");
+                //         }
+                //     });
+                // };
 
 
             </script>
