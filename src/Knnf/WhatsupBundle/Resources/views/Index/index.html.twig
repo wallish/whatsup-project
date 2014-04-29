@@ -1,16 +1,31 @@
 {% extends "KnnfWhatsupBundle:Layout/front:index.html.twig" %}
 
-
-{% block body %}
 {% block content %}
-
-
-
-
             <div class="row">
                 <div class="col-md-8">
-                  <div class="row" style="background:url({{asset('bundles/knnfwhatsup/img/paris-newyork.jpg')}}) no-repeat scroll left center / cover;">
-                        &nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />
+                  <div class="row">
+                       <div id="slider" style="position: relative; top: 0px; left: 0px; width: 780px; height: 300px; overflow: hidden;">
+                            <!-- Slides Container -->
+                            <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 780px; height: 300px;">
+                                {% set i = 0 %}
+                                {% for article in articles %}
+                                    {% if (article.path is not empty) and (i < 5) %}
+                                    {% set i=i+1 %}
+                                    <div>
+                                        <img u="image" src="/whatsup/web/uploads/documents/{{article.path}}" />
+                                        <a href="{{ path('article_show', { 'slug': article.slug }) }}">
+                                            <div class="whatsup-slider-caption" u="caption" t="caption-transition-name">
+                                                <div class="whatsup-slider-title">{{ article.title }}</div>
+                                                <div class="whatsup-slider-content">{{ article.content | raw}}</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <!-- Trigger -->
+                            <script>jssor_slider1_starter('slider');</script>
+                        </div>
                   </div>
                   <div class="row">
                     <div class="col-md-7" style="background:url({{asset('bundles/knnfwhatsup/img/viaduc.jpg')}}) no-repeat scroll left center / cover;">
@@ -137,7 +152,7 @@
 {% block javascripts %}
             <script>
             var config = {
-                interval: 3000,
+                interval: 7000,
                 articleCount:4,
                 carouselInterval: 300
             }
@@ -203,7 +218,7 @@
                         var resu = datas[i];
                         var slug = "/whatsup/web/app_dev.php/whatsup/article/" + resu.slug;
                         var htmlToAppend = 
-                        '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url('+ resu.picture  +') no-repeat scroll left center / cover;">'+
+                        '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url(/whatsup/web/bundles/knnfwhatsup/img/'+resu.path+') no-repeat scroll left center / cover;">'+
                             '<div class="contentItem">'+
                                 '<div class="backgroundContent"></div>'+
                                 '<h3>' + resu.title + '</h3>'+
@@ -233,10 +248,18 @@
                 $("#event_description").css("display","none");
                 whatsup.app.initialize();
             }
+ 
 
+            function displayEvent(id){
+                $('#agenda_content_description'+id).dialog({
+                    width:'440px',
+                   heigh:'200px',
+                   resizable: true,
+                   dialogClass:'agenda_content_description_dialog'
+               });
+            }
             </script>
         {% endblock %}
-{% endblock %}
 {% endblock %}
 
 

@@ -10,14 +10,14 @@
 						    <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 780px; height: 300px;">
                                 {% set i = 0 %}
 						        {% for article in articles %}
-                                    {% if (article.picture is not empty) and (i < 5) %}
+                                    {% if (article.path is not empty) and (i < 5) %}
                                     {% set i=i+1 %}
 							        <div>
-								        <img u="image" src="{{ article.picture }}" />
+								        <img u="image" src="/whatsup/web/uploads/documents/{{article.path}}" />
 									    <a href="{{ path('article_show', { 'slug': article.slug }) }}">
 										    <div class="whatsup-slider-caption" u="caption" t="caption-transition-name">
 										        <div class="whatsup-slider-title">{{ article.title }}</div>
-										        <div class="whatsup-slider-content">{{ article.content }}</div>
+										        <div class="whatsup-slider-content">{{ article.content | raw}}</div>
 										    </div>
 								    	</a>
 								    </div>
@@ -179,19 +179,20 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row whatsup-article-row">
                 {% for article in articles %}
                     {% if (loop.index is divisibleby(4)) and (loop.index > 4) %}
                         </div>
                         <div class="row">
                     {% endif %}
-                    <div class="col-md-3 whatsup-article-box">
-                        <img class="whatsup-image" src="{{ article.picture }}">
-                        <div id="content-{{ article.id }}">
-                            <div class="box-head"><h1 style="font-family:'lighthouse_personal_useRg'; text-align:right;">{{ article.title }}</h1></div>
-                            <div style="text-align:justify">{{ article.content }}</div>
+                    <a href="{{ path('article_show', { 'slug': article.slug }) }}" class="col-md-3 whatsup-article-box articleItem" style="background:url('/whatsup/web/uploads/documents/{{ article.path }}') no-repeat scroll left center / cover;">
+                        <div id="content-{{ article.id }}" class="contentItem">
+                            <div class="backgroundContent"></div>
+                            <h3>{{ article.title }}</h3>
+                            <div class="line"></div>
+                            <h4 class="author">{{ article.user.username }}</h4>
                         </div>
-                    </div>
+                    </a>
 
                 {% endfor %}
                 
