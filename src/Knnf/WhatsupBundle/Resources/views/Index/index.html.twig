@@ -137,7 +137,7 @@
 {% block javascripts %}
             <script>
             var config = {
-                interval: 3000,
+                interval: 7000,
                 articleCount:4,
                 carouselInterval: 300
             }
@@ -203,7 +203,7 @@
                         var resu = datas[i];
                         var slug = "/whatsup/web/app_dev.php/whatsup/article/" + resu.slug;
                         var htmlToAppend = 
-                        '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url('+ resu.picture  +') no-repeat scroll left center / cover;">'+
+                        '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url(/whatsup/web/bundles/knnfwhatsup/img/'+resu.path+') no-repeat scroll left center / cover;">'+
                             '<div class="contentItem">'+
                                 '<div class="backgroundContent"></div>'+
                                 '<h3>' + resu.title + '</h3>'+
@@ -233,7 +233,16 @@
                 $("#event_description").css("display","none");
                 whatsup.app.initialize();
             }
+ 
 
+            function displayEvent(id){
+                $('#agenda_content_description'+id).dialog({
+                    width:'440px',
+                   heigh:'200px',
+                   resizable: true,
+                   dialogClass:'agenda_content_description_dialog'
+               });
+            }
             </script>
         {% endblock %}
 {% endblock %}

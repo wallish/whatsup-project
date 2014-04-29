@@ -10,11 +10,11 @@
 						    <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 780px; height: 300px;">
 						        {% for article in articles %}
 							        <div>
-								        <img u="image" src="{{ article.picture }}" />
+								        <img u="image" src="/whatsup/web/bundles/knnfwhatsup/img/{{article.path}}" />
 									    <a href="{{ path('article_show', { 'slug': article.slug }) }}">
 										    <div class="whatsup-slider-caption" u="caption" t="caption-transition-name">
 										        <div class="whatsup-slider-title">{{ article.title }}</div>
-										        <div class="whatsup-slider-content">{{ article.content }}</div>
+										        <div class="whatsup-slider-content">{{ article.content | raw}}</div>
 										    </div>
 								    	</a>
 
