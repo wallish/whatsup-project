@@ -25,3 +25,5 @@ a .whatsup-slider-caption { color:white; }
 a .whatsup-slider-caption:hover {color:#ccc; text-decoration: none;}
 
 .whatsup-articleofthemonth {max-width:455px; max-height: 200px;}
+
+.whatsup-category-bests {height:200px;}

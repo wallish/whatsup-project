@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Knnf\WhatsupBundle\Entity\Article;
+use Knnf\WhatsupBundle\Entity\User;
 use Knnf\WhatsupBundle\Form\ArticleType;
 use Doctrine\ORM\Query;
 /**
@@ -15,7 +16,8 @@ use Doctrine\ORM\Query;
 class ArticleController extends Controller
 {
 
-    protected function _getRepository(){
+    protected function _getRepository()
+    {
         return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Article');
     }
 
@@ -31,7 +33,8 @@ class ArticleController extends Controller
     }
 
     //Récupération des commentaires d'un article, avec gestion des droits pour l'affichage du champ de saisie de commentaire
-    public function commentAction($article_id){
+    public function commentAction($article_id)
+    {
         $em = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$article_id));
 
@@ -41,9 +44,11 @@ class ArticleController extends Controller
     }
 
     //Récupération de l'article du mois
-    public function articleOfTheMonthAction($category = null){
+    public function articleOfTheMonthAction($category = null)
+    {
         $em = $this->getDoctrine()->getManager();
-        if($category != null){
+        if($category != null)
+        {
             $query = $em->createQuery(
                 'SELECT art
                 FROM KnnfWhatsupBundle:Article art
@@ -54,7 +59,9 @@ class ArticleController extends Controller
                 'month' => date('Y').'-'.date('m').'%',
                 'category' => $category
             ))->setMaxResults(1);
-        }else {
+        }
+        else 
+        {
             $query =  $em->createQuery(
                 'SELECT art
                 FROM KnnfWhatsupBundle:Article art
@@ -64,13 +71,64 @@ class ArticleController extends Controller
                 'month', date('Y').'-'.date('m').'%'
             )->setMaxResults(1);
         }
-        try {
+        try 
+        {
             $article = $query->getSingleResult();
-        } catch (\Doctrine\Orm\NoResultException $e) {
+        } 
+        catch (\Doctrine\Orm\NoResultException $e) 
+        {
             $article = null;
         }
 
         return $this->render("KnnfWhatsupBundle:Article:articleofthemonth.html.twig", array("article"=>$article));
+    }
+
+    //Récupération de l'auteur du mois
+    public function authorOfTheMonthAction($category = null) 
+    {
+        $em = $this->getDoctrine()->getManager();
+        if($category != null)
+        {
+            $query = $em->createQuery(
+                'SELECT IDENTITY(art.user), sum(art.views) as nviews
+                FROM KnnfWhatsupBundle:Article art
+                WHERE art.category = :category
+                AND art.dateinsert like :month
+                GROUP BY art.user
+                ORDER BY nviews DESC'
+            )->setParameters(array(
+                'month' => date('Y').'-'.date('m').'%',
+                'category' => $category
+            ))->setMaxResults(1);
+        }
+        else
+        {
+            $query = $em->createQuery(
+                'SELECT IDENTITY(art.user), sum(art.views) as nviews
+                FROM KnnfWhatsupBundle:Article art
+                AND art.dateinsert like :month
+                GROUP BY art.user
+                ORDER BY nviews DESC'
+            )->setParameter(
+                'month', date('Y').'-'.date('m').'%'
+            )->setMaxResults(1);
+        }
+
+        try 
+        {
+            $result = $query->getSingleResult();
+        } 
+        catch (\Doctrine\Orm\NoResultException $e) 
+        {
+            $article = null;
+        }
+
+        //echo "<pre>".print_r($result,true)."</pre>";
+        $user = $em->getRepository('KnnfWhatsupBundle:User')->findOneBy(array("id"=>$result['1']));
+
+        //echo "<pre>".print_r($result,true)."</pre>";
+        return $this->render("KnnfWhatsupBundle:Article:userofthemonth.html.twig", array("user"=>$user));
+
     }
 
     //Liste les articles d'une catégorie donnée

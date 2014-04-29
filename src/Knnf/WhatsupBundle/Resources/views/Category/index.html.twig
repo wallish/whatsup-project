@@ -26,12 +26,12 @@
 						    <script>jssor_slider1_starter('slider');</script>
 						</div>
                   	</div>
-	              	<div class="row">
+	              	<div class="row whatsup-category-bests">
 	                    <div class="col-md-7 whatsup-articleofthemonth whatsup-article-box">
 	                        {{ render(controller("KnnfWhatsupBundle:Article:articleOfTheMonth", {"category": entity} )) }}
 	                    </div>
-	                    <div class="col-md-5" style="background:url({{asset('bundles/knnfwhatsup/img/guignol.jpg')}}) no-repeat scroll left center / cover;">
-	                        &nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><br />&nbsp;<br />
+	                    <div class="col-md-5">
+                            {{ render(controller("KnnfWhatsupBundle:Article:authorOfTheMonth", {"category": entity} )) }}
 	                    </div>  
                   	</div>
                 </div>
@@ -177,29 +177,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-6" style="text-align:justify; height:400px;">
-                            <div class="box-head">
-                                <h1 style="font-family:'lighthouse_personal_useRg'; text-align:right;">Look Book</h1>
-                            </div>
-                            Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                        </div>
-                        <div class="col-md-6" style="background:url({{asset('bundles/knnfwhatsup/img/shoe.jpg')}}) no-repeat scroll left center / cover;">
-                            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="row" style="background:url({{asset('bundles/knnfwhatsup/img/lmfao.jpg')}}) no-repeat scroll left center / cover;">
-                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                    </div>
-                    <div class="row" style="background:url({{asset('bundles/knnfwhatsup/img/leclub.jpg')}}) no-repeat scroll left center / cover;">
-                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                    </div>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
                 <div class="col-md-3">
