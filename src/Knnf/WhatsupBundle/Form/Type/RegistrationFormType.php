@@ -7,7 +7,10 @@ use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 
 class RegistrationFormType extends BaseType
 {
-
+    public function __construct()
+    {
+        $this->class = "knnf_user_registration";
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);

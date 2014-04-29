@@ -157,9 +157,7 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("slug"=>$slug));
-
         if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
-        
         return $this->render('KnnfWhatsupBundle:Article:show.html.twig', array(
             'article'      => $entity));
     }

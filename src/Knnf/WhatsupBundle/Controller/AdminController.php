@@ -24,18 +24,17 @@ class AdminController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
-        $users = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
+       // $users = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
         $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         $medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
-
        // $foo = explode('/',$_SERVER["REQUEST_URI"]);
         //var_dump($foo[6]);
         
         
         return $this->render('KnnfWhatsupBundle:Admin:index.html.twig', array(
            'articles' => $articles,
-           'users' => $users,
+         //  'users' => $users,
            'categories' => $categories,
            'medias' => $medias,
            'events' => $events,
@@ -105,18 +104,21 @@ class AdminController extends Controller
     public function addArticleAction(Request $request,$id=null)
     {
         $entity = new Article();
-
         $form = $this->createForm(new ArticleType(), $entity, array(
             'action' => $this->generateUrl('admin_add_article'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Create'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             //die(var_dump($entity));
+            
+            //if($entity->slug != null)
+            $entity->setSlug($this->to_slug($entity->getTitle()));
+            
+            $entity->upload();
             $em->persist($entity);
             $em->flush();
 
@@ -137,7 +139,7 @@ class AdminController extends Controller
         if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
         
         $editForm = $this->createForm(new ArticleType(), $entity, array(
-            'action' => $this->generateUrl('admin_edit_article', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('admin_edit_article', array('id' => $entity->getId(),'path' => $entity->getAbsolutePath())),
             'method' => 'PUT',
         ));
 
@@ -212,7 +214,6 @@ class AdminController extends Controller
 
             return $this->redirect($this->generateUrl('admin_edit_category', array('id' => $id)));
         }
-
         return $this->render('KnnfWhatsupBundle:Admin:editcategory.html.twig', array(
             'entity' => $entity,
             'form'   => $editForm->createView(),
@@ -333,6 +334,10 @@ class AdminController extends Controller
            'events' => $events,
            'count' => count($events),
         ));
+    }
+
+     function to_slug($string){
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
     }
 
 }

@@ -1,7 +1,6 @@
 {% extends "KnnfWhatsupBundle:Layout/front:index.html.twig" %}
 
 {% block content %}
-    <h1>{{entity.name}}</h1>
     {% if articles|length > 0 %}
     <div class="row">
                 <div class="col-md-8">
@@ -9,7 +8,10 @@
 						<div id="slider" style="position: relative; top: 0px; left: 0px; width: 780px; height: 300px; overflow: hidden;">
 						    <!-- Slides Container -->
 						    <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 780px; height: 300px;">
+                                {% set i = 0 %}
 						        {% for article in articles %}
+                                    {% if (article.picture is not empty) and (i < 5) %}
+                                    {% set i=i+1 %}
 							        <div>
 								        <img u="image" src="{{ article.picture }}" />
 									    <a href="{{ path('article_show', { 'slug': article.slug }) }}">
@@ -18,8 +20,8 @@
 										        <div class="whatsup-slider-content">{{ article.content }}</div>
 										    </div>
 								    	</a>
-
 								    </div>
+                                    {% endif %}
 					       		{% endfor %}
 						    </div>
 						    <!-- Trigger -->
@@ -177,52 +179,22 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                {% for article in articles %}
+                    {% if (loop.index is divisibleby(4)) and (loop.index > 4) %}
+                        </div>
+                        <div class="row">
+                    {% endif %}
+                    <div class="col-md-3 whatsup-article-box">
+                        <img class="whatsup-image" src="{{ article.picture }}">
+                        <div id="content-{{ article.id }}">
+                            <div class="box-head"><h1 style="font-family:'lighthouse_personal_useRg'; text-align:right;">{{ article.title }}</h1></div>
+                            <div style="text-align:justify">{{ article.content }}</div>
+                        </div>
+                    </div>
 
-            <div class="row">
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-                <div class="col-md-3">
-                    <div class="box-head">
-                                <h1 style="font-family:'lighthouse_personal_useRg'; text-align:right;">My Shoes</h1>
-                    </div>
-                    <div style="text-align:justify">
-                        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                    </div>
-                </div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel2.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/blanche.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="box-head">
-                        <h1 style="font-family:'lighthouse_personal_useRg'; text-align:right;">My Shoes</h1>
-                    </div>
-                    <div style="text-align:justify">
-                        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                    </div>
-                </div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/beaugrenelle.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-                <div class="col-md-3">
-                    <div class="box-head">
-                        <h1 style="font-family:'lighthouse_personal_useRg'; text-align:right;">My Shoes</h1>
-                    </div>
-                    <div style="text-align:justify">
-                        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                    </div>
-                </div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-            </div>
-            <div class="row">
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/blanche.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-                <div class="col-md-3">
-                    <div class="box-head">
-                        <h1 style="font-family:'lighthouse_personal_useRg'; text-align:right;">My Shoes</h1>
-                    </div>
-                    <div style="text-align:justify">
-                        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                    </div>
-                </div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel2.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/beaugrenelle.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
+                {% endfor %}
+                
             </div>
         </div>
     </div>

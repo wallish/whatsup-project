@@ -25,142 +25,43 @@
                     <div class="box-head">
                         <h1 style="font-family:'lighthouse_personal_useRg'">Agenda</h1>
                     </div>
-                    <div class="agenda_content">
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
+                    
+                    <div class="agenda_content" id="agenda_content">
+                    {% if events != null %}
+                        {% for event in events %}  
+                            <div class="row agenda_event" onclick='displayEvent({{event.id}})'>
+                                <div class="col-md-2 event_date_box">
+                                    <div class="row event_month">{{ event.datestart | date('M') }}</div>
+                                    <div class="row event_day">{{ event.datestart | date('d') }}</div>
+                                </div>
+                                <div class="col-md-5 event_name">
+                                    {{ event.title }}
+                                </div>
+                                <div class="col-md-4 event_place">
+                                    {{ event.place }}
+                                </div>
+                                <div class="col-md-1 event_action">
+                                </div>
                             </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
+                            <div id="event_description">
+                            <div id="agenda_content_description{{event.id}}" title="Description event">
+                               <table>
+                               <tr><td>Titre : </td><td>{{event.description}}</td></tr>
+                               <tr><td>Lieu : </td><td>{{event.place}}</td></tr>
+                               <tr><td>Adresse : </td><td>{{event.address}}</td></tr>
+                               <tr><td>Billeterie : </td><td>{{event.orderlink}}</td></tr>
+                               <tr><td>Date : </td><td>{{event.datestart | date('d-m-Y')}} - {{event.dateend | date('d-m-Y')}}</td></tr>
+                               <tr><td>Horaire : </td><td>{{event.hourstart | date('H:i')}} - {{event.hourend | date('H:i')}}</td></tr>
+                               <tr><td>Mise à jour le : </td><td>{{event.dateupdate | date('d-m-Y')}}</td></tr>
+                               <tr><td><a href="http://www.google.com" >Voir l'event</td></tr>
+                               </table>
                             </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
                             </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
+                        {% endfor %}
+                    {% endif %}
+                       
                     </div>
+                    
                 </div>
             </div>
             <div class="row">
@@ -186,18 +87,17 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-                <div class="col-md-3">
-                    <div class="box-head">
-                                <h1 style="font-family:'lighthouse_personal_useRg'; text-align:right;">My Shoes</h1>
+            <div class="row articles">
+                <a href="#" class="col-md-3 articleItem" style="background:url() no-repeat scroll left center / cover;">
+                    <div class="contentItem">
+                        <div class="backgroundContent"></div>
+                        <h3>My Shoes</h3>
+                        <div class="line"></div>
+                        <h4 class="author">
+                            Nirunthan Parameswaran
+                        </h4>
                     </div>
-                    <div style="text-align:justify">
-                        Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                    </div>
-                </div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel2.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
-                <div class="col-md-3" style="background:url({{asset('bundles/knnfwhatsup/img/blanche.jpg')}}) no-repeat scroll left center / cover;"><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></div>
+                </a>
             </div>
             <div class="row">
                 <div class="col-md-3">
@@ -236,20 +136,104 @@
     </div>
 {% block javascripts %}
             <script>
-                function getArticles()
-                {
+            var config = {
+                interval: 3000,
+                articleCount:4,
+                carouselInterval: 300
+            }
+
+            var whatsup = {};
+
+            whatsup.app = {
+                firstTime: true,
+                initialize: function() {
+                    var self = this;
                     $.ajax({
                         url: "{{ path('article_getarticles')}}",
                         type: "post",
                         success: function(data){
-                            alert(data);
-                            //window.location.reload();
+                            self.startCarrouselWith(JSON.parse(data));
                         },
                         error:function(){
-                            alert("failure");
+                            console.log("[WHATSUP] Cannot load datas from : {{ path('article_getarticles')}}");
                         }
                     });
-                };
+                },
+                startCarrouselWith: function (datas) {
+                    var self = this,
+                    start = 0,
+                    articleNumber = config.articleCount;
+
+                    var parseArrays = function () {
+                        var arrayToSend;
+                        if((start + articleNumber) <= datas.length){
+                            arrayToSend = datas.slice(start, start + articleNumber);
+                            start = start + articleNumber;
+
+                        }else{
+                            // article left in the current array
+                            var articleLeftLength = datas.length - start;
+
+                            // get the remaining items
+                            var arrayFound = datas.slice(datas.length - articleLeftLength, datas.length);
+
+                            // the new index to start OR the item.length to refrive in the new array
+                            var newIndexToStart = 4 - articleLeftLength;
+
+                            // get the count from the first element
+                            var arrayFound2 = datas.slice(0, newIndexToStart);
+
+                            // merge them all
+                            arrayToSend = arrayFound.concat(arrayFound2);
+
+                            // define a new start index
+                            start = newIndexToStart;
+
+                        }
+                        // update the view
+                        self.updateArticleRow(arrayToSend);
+                    }
+                    parseArrays();
+                    var dataInterval = setInterval(parseArrays, config.interval);
+                },
+                updateArticleRow: function (datas) {
+                    var self = this,
+                    contentToPush = [];
+                    for (var i = datas.length - 1; i >= 0; i--) {
+                        var resu = datas[i];
+                        var slug = "/whatsup/web/app_dev.php/whatsup/article/" + resu.slug;
+                        var htmlToAppend = 
+                        '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url('+ resu.picture  +') no-repeat scroll left center / cover;">'+
+                            '<div class="contentItem">'+
+                                '<div class="backgroundContent"></div>'+
+                                '<h3>' + resu.title + '</h3>'+
+                                '<div class="line"></div>'+
+                                '<h4 class="author">'+
+                                    (resu.author || 'Nirunthan Parameswaran') +
+                                '</h4>'+
+                            '</div>'+
+                        '</a>';
+                        contentToPush.push(htmlToAppend);
+                    };
+                    if(self.firstTime){
+                        self.firstTime = false;                   
+                        $('.row.articles').html(contentToPush.join(' '));
+
+                    }else{
+                        $('.row.articles').fadeOut(config.carouselInterval, function () {                    
+                            $(this).html(contentToPush.join(' '));
+                            $(this).fadeIn(config.carouselInterval);
+                        });
+                    }
+
+                }
+            }
+
+            window.onload = function () {
+                $("#event_description").css("display","none");
+                whatsup.app.initialize();
+            }
+
             </script>
         {% endblock %}
 {% endblock %}
