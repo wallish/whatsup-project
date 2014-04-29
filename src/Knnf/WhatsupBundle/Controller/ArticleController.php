@@ -33,7 +33,7 @@ class ArticleController extends Controller
     //Récupération des commentaires d'un article, avec gestion des droits pour l'affichage du champ de saisie de commentaire
     public function commentAction($article_id){
         $em = $this->getDoctrine()->getManager();
-        $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$article_id));
+        $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$article_id,"AnnotationType" => "comments"));
 
         return $this->render("KnnfWhatsupBundle:Article:comment.html.twig", array(
             "comments"=>$comments

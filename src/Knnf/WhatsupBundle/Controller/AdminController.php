@@ -28,6 +28,7 @@ class AdminController extends Controller
         $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         $medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
+        $annotations = $em->getRepository('KnnfWhatsupBundle:Annotation')->findAll();
        // $foo = explode('/',$_SERVER["REQUEST_URI"]);
         //var_dump($foo[6]);
         
@@ -38,6 +39,7 @@ class AdminController extends Controller
            'categories' => $categories,
            'medias' => $medias,
            'events' => $events,
+           'annotations' => $annotations,
         ));
     }
 

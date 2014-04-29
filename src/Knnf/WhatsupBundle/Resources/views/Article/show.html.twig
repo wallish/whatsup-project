@@ -7,7 +7,7 @@
         <div class="col-md-8 whatsup-singlearticle-left">
             {# Article #}
             <div class="whatsup-article">
-                <h3 class="whatsup-article-title">{{ article.title }}</h3>
+                <h3 class="whatsup-article-title">{{ article.title }}<a id="signalement">Signaler</a></h3>
                 <div class="whatsup-article-body">
                     {{ article.content | raw }}
                 </div>
@@ -104,4 +104,63 @@
     <li>delete</li>
     </ul>
     #}
+
+<div id="dialog-form" title="Create new user">
+<p class="validateTips">All form fields are required.</p>
+<form>
+<fieldset>
+<label for="name">Name</label>
+<input type="text" name="description" id="description" class="text ui-widget-content ui-corner-all">
+</fieldset>
+</form>
+</div>
+        {% block javascripts %}
+            <script>
+
+                $( document ).ready(function() {
+                    console.log( "ready!" );
+                    $( "#signalement" ).click(function() {
+                        $( "#dialog-form" ).dialog( "open" );
+                    });
+                    
+                });
+
+                function addSignalement(id)
+                {
+                    $.ajax({
+                        url: "{{ path('annotation_add')}}",
+                        type: "post",
+                        data: {
+                            article_id: id,
+                            description: $('[name="description"]').val(),
+                        },
+                        success: function(){
+                            alert("success");
+                            //window.location.reload();
+                        },
+                        error:function(){
+                            alert("failure");
+                        }
+                    });
+                };
+
+
+
+                $( "#dialog-form" ).dialog({
+                    autoOpen: false,
+                    height: 300,
+                    width: 350,
+                    buttons: {
+                        Cancel: function() {
+                            $( this ).dialog( "close" );
+                        },
+                        Submit: function() {
+                            addSignalement({{article.id}});
+                        }
+                    }
+                });
+
+                 
+            </script>
+        {% endblock %}
 {% endblock %}
