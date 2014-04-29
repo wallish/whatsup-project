@@ -144,7 +144,7 @@ class Article
         return 'uploads/documents';
     }
 
-   
+    
 
     public function upload()
     {

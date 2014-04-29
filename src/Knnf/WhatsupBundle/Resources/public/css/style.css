@@ -14,6 +14,8 @@
 
 .whatsup-article-comments {padding: 0 15px 15px;}
 
+.whatsup-article-row {max-height:250px;}
+
 .whatsup-item-bloc {padding:10px 10px; min-height:90px; border:1px solid #9c9c9c;margin-bottom:5px;}
 .whatsup-item-bloc a {color:inherit;}
 .whatsup-item-bloc h4 {margin: 0; color:#de4b39;}
@@ -25,6 +27,9 @@ a .whatsup-slider-caption { color:white; }
 a .whatsup-slider-caption:hover {color:#ccc; text-decoration: none;}
 
 .whatsup-articleofthemonth {max-width:455px; max-height: 200px;}
+
+
+.whatsup-category-bests {height:200px;}
 
 #agenda_content:hover{background-color: #DE4B39 ;}
 
@@ -161,3 +166,4 @@ a .whatsup-slider-caption:hover {color:#ccc; text-decoration: none;}
 	-khtml-opacity: 1;
 	opacity: 1;
 }
+
