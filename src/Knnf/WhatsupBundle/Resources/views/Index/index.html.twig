@@ -94,10 +94,10 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="row" style="background:url({{asset('bundles/knnfwhatsup/img/lmfao.jpg')}}) no-repeat scroll left center / cover;">
+                    <div class="row" style="background:url(/whatsup/web/uploads/documents/{{musics[0].path}}) no-repeat scroll left center / cover;">
                         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                     </div>
-                    <div class="row" style="background:url({{asset('bundles/knnfwhatsup/img/leclub.jpg')}}) no-repeat scroll left center / cover;">
+                    <div class="row" style="background:url(/whatsup/web/uploads/documents/{{musics[1].path}}) no-repeat scroll left center / cover;">
                         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                     </div>
                 </div>
@@ -218,7 +218,7 @@
                         var resu = datas[i];
                         var slug = "/whatsup/web/app_dev.php/whatsup/article/" + resu.slug;
                         var htmlToAppend = 
-                        '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url(/whatsup/web/bundles/knnfwhatsup/img/'+resu.path+') no-repeat scroll left center / cover;">'+
+                        '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url(/whatsup/web/uploads/documents/'+resu.path+') no-repeat scroll left center / cover;">'+
                             '<div class="contentItem">'+
                                 '<div class="backgroundContent"></div>'+
                                 '<h3>' + resu.title + '</h3>'+

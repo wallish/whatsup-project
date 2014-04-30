@@ -1,0 +1,241 @@
+{% extends "KnnfWhatsupBundle:Layout/front:index.html.twig" %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ asset('bundles/knnfwhatsup/s-gallery-master/css/demo-styles.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/knnfwhatsup/s-gallery-master/css/styles.css') }}" />
+ <div class="demo-wrapper">
+
+  <!--// Gallery Markup: A container that the plugin is called upon, and two lists for the images (use images with same aspect ratio) //-->
+  <div id="gallery-container">
+    
+    <ul class="items--small">
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-1.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-2.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-3.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-4.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-5.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-6.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-7.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-8.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-9.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-10.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-11.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-12.png') }}" alt="" /></a></li>
+    </ul>
+    <ul class="items--big">
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-1.jpg') }}" alt="" />
+            <figcaption class="img-caption">
+              John Snow 
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-2.jpg') }}" alt="" />
+            
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-3.jpg') }}" alt="" />
+            
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-4.jpg') }}" alt="" />
+            
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-5.jpg') }}" alt="" />
+            
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-6.jpg') }}" alt="" />
+           <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-7.jpg') }}" alt="" />
+            
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-8.jpg') }}" alt="" />
+            <img src="images/big-8.jpg" alt="" />
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-9.jpg') }}" alt="" />
+            
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-10.jpg') }}" alt="" />
+            
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-11.jpg') }}" alt="" />
+            
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+      <li class="item--big">
+        <a href="#">
+          <figure>
+            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-12.jpg') }}" alt="" />
+            
+            <figcaption class="img-caption">
+              John Snow
+              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+
+            </figcaption>
+          </figure>
+          </a>
+      </li>
+    </ul>
+    <div class="controls">
+      <span class="control icon-arrow-left" data-direction="previous"></span> 
+      <span class="control icon-arrow-right" data-direction="next"></span> 
+      <span class="grid icon-grid"></span>
+      <span class="fs-toggle icon-fullscreen"></span>
+    </div>
+    
+  </div>
+  
+
+
+
+</div><!--end demo-wrapper-->
+
+  <script src="{{asset('bundles/knnfwhatsup/s-gallery-master/js/plugins.js')}}"></script>
+  <script src="{{asset('bundles/knnfwhatsup/s-gallery-master/js/jquery-1.8.2.min.js')}}"></script>
+  <script src="{{asset('bundles/knnfwhatsup/s-gallery-master/js/scripts.js')}}"></script>
+  <script>
+    $(document).ready(function(){
+     $('#gallery-container').sGallery({
+        fullScreenEnabled: true
+      });
+     
+    });
+
+     /* function addSignalement(id)
+        {
+            $.ajax({
+                url: "{{ path('annotation_add')}}",
+                type: "post",
+                data: {
+                    article_id: id,
+                    description: $('[name="description"]').val(),
+                },
+                success: function(){
+                    alert("success");
+                    //window.location.reload();
+                },
+                error:function(){
+                    alert("failure");
+                }
+            });
+        };
+
+
+
+        $( "#dialog-form" ).dialog({
+            autoOpen: false,
+            height: 300,
+            width: 350,
+            buttons: {
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                },
+                Submit: function() {
+                	alert('send');
+                }
+            }
+        });*/
+
+  </script>
+{% endblock %}

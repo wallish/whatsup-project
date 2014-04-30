@@ -32,11 +32,13 @@ class IndexController extends Controller
 		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
 		$events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
-       // die(var_dump($events));
+        $musiques = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('category' => 5),array('dateinsert' => 'desc'),2);
+        //die(var_dump($musiques));
     	return $this->render('KnnfWhatsupBundle:Index:index.html.twig',array(
     		'categories' => $categories,
     		'articles' => $articles,
             'events' => $events,
+            'musics' => $musiques,
         ));
 
     }

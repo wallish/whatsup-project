@@ -37,7 +37,7 @@
         <div class="col-md-4">
             <div>
                 <h4>Articles relatifs</h4>
-                {{ render(controller("KnnfWhatsupBundle:Article:categoryArticles", {"category":article.category, "limit":3} )) }}
+                {{ render(controller("KnnfWhatsupBundle:Article:categoryArticles", {"category":article.category, "limit":3} )) | raw }}
 
             </div>
             <div>
@@ -49,63 +49,7 @@
 
     </div>
 
-    {# <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ article.title }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ article.slug }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ article.content }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ article.picture }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ article.status }}</td>
-            </tr>
-            <tr>
-                <th>Dateinsert</th>
-                <td>{{ article.dateinsert|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Dateupdate</th>
-                <td>{{ article.dateupdate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Activate</th>
-                <td>{{ article.activate }}</td>
-            </tr>
-        </tbody>
-    </table> 
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('article') }}">
-            Back to the list
-        </a
-    </li>
-    <li>
-        <a href="{{ path('article_show', { 'slug': article.slug }) }}">
-            Edit
-        </a>
-    </li>
-    <li>delete</li>
-    </ul>
-    #}
-
-<div id="dialog-form" title="Create new user">
+<div id="dialog-form" title="Signalement">
 <p class="validateTips">All form fields are required.</p>
 <form>
 <fieldset>
