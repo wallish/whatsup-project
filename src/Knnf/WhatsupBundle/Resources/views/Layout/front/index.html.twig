@@ -13,6 +13,8 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ asset('bundles/knnfwhatsup/css/style.css') }}" />
     <script src="{{ asset('bundles/knnfwhatsup/js/Jssor/js/jssor.slider.min.js') }}"></script>
+    
+
 
     <style>
 
@@ -147,50 +149,44 @@
             color: '#fff',
             height : '500px'
         });
+        initializeTrucChelou();
     });
+    function initializeTrucChelou (nameSlider) {
+                
+                // jQuery(document).ready(function ($) {
+                var options = { $AutoPlay: true };
 
-    </script>
-    <script>
-        jQuery(document).ready(function ($) {
-            var options = { $AutoPlay: true };
+                var jssor_slider1 = new $JssorSlider$('slider', options);
+                //var jssor_slider_accueil = new $JssorSlider$('slider-accueil',options);
 
-            var jssor_slider1 = new $JssorSlider$('slider', options);
-            //var jssor_slider_accueil = new $JssorSlider$('slider-accueil',options);
-
-            //you can remove responsive code if you don't want the slider scales
-            //while window resizes
-            function ScaleSlider() {
-                var parentWidth = $('#slider').parent().width();
-                if (parentWidth) {
-                    jssor_slider1.$SetScaleWidth(parentWidth);
+                //you can remove responsive code if you don't want the slider scales
+                //while window resizes
+                function ScaleSlider() {
+                    var parentWidth = $('#slider').parent().width();
+                    if (parentWidth) {
+                        jssor_slider1.$SetScaleWidth(parentWidth);
+                    }
+                    else
+                        window.setTimeout(ScaleSlider, 30);
                 }
-                else
-                    window.setTimeout(ScaleSlider, 30);
+                //Scale slider after document ready
+                ScaleSlider();
+                if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
+                    //Capture window resize event
+                    $(window).bind('resize', ScaleSlider);
+                }
+
+                $(".whatsup-article-box").each(function(){
+                    $(this).height($(this).parent().outerHeight());
+                    if($(this).children("img").height() != $(this).outerHeight()){
+                        $(this).children("img").height($(this).outerHeight());
+                    }
+                    if($(this).children("img").width() != $(this).outerWidth()){
+                        $(this).children("img").width($(this).outerWidth());
+                    }
+
+                });
             }
-            //Scale slider after document ready
-            ScaleSlider();
-            if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
-                //Capture window resize event
-                $(window).bind('resize', ScaleSlider);
-            }
-            //responsive code end
-        });
-        $(function(){
-            $(".whatsup-article-box").each(function(){
-                $(this).height($(this).parent().outerHeight());
-                if($(this).children("img").height() != $(this).outerHeight()){
-                    $(this).children("img").height($(this).outerHeight());
-                }
-                if($(this).children("img").width() != $(this).outerWidth()){
-                    $(this).children("img").width($(this).outerWidth());
-                }
-
-            });
-        });
     </script>
-
-
-
-
 
  {% endblock %}

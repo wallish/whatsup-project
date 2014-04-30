@@ -1,6 +1,9 @@
+
+{% if comments != null %}
 {% for comment in comments %}
 <div>
-	<div>{{ comment.user.username }}</div>
+	<div>{#{ comment.user.username }#}</div>
 	{{comment.AnnotationContent}}
 </div>
 {% endfor %}
+{% endif %}

@@ -28,6 +28,7 @@ class AdminController extends Controller
         $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         $medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
+        $annotations = $em->getRepository('KnnfWhatsupBundle:Annotation')->findAll();
        // $foo = explode('/',$_SERVER["REQUEST_URI"]);
         //var_dump($foo[6]);
         
@@ -38,6 +39,7 @@ class AdminController extends Controller
            'categories' => $categories,
            'medias' => $medias,
            'events' => $events,
+           'annotations' => $annotations,
         ));
     }
 
@@ -285,10 +287,24 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
+        $like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$data['article_id'],'AnnotationType' => 'like'));
+        $foo = count($like);
         
         return $this->render('KnnfWhatsupBundle:Admin:article.html.twig', array(
            'articles' => $articles,
            'count' => count($articles),
+        ));
+    }
+
+
+    public function commentsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'comments'));
+        
+        return $this->render('KnnfWhatsupBundle:Admin:comments.html.twig', array(
+           'comments' => $comments,
+           'count' => count($comments),
         ));
     }
 

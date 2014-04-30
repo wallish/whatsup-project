@@ -1,0 +1,30 @@
+annotation:
+    pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Annotation:index" }
+
+annotation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "KnnfWhatsupBundle:Annotation:show" }
+
+annotation_add:
+    pattern:  /add
+    defaults: { _controller: "KnnfWhatsupBundle:Annotation:add" }
+
+annotation_create:
+    pattern:  /create
+    defaults: { _controller: "KnnfWhatsupBundle:Annotation:create" }
+    requirements: { _method: post }
+
+annotation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "KnnfWhatsupBundle:Annotation:edit" }
+
+annotation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "KnnfWhatsupBundle:Annotation:update" }
+    requirements: { _method: post|put }
+
+annotation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "KnnfWhatsupBundle:Annotation:delete" }
+    requirements: { _method: post|delete }

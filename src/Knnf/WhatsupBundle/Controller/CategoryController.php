@@ -26,9 +26,12 @@ class CategoryController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
+        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
 
         return $this->render('KnnfWhatsupBundle:Category:list.html.twig', array(
             'categories' => $categories,
+            'events' => $events,
+
         ));
     }
   
@@ -39,6 +42,7 @@ class CategoryController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Category')->findOneBy(array('slug' => $slug));
+        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
 
         if (!$entity ) throw $this->createNotFoundException('Unable to find Category entity.');
 
@@ -55,10 +59,13 @@ class CategoryController extends Controller
 
         $articles = $em->getRepository("KnnfWhatsupBundle:Article")->getList($page, $maxArticles, $entity);
 
-        return $this->render('KnnfWhatsupBundle:Category:index.html.twig', array(
+        
+        return $this->render(($slug != "mode") ? 'KnnfWhatsupBundle:Category:index.html.twig' : 'KnnfWhatsupBundle:Category:gallery.html.twig', array(
           'entity'=> $entity,
           'articles' => $articles,
           'pagination' => $pagination
+          'events' => $events,
+
         ));
     }
     

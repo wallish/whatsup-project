@@ -37,145 +37,43 @@
 	                    </div>  
                   	</div>
                 </div>
-                <div class="col-md-4 agenda_body visible-lg" id="toto">
+                <div class="col-md-4 agenda_body visible-lg" id="toto" style="width:500px;">
                     <div class="box-head">
                         <h1 style="font-family:'lighthouse_personal_useRg'">Agenda</h1>
                     </div>
                     <div class="agenda_content">
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
+                        {% if events != null %}
+                        {% for event in events %}  
+                            <div class="row agenda_event" onclick='displayEvent({{event.id}})'>
+                                <div class="col-md-2 event_date_box">
+                                    <div class="row event_month">{{ event.datestart | date('M') }}</div>
+                                    <div class="row event_day">{{ event.datestart | date('d') }}</div>
+                                </div>
+                                <div class="col-md-5 event_name">
+                                    {{ event.title }}
+                                </div>
+                                <div class="col-md-4 event_place">
+                                    {{ event.place }}
+                                </div>
+                                <div class="col-md-1 event_action">
+                                </div>
                             </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
+                            <div id="event_description">
+                            <div id="agenda_content_description{{event.id}}" title="Description event">
+                               <table>
+                               <tr><td>Titre : </td><td>{{event.description}}</td></tr>
+                               <tr><td>Lieu : </td><td>{{event.place}}</td></tr>
+                               <tr><td>Adresse : </td><td>{{event.address}}</td></tr>
+                               <tr><td>Billeterie : </td><td>{{event.orderlink}}</td></tr>
+                               <tr><td>Date : </td><td>{{event.datestart | date('d-m-Y')}} - {{event.dateend | date('d-m-Y')}}</td></tr>
+                               <tr><td>Horaire : </td><td>{{event.hourstart | date('H:i')}} - {{event.hourend | date('H:i')}}</td></tr>
+                               <tr><td>Mise à jour le : </td><td>{{event.dateupdate | date('d-m-Y')}}</td></tr>
+                               <tr><td><a href="http://www.google.com" >Voir l'event</td></tr>
+                               </table>
                             </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
                             </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
-
-                        <div class="row agenda_event">
-                            <div class="col-md-2 event_date_box">
-                                <div class="row event_month">Apr.</div>
-                                <div class="row event_day">1</div>
-                            </div>
-                            <div class="col-md-5 event_name">
-                                New York to Paris
-                            </div>
-                            <div class="col-md-4 event_place">
-                                Bercy
-                            </div>
-                            <div class="col-md-1 event_action">
-                            </div>
-                        </div>
+                        {% endfor %}
+                    {% endif %}
                     </div>
                 </div>
             </div>
@@ -201,5 +99,17 @@
     </div>
     {% include 'KnnfWhatsupBundle:Default:pagination.html.twig' %}
     {% endif %}
-
+        <script>
+        window.onload = function () {
+                $("#event_description").css("display","none");
+            }
+        function displayEvent(id){
+                $('#agenda_content_description'+id).dialog({
+                    width:'440px',
+                   heigh:'200px',
+                   resizable: true,
+                   dialogClass:'agenda_content_description_dialog'
+               });
+            }
+        </script>
 {% endblock %}

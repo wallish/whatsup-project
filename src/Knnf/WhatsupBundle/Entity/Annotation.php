@@ -13,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Annotation
 {
+     public function __construct()
+    {
+        $this->dateinsert = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
+        $this->dateupdate = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
+    }
+
     /**
      * @var integer
      *
@@ -56,6 +62,20 @@ class Annotation
      */
     private $AnnotationContent;
 
+   
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateinsert", type="datetime")
+     */
+    private $dateinsert;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateupdate", type="datetime")
+     */
+    private $dateupdate;
 
     /**
      * Get id
@@ -180,5 +200,51 @@ class Annotation
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set dateupdate
+     *
+     * @param \DateTime $dateupdate
+     * @return Article
+     */
+    public function setDateupdate($dateupdate)
+    {
+        $this->dateupdate = $dateupdate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateupdate
+     *
+     * @return \DateTime 
+     */
+    public function getDateupdate()
+    {
+        return $this->dateupdate;
+    }
+
+    /**
+     * Set dateinsert
+     *
+     * @param \DateTime $dateinsert
+     * @return Article
+     */
+    public function setDateinsert($dateinsert)
+    {
+        $this->dateinsert = $dateinsert;
+
+        return $this;
+    }
+
+    /**
+     * Get dateinsert
+     *
+     * @return \DateTime 
+     */
+    public function getDateinsert()
+    {
+        return $this->dateinsert;
     }
 }
