@@ -4,6 +4,7 @@ namespace Knnf\WhatsupBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Knnf\WhatsupBundle\Entity\Article;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ArticleRepository
@@ -49,4 +50,26 @@ class ArticleRepository extends EntityRepository
 		$article->setUser($user);
 		
 	}
+
+	public function getList($page=1, $maxperpage=10, $category = null)
+    {
+    	if($category != null)
+    	{
+	        $q = $this->_em->createQueryBuilder()
+	            ->select('article')
+	            ->from('KnnfWhatsupBundle:Article','article')
+	            ->where('article.category = '.$category->getId());
+        }
+        else
+        {
+        	$q = $this->_em->createQueryBuilder()
+	            ->select('article')
+	            ->from('KnnfWhatsupBundle:Article','article');
+        }
+ 
+        $q->setFirstResult(($page-1) * $maxperpage)
+            ->setMaxResults($maxperpage);
+ 
+        return new Paginator($q);
+    }
 }

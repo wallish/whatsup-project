@@ -33,18 +33,32 @@ class CategoryController extends Controller
     }
   
     //Récupération de la liste des articles d'une catégories 
-    public function showAction($slug)
+    public function showAction($slug, $page)
     {
+        $maxArticles = 12;
+        
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Category')->findOneBy(array('slug' => $slug));
 
         if (!$entity ) throw $this->createNotFoundException('Unable to find Category entity.');
 
-        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("category"=> $entity->getId()));
+        $articles_count = count($this->getDoctrine()
+                ->getRepository("KnnfWhatsupBundle:Article")
+                ->findBy(array("category"=> $entity->getId())));
+
+        $pagination = array(
+            'page' => $page,
+            'route' => 'category_show',
+            'pages_count' => ceil($articles_count / $maxArticles),
+            'route_params' => array("slug"=>$slug)
+        );
+
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->getList($page, $maxArticles, $entity);
 
         return $this->render('KnnfWhatsupBundle:Category:index.html.twig', array(
           'entity'=> $entity,
-          'articles' => $articles
+          'articles' => $articles,
+          'pagination' => $pagination
         ));
     }
     

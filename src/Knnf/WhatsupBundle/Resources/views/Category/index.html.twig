@@ -183,7 +183,7 @@
                 {% for article in articles %}
                     {% if (loop.index is divisibleby(4)) and (loop.index > 4) %}
                         </div>
-                        <div class="row">
+                        <div class="row whatsup-article-row">
                     {% endif %}
                     <a href="{{ path('article_show', { 'slug': article.slug }) }}" class="col-md-3 whatsup-article-box articleItem" style="background:url('/whatsup/web/uploads/documents/{{ article.path }}') no-repeat scroll left center / cover;">
                         <div id="content-{{ article.id }}" class="contentItem">
@@ -199,6 +199,7 @@
             </div>
         </div>
     </div>
+    {% include 'KnnfWhatsupBundle:Default:pagination.html.twig' %}
     {% endif %}
 
 {% endblock %}

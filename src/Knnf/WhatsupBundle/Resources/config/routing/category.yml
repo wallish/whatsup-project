@@ -11,8 +11,8 @@ category_home:
 #    defaults: { _controller: "KnnfWhatsupBundle:Category:index" }
 
 category_show:
-    pattern:  /{slug}
-    defaults: { _controller: "KnnfWhatsupBundle:Category:show" }
+    pattern:  /{slug}/{page}
+    defaults: { _controller: "KnnfWhatsupBundle:Category:show", page:1 }
 
 category_new:
     pattern:  /new
