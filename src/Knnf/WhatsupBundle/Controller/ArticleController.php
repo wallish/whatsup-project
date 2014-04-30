@@ -157,11 +157,16 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("slug"=>$slug));
-
+        $like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'like'));
+        $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'comments'));
         if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
         
         return $this->render('KnnfWhatsupBundle:Article:show.html.twig', array(
-            'article'      => $entity));
+            'article'      => $entity,
+            'nblike' => count($like),
+            'nbcomments' => count($comments),
+
+            ));
     }
 
     public function addAction(Request $request,$id=null)

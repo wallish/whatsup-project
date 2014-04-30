@@ -7,6 +7,10 @@ admin_article:
     pattern: /article/
     defaults: { _controller: KnnfWhatsupBundle:Admin:article }
 
+admin_comments:
+    pattern: /comments/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:comments }
+
 admin_user:
     pattern: /user/
     defaults: { _controller: KnnfWhatsupBundle:Admin:user }

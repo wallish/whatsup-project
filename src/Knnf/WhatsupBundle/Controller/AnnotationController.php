@@ -46,16 +46,24 @@ class AnnotationController extends Controller
 
             $entity->setIdArticle($data['article_id']);
             $entity->setUser();
-            $entity->setAnnotationType('signalement');
+            $entity->setAnnotationType($data['type']);
             $entity->setAnnotationContent($data['description']);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            if($data['type']=="like"){
+                $like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$data['article_id'],'AnnotationType' => 'like'));
+                $foo = count($like);
+                echo $foo;
+            }else if($data['type']=="comments"){
+                $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$data['article_id'],'AnnotationType' => 'comments'));
+                $nbcomments = count($comments);
+                echo $nbcomments;
+            }
             die();
-            return $this->redirect($this->generateUrl('annotation_show', array('id' => $entity->getId())));
+            //return $this->redirect($this->generateUrl('annotation_show', array('id' => $entity->getId())));
         }
-
         return $this->render('KnnfWhatsupBundle:Annotation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
