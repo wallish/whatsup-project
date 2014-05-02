@@ -63,7 +63,7 @@ class CategoryController extends Controller
         return $this->render(($slug != "mode") ? 'KnnfWhatsupBundle:Category:index.html.twig' : 'KnnfWhatsupBundle:Category:gallery.html.twig', array(
           'entity'=> $entity,
           'articles' => $articles,
-          'pagination' => $pagination
+          'pagination' => $pagination,
           'events' => $events,
 
         ));

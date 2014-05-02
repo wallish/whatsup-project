@@ -153,8 +153,9 @@ class ArticleController extends Controller
         ));
     }
 
-    public function showAction($slug)
+    public function showAction(Request $request,$slug)
     {
+        $tata = $request->getClientIp();
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("slug"=>$slug));
         $like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'like'));
@@ -166,7 +167,7 @@ class ArticleController extends Controller
             'nblike' => count($like),
             'nbcomments' => count($comments),
 
-            ));
+        ));
     }
 
     public function addAction(Request $request,$id=null)

@@ -287,8 +287,8 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
-        $like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$data['article_id'],'AnnotationType' => 'like'));
-        $foo = count($like);
+        //$like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$data['article_id'],'AnnotationType' => 'like'));
+        //$foo = count($like);
         
         return $this->render('KnnfWhatsupBundle:Admin:article.html.twig', array(
            'articles' => $articles,

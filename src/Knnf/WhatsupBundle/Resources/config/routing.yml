@@ -33,3 +33,7 @@ stat:
 annotation:
   resource: "@KnnfWhatsupBundle/Resources/config/routing/annotation.yml"
   prefix: /annotation
+
+registration:
+    pattern:  /registration/register
+    defaults: { _controller: "KnnfWhatsupBundle:registration:register" }

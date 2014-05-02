@@ -23,11 +23,17 @@ class UserController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $entity = new User();
+        $form = $this->createForm(new RegistrationFormType(), $entity, array(
+            'action' => $this->generateUrl('admin_add_user'),
+            'method' => 'POST',
+        ));
 
         $entities = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
 
         return $this->render('KnnfWhatsupBundle:User:index.html.twig', array(
-            'entities' => $entities
+            'entities' => $entities,
+            'form' => $form,
         ));
     }
   
