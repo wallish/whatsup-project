@@ -35,6 +35,12 @@ class Event
     private $user;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Knnf\WhatsupBundle\Entity\Category")
+     * @ORM\JoinColumn(name="categoryid", referencedColumnName="id",unique=false )
+     */
+    private $category;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -426,5 +432,28 @@ class Event
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Knnf\WhatsupBundle\Entity\Category $category
+     * @return Article
+     */
+    public function setCategory(\Knnf\WhatsupBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Knnf\WhatsupBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

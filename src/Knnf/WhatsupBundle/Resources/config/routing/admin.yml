@@ -83,3 +83,7 @@ admin_edit_category:
 admin_add_category:
     pattern: /addcategory/
     defaults: { _controller: KnnfWhatsupBundle:Admin:addcategory }
+
+admin_signalement:
+    pattern: /signalement/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:signalement }

@@ -352,6 +352,16 @@ class AdminController extends Controller
         ));
     }
 
+    public function signalementAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $signalements = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'signalement'));
+        
+        return $this->render('KnnfWhatsupBundle:Admin:signalement.html.twig', array(
+           'signalements' => $signalements,
+           'count' => count($signalements),
+        ));
+    }
      function to_slug($string){
         return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
     }

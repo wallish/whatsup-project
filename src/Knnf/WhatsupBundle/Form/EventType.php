@@ -25,6 +25,8 @@ class EventType extends AbstractType
             ->add('dateend')
             ->add('hourstart')
             ->add('hourend')
+            ->add('category','entity', array('class' => 'KnnfWhatsupBundle:Category','property' => 'name'))
+            
             //->add('dateinsert')
             //->add('dateupdate')
             //->add('user')
