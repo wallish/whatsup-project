@@ -1,6 +1,6 @@
 {% extends "KnnfWhatsupBundle:Layout:admin.html.twig" %}
 
-{% block body -%}
+{% block body %}
 	{% block content %}
 
 
@@ -70,6 +70,12 @@
 											</div>
 										</div>
 										<div class="form-group">
+											<label class="control-label">Push</label>
+											<div class="controls">
+											{{ form_widget(form.push, {'class': 'form-control input-small'})}}
+											</div>
+										</div>
+										<div class="form-group">
 											<label class="control-label">Image vedette</label>
 											<div class="controls">
 												{{ form_widget(form.file)}}
@@ -97,6 +103,8 @@
 
 
 		{% block javascripts %}
+        <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/js/jquery.min.js')}}"></script>
+		
 			<script>
 				function deleteArticle(id)
 				{
@@ -129,6 +137,35 @@
 						}
 					});
 				};
+
+jQuery(document).ready(function(){
+
+	$('#knnf_whatsupbundle_article_submit').click( function() {
+	    //check whether browser fully supports all File API
+	    if (window.File && window.FileReader && window.FileList && window.Blob)
+	    {
+	        //get the file size and file type from file input field
+	        var fsize = $('#knnf_whatsupbundle_article_file')[0].files[0].size;
+	        var ftype = $('#knnf_whatsupbundle_article_file')[0].files[0].type;
+	        var fname = $('#knnf_whatsupbundle_article_file')[0].files[0].name;
+	       
+	       switch(ftype)
+	        {
+	            case 'image/png':
+	            case 'image/gif':
+	            case 'image/jpeg':
+	            case 'image/pjpeg':
+	                alert("Acceptable image file!");
+	                break;
+	            default:
+	                alert('Unsupported File!');
+	        }
+
+	    }else{
+	        alert("Please upgrade your browser, because your current browser lacks some new features we need!");
+	    }
+	});
+});
 			</script>
 		{% endblock %}
 

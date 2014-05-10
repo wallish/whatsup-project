@@ -1,0 +1,11 @@
+profile_home:
+    pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Profile:show" }
+
+profile_show:
+    pattern:  /show
+    defaults: { _controller: "KnnfWhatsupBundle:Profile:show" }
+
+profile_edit:
+    pattern:  /edit
+    defaults: { _controller: "KnnfWhatsupBundle:Profile:edit" }

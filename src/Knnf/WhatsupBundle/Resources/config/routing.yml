@@ -34,6 +34,35 @@ annotation:
   resource: "@KnnfWhatsupBundle/Resources/config/routing/annotation.yml"
   prefix: /annotation
 
+organigramme:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/organigramme.yml"
+  prefix: /organigramme
+
+profile:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/profile.yml"
+  prefix: /profile
+
+profile:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/profile.yml"
+  prefix: /profile
+
 registration:
     pattern:  /registration/register
-    defaults: { _controller: "KnnfWhatsupBundle:registration:register" }
+    defaults: { _controller: "KnnfWhatsupBundle:Registration:register" }
+
+registration_confirmed:
+    pattern:  /registration/confirmed
+    defaults: { _controller: "KnnfWhatsupBundle:Registration:confirmed" }
+
+registration_confirm:
+    pattern:  /registration/confirm/{token}
+    defaults: { _controller: "KnnfWhatsupBundle:Registration:confirm" }
+
+registration_confirmed:
+    pattern:  /registration/checkEmail
+    defaults: { _controller: "KnnfWhatsupBundle:Registration:checkEmail" }
+
+
+contact_index:
+    pattern: /contact
+    defaults: { _controller: KnnfWhatsupBundle:Contact:index }

@@ -75,7 +75,13 @@
 											<div class="controls">
 											{{ form_widget(form.category, {'class': 'form-control input-small'})}}
 											</div>
-									</div>
+										</div>
+											<div class="form-group">
+											<label class="control-label">Push</label>
+											<div class="controls">
+											{{ form_widget(form.push, {'class': 'form-control input-small'})}}
+											</div>
+										</div>
 									<div class="form-group">
 									<div class="controls">
 										<img src="{{ asset('uploads/documents/'~ entity.path)}}" alt="" height="200" width="200" /> 

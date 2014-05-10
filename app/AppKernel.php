@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Knnf\WhatsupBundle\KnnfWhatsupBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
 
         );
 

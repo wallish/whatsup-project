@@ -12,7 +12,7 @@
                                     {% if (article.path is not empty) and (i < 5) %}
                                     {% set i=i+1 %}
                                     <div>
-                                        <img u="image" src="/whatsup/web/uploads/documents/{{article.path}}" />
+                                        <img src="{{ '/uploads/documents/zaza.png' | imagine_filter('slide') }}" />
                                         <a href="{{ path('article_show', { 'slug': article.slug }) }}">
                                             <div class="whatsup-slider-caption" u="caption" t="caption-transition-name">
                                                 <div class="whatsup-slider-title">{{ article.title }}</div>
@@ -31,7 +31,7 @@
 
 
 
-                        <a href="#" class="col-md-6 articleItem" style="height:200px; background:url({{asset('bundles/knnfwhatsup/img/viaduc.jpg')}}) no-repeat scroll left center / cover;">
+                        <a href="#" class="col-md-6 articleItem" style="height:200px; background:url( {{ 'bundles/knnfwhatsup/img/viaduc.jpg' | imagine_filter('slide') }}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
                                 <h3 class="small">Look book</h3>
@@ -126,12 +126,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        
-                            
-                        <a href="/whatsup/web/app_dev.php/whatsup/article/{{musics[0].slug}}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{{musics[0].path}}) no-repeat scroll left center / cover;">
+                        <a href="/whatsup/web/app_dev.php/whatsup/article/{{push[0].slug}}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{{push[0].path}}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
-                                <h3 class="large">{{musics[0].title}}</h3>
+                                <h3 class="large">{{push[0].title}}</h3>
                                 <div class="line2"></div>
                                 <h4 class="author">
                                     Nirunthan Parameswaran

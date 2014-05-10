@@ -1,0 +1,18 @@
+organigramme:
+    pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Organigramme:index" }
+
+organigramme_index:
+    pattern:  /index
+    defaults: { _controller: "KnnfWhatsupBundle:Organigramme:index" }
+
+organigramme_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "KnnfWhatsupBundle:Organigramme:show" }
+
+organigramme_add:
+    pattern:  /{id}/add
+    defaults: { _controller: "KnnfWhatsupBundle:Organigramme:add" }
+
+
+

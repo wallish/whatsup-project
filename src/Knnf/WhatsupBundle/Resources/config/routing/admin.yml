@@ -87,3 +87,11 @@ admin_add_category:
 admin_signalement:
     pattern: /signalement/
     defaults: { _controller: KnnfWhatsupBundle:Admin:signalement }
+
+admin_organigramme:
+    pattern: /organigramme/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:organigramme }
+
+admin_add_organigramme:
+    pattern: /addorganigramme/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:addorganigramme }

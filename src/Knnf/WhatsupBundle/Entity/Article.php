@@ -106,6 +106,12 @@ class Article
      */
     private $views;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="push", type="boolean")
+     */
+    private $push;
 
      /**
      * @Assert\File(maxSize="6000000")
@@ -439,5 +445,26 @@ class Article
         return $this->views;
     }
 
+    /**
+     * Set push
+     *
+     * @param integer $push
+     * @return Article
+     */
+    public function setPush($push)
+    {
+        $this->push = $push;
 
+        return $this;
+    }
+
+    /**
+     * Get push
+     *
+     * @return integer 
+     */
+    public function getPush()
+    {
+        return $this->push;
+    }
 }

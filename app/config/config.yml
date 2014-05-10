@@ -77,3 +77,22 @@ fos_user:
         form:
             type: knnf_user_registration
 
+
+liip_imagine:
+    filter_sets:
+        slide:
+            quality: 75
+            filters:
+                thumbnail: { size: [780, 300], mode: outbound }
+        avatar:
+            quality: 75
+            filters:
+                thumbnail: { size: [120, 90], mode: outbound }
+        push:
+            quality: 75
+            filters:
+                thumbnail: { size: [120, 90], mode: outbound }
+        mosaique:
+            quality: 75
+            filters:
+                thumbnail: { size: [120, 90], mode: outbound }        
