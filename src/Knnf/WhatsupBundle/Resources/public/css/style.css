@@ -6,7 +6,6 @@ a { color: #de4d3b;}
 .whatsup-article-box {padding:0;position:relative;}
 .whatsup-article-box img {position:absolute;}
 .whatsup-article-box .whatsup-article-caption {position:absolute;top:150px; height:50px; padding:5px; background-color:rgba(0,0,0,0.65);width:455px;}
-.row {margin-top: 8px;}
 
 
 .whatsup-singlearticle-left {padding:0;}
@@ -29,7 +28,7 @@ a { color: #de4d3b;}
 .whatsup-article-author .whatsup-username {font-weight: bold; color: #de4d3b; text-transform: uppercase;}
 .whatsup-article-author .line {border-top: 1px solid #ebebeb; padding: 10px 0;}
 .whatsup-article-author img {width: 92px; height: 92px; border-radius: 50%;}
-.whatsup-content .container {background-color: transparent;}
+.whatsup-content .container {background-color: transparent;margin-top: 7px;}
 .whatsup-like {background-color: #fff; padding: 10px; text-align: right;}
 .connect {background-color: #fff;line-height: 9em;text-align: center;margin-top: 15px;}
 .button {
