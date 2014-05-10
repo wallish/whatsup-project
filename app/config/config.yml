@@ -77,3 +77,8 @@ fos_user:
         form:
             type: knnf_user_registration
 
+services:
+    twig.extension.intl:
+       class: Twig_Extensions_Extension_Intl
+       tags:
+           - { name: twig.extension }

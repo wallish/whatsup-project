@@ -36,4 +36,4 @@ annotation:
 
 registration:
     pattern:  /registration/register
-    defaults: { _controller: "KnnfWhatsupBundle:registration:register" }
+    defaults: { _controller: "KnnfWhatsupBundle:Registration:register" }

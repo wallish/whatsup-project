@@ -7,42 +7,60 @@
         <div class="col-md-8 whatsup-singlearticle-left">
             {# Article #}
             <div class="whatsup-article">
-                <h3 class="whatsup-article-title">{{ article.title }}<a id="signalement" class="btn btn-danger btn-mini">signaler</a><a id="signalement" class="btn btn-primary btn-mini" onclick="addLike({{ article.id }})">Like</a></h3>
+                <h3 class="whatsup-article-title">{{ article.title }}</h3>
+                <!-- <a id="signalement" class="btn btn-danger btn-mini">signaler</a>
+                <a id="signalement" class="btn btn-primary btn-mini" onclick="addLike({{ article.id }})">Like</a> -->
+                <span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}
+                </span>
                 <div class="whatsup-article-body">
                     {{ article.content | raw }}
                 </div>
             </div>
+            <div class="whatsup-like">
+                <a id="signalement" class="button spark" title="signaler">signaler</a>
+                <a id="signalement" class="button like" title="like" onclick="addLike({{ article.id }})">Like</a>
+            </div>
             <div class="whatsup-article-author">
-                <h5>Profil rédacteur</h5>
+                <div class="line"></div>
                 <div class="row">
                     <div class="col-md-2">
-                        {#<img src="{{ (article.user.photo|length  > 0) ? asset('bundles/knnfwhatsup/img/avatar/') ~ article.user.photo  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />#}
-                        <img src="{{asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
+                        <img src="{{ (article.user.photo|length  > 0) ? asset('bundles/knnfwhatsup/img/avatar/') ~ article.user.photo  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
                     </div>
                     <div class="col-md-10">
                         <div class="whatsup-username">{#article.user.username#} toto</div>
-                        <div>{{nbcomments}} commentaire</div>
+                        <div >{{nbcomments}} commentaire</div>
                         <div id="like">{{nblike}} like</div>
                        
                     </div>
                     
                 </div>
             </div>
-             <div>
-                <form >
-                    <label for="name">Commentaire</label>
-                    <textarea class="form-control" rows="3" name="commentaire"></textarea>
-                    <button type="submit" class="btn btn-default" onclick="addComments({{article.id}})">Commentaire</button>     
-                </form>
-            </div>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            
             <div class="whatsup-article-comments">
+                <div>
+                    <form >
+                        <label for="name">Poster un commentaire</label><br/>
+                        <img src="{{ (app.user.photo|length  > 0) ? asset('bundles/knnfwhatsup/img/avatar/') ~ app.user.photo  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="50px" />
+                        <textarea name="commentaire"></textarea>
+                        <br/>
+                        <input type="submit" onclick="addComments({{article.id}})" value="Envoyer"/>     
+                    </form>
+                </div>
+                <br/>
                 <h5>Commentaires</h5>
                 {{ render(controller("KnnfWhatsupBundle:Article:comment", {"article_id": article.id} )) }}
             </div>
+            {% else %}
+                <div class="connect">
+                    <a href="{{ path('fos_user_security_login') }}" title="connecte-toi">Connecte-toi</a> ou <a href="{{ path('registration') }}" title="inscris-toi">Inscris-toi</a> pour poster un commentaire.
+                </div>
+            {% endif %}
+            
         </div>
 
         {# partie droite de la page article #}
-        <div class="col-md-4">
+        <div class="col-md-4 whatsup-article-relative">
             <div>
                 <h4>Articles relatifs</h4>
                 {{ render(controller("KnnfWhatsupBundle:Article:categoryArticles", {"category":article.category, "limit":3} )) | raw }}
