@@ -1,15 +1,70 @@
-{% extends '::base.html.twig' %}
+{% extends "KnnfWhatsupBundle:Layout/front:index.html.twig" %}
 
-{% block body -%}
-    <h1>Article creation</h1>
+{% block body %}
+	{% block content %}
+	  	<div class="row">
+			<div class="col-12">
+				<div class="widget-box">
+					<h2>Ajouter un article</h2>
+					
 
-    {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('article') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+
+<form class="form-horizontal" role="form" method="POST" {{ form_enctype(form) }}>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+    <div class="col-sm-10">
+      {{ form_widget(form.title, {'attr': {'class': 'form-control input-small'}})}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Slug</label>
+    <div class="col-sm-10">
+      {{ form_widget(form.slug, {'attr': {'class': 'form-control input-small'}})}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword4" class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-10">
+      {{ form_widget(form.content)}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Catégorie</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.category, {'class': 'form-control input-small'})}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">"Push"</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.push, {'class': 'form-control input-small'})}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Image vedette</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.file)}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Action</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.publish, {'class': 'btn btn-default'})}}
+	{{ form_widget(form.submit, {'class': 'btn btn-default'})}}
+	{{ form_widget(form.sandbox, {'class': 'btn btn-default'})}}
+    </div>
+  </div>
+  {{ form_widget(form._token) }}
+</form>
+
+
+
+						</div>
+					</div>
+			</div>
+            </div>
+        </div>
+
+{% endblock %}
 {% endblock %}

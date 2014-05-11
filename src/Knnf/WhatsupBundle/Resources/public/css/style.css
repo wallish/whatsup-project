@@ -10,6 +10,7 @@ a { color: #de4d3b;}
 
 .whatsup-singlearticle-left {padding:0;}
 .whatsup-article {min-height:350px; background-color: #fff; color:#000;padding:0 15px;}
+.whatsup-article-author-profil { background-color: #fff; color:#000;}
 .whatsup-article .whatsup-article-title {font-family: 'helvetica_blk';text-transform:uppercase; margin-top:0; padding-top: 20px; margin-bottom: 0; }
 .whatsup-article-date {font-family: 'helvetica_roman';color: #989898; font-size: 13px;}
 .whatsup-article-relative > div {background-color: #fff; padding: 0 10px; margin-bottom: 10px;padding-bottom: 2px;}
@@ -23,7 +24,7 @@ a { color: #de4d3b;}
 .connexion a.connected:before {content: '';}
 .connexion a:before {content: '▶'; margin-right: 8px; font-size: 10px; vertical-align: middle;}
 .whatsup-article-body {font-family: 'helvetica_light';}
-.whatsup-article-author {padding: 0 15px 15px; background-color:#fff;}
+.whatsup-article-author {padding: 0 15px 15px; background:none repeat scroll 0 0 #E4E4E4;border: 1px solid #CECECE;}
 .whatsup-article-author h5 {margin-top:0; padding-top: 10px;}
 .whatsup-article-author .whatsup-username {font-weight: bold; color: #de4d3b; text-transform: uppercase;}
 .whatsup-article-author .line {border-top: 1px solid #ebebeb; padding: 10px 0;}

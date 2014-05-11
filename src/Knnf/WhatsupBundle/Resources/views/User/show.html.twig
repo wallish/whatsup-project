@@ -1,85 +1,185 @@
-{% extends '::base.html.twig' %}
+{% extends "KnnfWhatsupBundle:Layout/front:index.html.twig" %}
 
-{% block body -%}
-    <h1>User</h1>
+{% block content %}
+    <div class="row">
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ entity.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ entity.lastname }}</td>
-            </tr>
-      
-            <tr>
-                <th>Username</th>
-                <td>{{ entity.username }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ entity.email }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ entity.password }}</td>
-            </tr>
-            <tr>
-                <th>Website</th>
-                <td>{{ entity.website }}</td>
-            </tr>
-            <tr>
-                <th>Birthday</th>
-                <td>{{ entity.birthday|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ entity.photo }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ entity.country }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ entity.city }}</td>
-            </tr>
-            <tr>
-                <th>Zipcode</th>
-                <td>{{ entity.zipcode }}</td>
-            </tr>
-            <tr>
-                <th>Dateinsert</th>
-                <td>{{ entity.dateinsert|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Dateupdate</th>
-                <td>{{ entity.dateupdate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Activate</th>
-                <td>{{ entity.activate }}</td>
-            </tr>
-        </tbody>
-    </table>
+        {# partie gauche de la page article #}
+        <div class="col-md-8 whatsup-singlearticle-left">
+            {# Article #}
+            <div class="row" style="background-color:#E8E8E8">
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 ">
+         <div class="well profile">
+            <div class="col-sm-12">
+                <div class="col-xs-12 col-sm-8">
+                    <h2>Nicole Pearson</h2>
+                    <p><strong>Site Web : </strong> www.google.fr </p>
+                    <p><strong>Age : </strong> Inconnu </p>
+                    <p><strong>Description : </strong> Read, out with friends, listen to music, draw and learn new things. </p>
+                    <p><strong>Skills: </strong>
+                        <span class="tags">html5</span> 
+                        <span class="tags">css3</span>
+                        <span class="tags">jquery</span>
+                        <span class="tags">bootstrap3</span>
+                    </p>
+                </div>             
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <figure>
+                        <img src="http://www.localcrimenews.com/wp-content/uploads/2013/07/default-user-icon-profile.png" alt="" class="img-circle img-responsive">
+                        <figcaption class="ratings">
+                            <p>Utilisateur
+                            <a href="#">
+                                <span class="fa fa-star"></span>
+                            </a>
+                            <a href="#">
+                                <span class="fa fa-star"></span>
+                            </a>
+                            <a href="#">
+                                <span class="fa fa-star"></span>
+                            </a>
+                            <a href="#">
+                                <span class="fa fa-star"></span>
+                            </a>
+                            <a href="#">
+                                 <span class="fa fa-star-o"></span>
+                            </a> 
+                            </p>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>            
+            <div class="col-xs-12 divider text-center">
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2><strong> {{totalviews}} </strong></h2>                    
+                    <p><small>Vues</small></p>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2><strong>{{nbarticles}}</strong></h2>                    
+                    <p><small>Nombre d'article</small></p>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2><strong>43</strong></h2>                    
+                    <p><small>Likes</small></p>
+                   
+                </div>
+            </div>
+         </div>                 
+        </div>
+    </div>
+            {%  for article in articles %}
+            <div class="whatsup-article-author-profil">
+            {#<h3 class="whatsup-article-title">{{ article.title }}</h3>
+                <span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}
+                </span>#}
+            <img src="/whatsup/web/uploads/documents/{{ article.path }}" class="whatsup-image" width="780px" height="300px" />
+            
+            </div>
+            {% endfor %}
+         
+ 
+            
+        </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('user') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('user_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>delete</li>
-</ul>
+        {# partie droite de la page article #}
+        <div class="col-md-4 whatsup-article-relative">
+            <div>
+                <h4>Articles les plus visualisés</h4>
+                {{ render(controller("KnnfWhatsupBundle:Article:authorMostViewArticles", {"author": user, "limit":3} )) | raw }}
+
+            </div>
+            <div>
+                <h4>Article les mieux notés</h4>
+                {{ render(controller("KnnfWhatsupBundle:Article:authorArticles", {"author": user, "limit":3} )) }}
+
+            </div>
+        </div>
+
+    </div>
+
+    <style type="text/css">
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+body
+{
+    font-family: 'Lato', 'sans-serif';
+    }
+.profile 
+{
+    min-height: 355px;
+    display: inline-block;
+    }
+figcaption.ratings
+{
+    margin-top:20px;
+    }
+figcaption.ratings a
+{
+    color:#f1c40f;
+    font-size:11px;
+    }
+figcaption.ratings a:hover
+{
+    color:#f39c12;
+    text-decoration:none;
+    }
+.divider 
+{
+    border-top:1px solid rgba(0,0,0,0.1);
+    }
+.emphasis 
+{
+    border-top: 4px solid transparent;
+    }
+.emphasis:hover 
+{
+    border-top: 4px solid #DE4D3B;
+    }
+.emphasis h2
+{
+    margin-bottom:0;
+    }
+span.tags 
+{
+    background: #DE4D3B;
+    border-radius: 2px;
+    color: #f5f5f5;
+    font-weight: bold;
+    padding: 2px 4px;
+    }
+.dropdown-menu 
+{
+    background-color: #34495e;    
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    width: 250px;
+    margin-left: -125px;
+    left: 50%;
+    }
+.dropdown-menu .divider 
+{
+    background:none;    
+    }
+.dropdown-menu>li>a
+{
+    color:#f5f5f5;
+    }
+.dropup .dropdown-menu 
+{
+    margin-bottom:10px;
+    }
+.dropup .dropdown-menu:before 
+{
+    content: "";
+    border-top: 10px solid #34495e;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -10px;
+    z-index: 10;
+    }
+    </style>
+
+        {% block javascripts %}
+            
+        {% endblock %}
 {% endblock %}

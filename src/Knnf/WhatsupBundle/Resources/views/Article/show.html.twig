@@ -17,8 +17,14 @@
                 </div>
             </div>
             <div class="whatsup-like">
-                <a id="signalement" class="button spark" title="signaler">signaler</a>
-                <a id="signalement" class="button like" title="like" onclick="addLike({{ article.id }})">Like</a>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% if userlikes > 0 %}
+            <button type="button" class="btn btn-primary btn-xs disabled"  onclick="addLike({{ article.id }})">Like</button>
+            {% else %}
+            <button type="button" class="btn btn-primary btn-xs"  onclick="addLike({{ article.id }})">Like</button>
+            {% endif %}
+            <button id="signalement" type="button" class="btn btn-danger btn-xs">Signaler</button>
+            {% endif %}
                 <div class="fb-share-button" data-href="http://localhost/whatsup/web/app_dev.php/whatsup/article/test2" data-type="button"></div>
             </div>
             <div class="whatsup-article-author">
@@ -53,6 +59,8 @@
                 {{ render(controller("KnnfWhatsupBundle:Article:comment", {"article_id": article.id} )) }}
             </div>
             {% else %}
+                <h5>Commentaires</h5>
+                {{ render(controller("KnnfWhatsupBundle:Article:comment", {"article_id": article.id} )) }}
                 <div class="connect">
                     <a href="{{ path('fos_user_security_login') }}" title="connecte-toi">Connecte-toi</a> ou <a href="{{ path('registration') }}" title="inscris-toi">Inscris-toi</a> pour poster un commentaire.
                 </div>
@@ -126,11 +134,11 @@
                             type: 'comments',
                         },
                         success: function(){
-                            alert("success");
-                            window.location.reload();
+                            //alert("success");
+                           // window.location.reload();
                         },
                         error:function(){
-                            alert("failure");
+                            //alert("failure");
                         }
                     });
                 };

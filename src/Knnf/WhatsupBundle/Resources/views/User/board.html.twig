@@ -1,0 +1,189 @@
+{% extends "KnnfWhatsupBundle:Layout/front:index.html.twig" %}
+
+{% block content %}
+    <div class="row" >
+
+        {# partie gauche de la page article #}
+        <div class="col-md-8 whatsup-singlearticle-left">
+
+            {# Article #}
+            <div class="row" style="background-color:#E8E8E8">
+<a href="{{path('article_add')}}">
+    <button type="button" class="btn btn-default" onclick="windows">
+      <span class="glyphicon glyphicon-book"></span> Publier un article
+    </button>
+</a>
+<a href="{{path('article_add')}}">
+<button type="button" class="btn btn-default">
+  <span class="glyphicon glyphicon-camera"></span> Publier une photo
+</button>
+</a>
+<a href="{{path('event_add')}}">
+<button type="button" class="btn btn-default">
+  <span class="glyphicon glyphicon-music"></span> Publier un événement
+</button>
+</a>
+<button type="button" class="btn btn-default">
+  <span class="glyphicon glyphicon-star"></span> Star
+</button>
+
+<div class="panel panel-default" style="width:500px;">
+  <!-- Default panel contents -->
+<div class="panel-heading">Panel heading</div>
+  <!-- Table -->
+  <table class="table">
+  <tr>
+        <th>Titre</th>
+        <th>Publier le</th>
+        <th>Statut</th>
+        <th>Action</th>
+  </tr>
+  {% for article in articles %}
+  <tr>
+  <td>{{article.title}}</td>
+  <td>{{article.dateinsert | date('d-m-Y')}}</td>
+  <td>{% if article.activate == 1 %} Validé {% else %} En cours de validation {% endif %}</td>
+  <td> <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button></td>
+  </tr>
+  {% endfor %}
+  </table>
+</div>
+
+        
+</div>
+<div class="whatsup-article-author-profil" width="780px" height="300px">
+{#<h3 class="whatsup-article-title">{{ article.title }}</h3>
+<span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}
+</span>#}
+    <div class="panel panel-default" style="width:500px;">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Panel heading</div>
+        <!-- Table -->
+        <table class="table">
+            <tr>
+            <th>Titre</th>
+            <th>Publier le</th>
+            <th>Statut</th>
+            <th>Action</th>
+            </tr>
+            {% for article in articles %}
+            <tr>
+            <td>{{article.title}}</td>
+            <td>{{article.dateinsert | date('d-m-Y')}}</td>
+            <td>{% if article.activate == 1 %} Validé {% else %} En cours de validation {% endif %}</td>
+            <td> <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+         
+ 
+            
+        </div>
+
+        {# partie droite de la page article #}
+        <div class="col-md-4 whatsup-article-relative">
+            <div>
+                <h4>Articles les plus visualisés</h4>
+                {{ render(controller("KnnfWhatsupBundle:Article:authorMostViewArticles", {"author": user, "limit":3} )) | raw }}
+
+            </div>
+            <div>
+                <h4>Article les mieux notés</h4>
+                {{ render(controller("KnnfWhatsupBundle:Article:authorArticles", {"author": user, "limit":3} )) }}
+
+            </div>
+        </div>
+
+    </div>
+
+    <style type="text/css">
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+body
+{
+    font-family: 'Lato', 'sans-serif';
+    }
+.profile 
+{
+    min-height: 355px;
+    display: inline-block;
+    }
+figcaption.ratings
+{
+    margin-top:20px;
+    }
+figcaption.ratings a
+{
+    color:#f1c40f;
+    font-size:11px;
+    }
+figcaption.ratings a:hover
+{
+    color:#f39c12;
+    text-decoration:none;
+    }
+.divider 
+{
+    border-top:1px solid rgba(0,0,0,0.1);
+    }
+.emphasis 
+{
+    border-top: 4px solid transparent;
+    }
+.emphasis:hover 
+{
+    border-top: 4px solid #DE4D3B;
+    }
+.emphasis h2
+{
+    margin-bottom:0;
+    }
+span.tags 
+{
+    background: #DE4D3B;
+    border-radius: 2px;
+    color: #f5f5f5;
+    font-weight: bold;
+    padding: 2px 4px;
+    }
+.dropdown-menu 
+{
+    background-color: #34495e;    
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    width: 250px;
+    margin-left: -125px;
+    left: 50%;
+    }
+.dropdown-menu .divider 
+{
+    background:none;    
+    }
+.dropdown-menu>li>a
+{
+    color:#f5f5f5;
+    }
+.dropup .dropdown-menu 
+{
+    margin-bottom:10px;
+    }
+.dropup .dropdown-menu:before 
+{
+    content: "";
+    border-top: 10px solid #34495e;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -10px;
+    z-index: 10;
+    }
+    </style>
+
+        {% block javascripts %}
+            
+        {% endblock %}
+{% endblock %}

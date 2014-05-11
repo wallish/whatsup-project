@@ -42,10 +42,6 @@ profile:
   resource: "@KnnfWhatsupBundle/Resources/config/routing/profile.yml"
   prefix: /profile
 
-profile:
-  resource: "@KnnfWhatsupBundle/Resources/config/routing/profile.yml"
-  prefix: /profile
-
 registration:
     pattern:  /registration/register
     defaults: { _controller: "KnnfWhatsupBundle:Registration:register" }

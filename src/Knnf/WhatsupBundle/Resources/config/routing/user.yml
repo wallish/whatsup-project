@@ -42,3 +42,7 @@ user_login:
     pattern:  /login/
     defaults: { _controller: "KnnfWhatsupBundle:User:login" }
     #requirements: { _method: post|delete }
+
+user_board:
+    pattern:  /{id}/board
+    defaults: { _controller: "KnnfWhatsupBundle:User:board" }

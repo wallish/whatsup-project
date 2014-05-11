@@ -79,7 +79,7 @@ class ArticleController extends Controller
         {
             $article = null;
         }
-
+        //die(var_dump($article));
         return $this->render("KnnfWhatsupBundle:Article:articleofthemonth.html.twig", array("article"=>$article));
     }
 
@@ -125,7 +125,6 @@ class ArticleController extends Controller
 
         //echo "<pre>".print_r($result,true)."</pre>";
         $user = $em->getRepository('KnnfWhatsupBundle:User')->findOneBy(array("id"=>$result['1']));
-
         //echo "<pre>".print_r($result,true)."</pre>";
         return $this->render("KnnfWhatsupBundle:Article:userofthemonth.html.twig", array("user"=>$user));
 
@@ -153,19 +152,38 @@ class ArticleController extends Controller
         ));
     }
 
+    //Récupéraiton des articles les plus vue de l'auteur
+    public function authorMostViewArticlesAction($author, $limit = 0)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $author), array('views' => 'ASC'), $limit);
+
+        return $this->render("KnnfWhatsupBundle:Article:miniListArticles.html.twig", array(
+            "articles"=>$articles
+        ));
+    }
+
     public function showAction(Request $request,$slug)
     {
         $tata = $request->getClientIp();
+        
+
         $em = $this->getDoctrine()->getManager();
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
         $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("slug"=>$slug));
         $like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'like'));
         $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'comments'));
-        if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
         
+        $userlikes = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity->getId(),'AnnotationType' => 'like','user' => $user));
+        
+        if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
         return $this->render('KnnfWhatsupBundle:Article:show.html.twig', array(
             'article'      => $entity,
             'nblike' => count($like),
             'nbcomments' => count($comments),
+            'userlikes' => count($userlikes),
 
         ));
     }
@@ -173,21 +191,30 @@ class ArticleController extends Controller
     public function addAction(Request $request,$id=null)
     {
         $entity = new Article();
-
         $form = $this->createForm(new ArticleType(), $entity, array(
-            'action' => $this->generateUrl('article_add'),
+            'action' => $this->generateUrl('admin_add_article'),
             'method' => 'POST',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer'));
+        $form->add('publish', 'submit', array('label' => 'Publier'));
+        $form->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
+            $entity->setSandbox($form->get('sandbox')->isClicked() ? '1' : '0');
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            
+            $entity->setUser($user);
+            $entity->setActivate(0);
+            $entity->setSlug($this->to_slug($entity->getTitle()));
+            
+            $entity->upload();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('article_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('article_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('KnnfWhatsupBundle:Article:add.html.twig', array(
@@ -204,29 +231,35 @@ class ArticleController extends Controller
         if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
         
         $editForm = $this->createForm(new ArticleType(), $entity, array(
-            'action' => $this->generateUrl('article_edit', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('article_edit', array('id' => $entity->getId(),'path' => $entity->getAbsolutePath())),
             'method' => 'PUT',
         ));
 
-        $editForm->add('submit', 'submit', array('label' => 'Update'));
+        if($entity->getSandbox()){
+            $editForm->add('publish', 'submit', array('label' => 'Publier'));
+            $editForm->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon'));
+        }
+        else{
+            $editForm->add('submit', 'submit', array('label' => 'Mettre à jour'));
+        }
 
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setSandbox($form->get('sandbox')->isClicked() ? '1' : '0');
+
             $em->flush();
             $this->get('session')->getFlashBag()->add(
             'notice',
             'Your changes were saved!'
         );
-            //return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
         }
-
-        return $this->render('KnnfWhatsupBundle:Article:edit.html.twig', array(
+         return $this->render('KnnfWhatsupBundle:Article:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
         ));
     }
-
     public function deleteAction(Request $request)
     {
         if ($request->isMethod('POST')) {
@@ -275,4 +308,7 @@ class ArticleController extends Controller
         return new Response();
     }
 
+    function to_slug($string){
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
+    }
 }

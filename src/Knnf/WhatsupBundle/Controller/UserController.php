@@ -42,14 +42,30 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user),null,3);
+        $nbarticles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user));
+        //$likes = $em->getRepository("KnnfWhatsupBundle:Annotation")->findBy(array("user" => $user));
 
+
+        $query = $em->createQuery(
+                'SELECT art, sum(art.views) as totalviews
+                FROM KnnfWhatsupBundle:Article art
+                WHERE art.user = :user
+                ORDER BY art.views DESC'
+            )->setParameters(array(
+                'user' => $user
+            ))->setMaxResults(1);
+        $userview = $query->getSingleResult();
         if (!$entity)throw $this->createNotFoundException('Unable to find User entity.');
-        
-
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('KnnfWhatsupBundle:User:show.html.twig', array(
-            'entity'      => $entity));
+            'entity' => $entity,
+            'articles' => $articles,
+            'user' => $user,
+            'nbarticles' => count($nbarticles),
+            'totalviews' => $userview['totalviews']
+        ));
     }
 
     public function adduserAction(Request $request)
@@ -138,6 +154,36 @@ class UserController extends Controller
             'articles'      => $articles,
         ));
         
+    }
+
+    public function boardAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user),null,5);
+        $nbarticles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user));
+        //$likes = $em->getRepository("KnnfWhatsupBundle:Annotation")->findBy(array("user" => $user));
+
+
+        $query = $em->createQuery(
+                'SELECT art, sum(art.views) as totalviews
+                FROM KnnfWhatsupBundle:Article art
+                WHERE art.user = :user
+                ORDER BY art.views DESC'
+            )->setParameters(array(
+                'user' => $user
+            ))->setMaxResults(1);
+        $userview = $query->getSingleResult();
+        if (!$entity)throw $this->createNotFoundException('Unable to find User entity.');
+
+        return $this->render('KnnfWhatsupBundle:User:board.html.twig', array(
+            'entity' => $entity,
+            'articles' => $articles,
+            'user' => $user,
+            'nbarticles' => count($nbarticles),
+            'totalviews' => $userview['totalviews']
+        ));
     }
 
     public function deleteAction(Request $request)

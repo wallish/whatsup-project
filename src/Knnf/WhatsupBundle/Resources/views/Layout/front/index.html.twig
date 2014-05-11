@@ -13,7 +13,7 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ asset('bundles/knnfwhatsup/css/style.css') }}" />
     <script src="{{ asset('bundles/knnfwhatsup/js/Jssor/js/jssor.slider.min.js') }}"></script>
-    
+    <script type="text/javascript" src="{{asset('bundles/knnfwhatsup/js/ckeditor/ckeditor.js')}}"></script>
 
 
     <style>
@@ -100,9 +100,10 @@
                 <div class="connexion">
                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-                 <span> {{ app.user.username }} </span>&nbsp;-<a class="connected" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                 <span><a href="{{ path('user_show', { 'id': app.user.id }) }}">{{ app.user.username }} </a></span> / <a class="connected" href="{{ path('fos_user_security_logout') }}">Déconnexion</a> / <a class="connected" href="{{ path('user_board', { 'id': app.user.id }) }}">Tableau de bord</a>
                 {% else %}
                     <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                    <a href="{{ path('registration') }}">Inscription</a>
                 {% endif %}
                 </div>
             </div>

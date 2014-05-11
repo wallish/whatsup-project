@@ -45,7 +45,8 @@ class AnnotationController extends Controller
             //die(var_dump($data));
 
             $entity->setIdArticle($data['article_id']);
-            $entity->setUser();
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            $entity->setUser($user);
             $entity->setAnnotationType($data['type']);
             $entity->setAnnotationContent($data['description']);
 

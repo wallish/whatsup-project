@@ -50,6 +50,7 @@ class EventController extends Controller
             'entity'      => $entity));
     }
 
+ 
     public function addAction(Request $request)
     {
         $entity = new Event();
@@ -64,10 +65,13 @@ class EventController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            $entity->setUser($user);
+            $entity->setActivate(0);
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('event_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('event_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('KnnfWhatsupBundle:Event:add.html.twig', array(
@@ -75,7 +79,8 @@ class EventController extends Controller
             'form'   => $form->createView(),
         ));
     }
- 
+
+
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -102,9 +107,37 @@ class EventController extends Controller
 
         return $this->render('KnnfWhatsupBundle:Event:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
         ));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function deleteAction(Request $request)
     {
