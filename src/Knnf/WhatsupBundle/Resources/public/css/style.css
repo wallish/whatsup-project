@@ -14,7 +14,7 @@ a { color: #de4d3b;}
 .whatsup-article-date {font-family: 'helvetica_roman';color: #989898; font-size: 13px;}
 .whatsup-article-relative > div {background-color: #fff; padding: 0 10px; margin-bottom: 10px;padding-bottom: 2px;}
 .whatsup-article-relative div h4 {color: #000; text-transform: uppercase; font-size: 12px; margin: 0; padding: 10px 0; font-family: 'helvetica_blk';}
-.whatsup-top-bar {background-color: #000;color: #fff;}
+.whatsup-top-bar {background-color: #222;color: #fff;}
 .whatsup-top-bar a + span + a {float: right; margin-top: 12px; font-weight: bold; color: #fff; margin-right: 20px;}
 .whatsup-top-bar a + span + a:before {content: '▶'; margin-right: 8px; font-size: 10px; vertical-align: middle; }
 .connexion {float: right; margin-top: 12px; font-weight: bold; color: #fff; margin-right: 20px;}
@@ -153,9 +153,10 @@ a .whatsup-slider-caption:hover {color:#ccc; text-decoration: none;}
 .whatsup-articleofthemonth {max-width:455px; max-height: 200px;}
 
 
-.whatsup-category-bests {height:200px;}
+.whatsup-category-bests {height:200px;transition: background-color 1s;}
 
-#agenda_content:hover{background-color: #DE4B39 ;}
+#agenda_content:hover{background-color: #FDFDFD ;}
+#agenda_content{transition: background-color 0.5s ease;cursor: pointer}
 
 .agenda_content_description_dialog {font-family:"Helvetica";}
 

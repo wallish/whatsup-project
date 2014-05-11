@@ -52,13 +52,6 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="surname", type="string", length=255)
-     */
-    private $surname;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="username", type="string", length=255)
      */
     // protected $username;
@@ -195,29 +188,6 @@ class User extends BaseUser
     public function getLastname()
     {
         return $this->lastname;
-    }
-
-    /**
-     * Set surname
-     *
-     * @param string $surname
-     * @return User
-     */
-    public function setSurname($surname)
-    {
-        $this->surname = $surname;
-
-        return $this;
-    }
-
-    /**
-     * Get surname
-     *
-     * @return string 
-     */
-    public function getSurname()
-    {
-        return $this->surname;
     }
 
     /**

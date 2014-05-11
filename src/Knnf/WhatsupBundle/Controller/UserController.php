@@ -116,7 +116,15 @@ class UserController extends Controller
             $data = $request->request->all();
             if(!$data['id']) die('Missing parameter');
 
-            $result = $this->_getRepository()->save($data['id']);
+            $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($data['id']);
+
+            if($entity->getActivate() == 1)
+                $entity->setActivate(0);
+            else
+                $entity->setActivate(1);
+
+            $em->persist($entity);
+            $em->flush();
         }   
     }
 
@@ -137,9 +145,11 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
             if(!$data['id']) die('Missing parameter');
-           /* $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($data['id']);*/
-            $article = $this->_getRepository()->delete($data['id']);
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array('id' => $data['id']));
+            $em->remove($user[0]);
+            $em->flush();
+            die();
         }
 
         return $this->render('KnnfWhatsupBundle:User:delete.html.twig');

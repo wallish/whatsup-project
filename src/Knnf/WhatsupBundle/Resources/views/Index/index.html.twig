@@ -86,7 +86,7 @@
                                <tr><td>Date : </td><td>{{event.datestart | date('d-m-Y')}} - {{event.dateend | date('d-m-Y')}}</td></tr>
                                <tr><td>Horaire : </td><td>{{event.hourstart | date('H:i')}} - {{event.hourend | date('H:i')}}</td></tr>
                                <tr><td>Mise à jour le : </td><td>{{event.dateupdate | date('d-m-Y')}}</td></tr>
-                               <tr><td><a href="http://www.google.com" >Voir l'event</td></tr>
+                               <tr><td><a href="{{path('event_show', {'id': event.id,})}}" >Voir l'event</td></tr>
                                </table>
                             </div>
                             </div>
@@ -126,10 +126,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        <a href="/whatsup/web/app_dev.php/whatsup/article/{{push[0].slug}}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{{push[0].path}}) no-repeat scroll left center / cover;">
+                        <a href="/whatsup/web/app_dev.php/whatsup/article/{% if ( push|length > 0) %}{{push[0].slug}}{% else %}{{musics[0].slug}}{% endif %}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{% if ( push|length > 1) %}{{push[0].path}}{% else %}{{musics[0].path}}{% endif %}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
-                                <h3 class="large">{{push[0].title}}</h3>
+                                <h3 class="large">{% if ( push|length > 0) %}{{push[0].title}}{% else %}{{musics[0].title}}{% endif %}</h3>
                                 <div class="line2"></div>
                                 <h4 class="author">
                                     Nirunthan Parameswaran
@@ -137,12 +137,13 @@
                             </div>
                         </a>
                     </div>
+
                     <div class="row">
                         
-                        <a href="/whatsup/web/app_dev.php/whatsup/article/{{musics[1].slug}}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{{musics[1].path}}) no-repeat scroll left center / cover;">
+                        <a href="/whatsup/web/app_dev.php/whatsup/article/{% if ( push|length > 1) %}{{push[1].slug}}{% else %}{{musics[1].slug}}{% endif %}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{% if ( push|length > 1) %}{{push[1].path}}{% else %}{{musics[1].path}}{% endif %}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
-                                <h3 class="large">{{musics[1].title}}</h3>
+                                <h3 class="large">{% if ( push|length > 1) %}{{push[1].title}}{% else %}{{musics[1].title}}{% endif %}</h3>
                                 <div class="line2"></div>
                                 <h4 class="author">
                                     Nirunthan Parameswaran

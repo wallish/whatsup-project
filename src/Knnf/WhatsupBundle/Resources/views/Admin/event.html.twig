@@ -38,6 +38,7 @@
 											<tr>
 												<th>ID</th>
 												<th>TITRE</th>
+												<th>Lieu</th>
 												<th>DESCRIPTION</th>
 												<th>DATE</th>
 												<th>ACTIONS</th>
@@ -48,17 +49,25 @@
 											<tr>
 												<td>{{ event.id }}</td>
 												<td>{{ event.title }}</td>
+												<td>{{ event.place }}</td>
 												<td>{{ event.description }}</td>
-												<td>{{ event.datestart | date('Y-m-d') }}</td>
+												<td>{{ event.datestart | date('d-m-Y') }} - {{ event.dateends | date('d-m-Y') }}</td>
 												<td>
+													{% if event.activate == 1 %}
+
 													<button class="btn btn-success btn-mini" onclick="activateEvent('{{ event.id }}')">
-														<i class="fa fa-edit"></i> Validate
+														<i class="fa fa-edit"></i> Activer
 													</button>
+													{% else %}
+													<button class="btn btn-warning btn-mini" onclick="activateEvent('{{ event.id }}')">
+														<i class="fa fa-edit"></i> Désactiver
+													</button>
+													{% endif %}
 													<button class="btn btn-info btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': event.id }) }}"'>
-														<i class="fa fa-edit"></i> Edit
+														<i class="fa fa-edit"></i> Editer
 													</button>
 													<button class="btn btn-danger btn-mini" onclick="deleteEvent('{{ event.id }}')">
-														<i class="fa fa-edit"></i> Delete
+														<i class="fa fa-edit"></i> Supprimer
 													</button>
 												</td>
 											</tr>

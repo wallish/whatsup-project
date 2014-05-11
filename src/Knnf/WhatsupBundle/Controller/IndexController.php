@@ -30,10 +30,10 @@ class IndexController extends Controller
 
 
 		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
-        $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
+        $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'));
 		$events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
-        $musiques = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('category' => 5),array('dateinsert' => 'desc'),2);
-        $pushs = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('push' => 1));
+        $musiques = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('category' => 5,'activate' => '1','sandbox' => 0),array('dateinsert' => 'desc'),2);
+        $pushs = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'push' => 1,'activate' => '1'));
     	return $this->render('KnnfWhatsupBundle:Index:index.html.twig',array(
     		'categories' => $categories,
     		'articles' => $articles,
@@ -47,7 +47,7 @@ class IndexController extends Controller
     public function menuAction()
     {
     	$em = $this->getDoctrine()->getManager();
-    	$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
+    	$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findBy(array('activate' => 1));
 
     	return $this->render('KnnfWhatsupBundle:Index:menu.html.twig',array(
     		'categories' => $categories,

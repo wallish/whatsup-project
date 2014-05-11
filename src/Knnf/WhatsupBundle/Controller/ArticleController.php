@@ -233,8 +233,9 @@ class ArticleController extends Controller
             $data = $request->request->all();
             if(!$data['id']) die('Missing parameter');
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($data['id']);
-            $article = $this->_getRepository()->delete($data['id']);
+            $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('id' => $data['id']));
+            $em->remove($articles[0]);
+            $em->flush();
         }
 
         return $this->render('KnnfWhatsupBundle:Article:delete.html.twig');
@@ -249,7 +250,17 @@ class ArticleController extends Controller
             $data = $request->request->all();
             if(!$data['id']) die('Missing parameter');
 
-            $result = $this->_getRepository()->save($data['id']);
+            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($data['id']);
+
+            if($entity->getActivate() == 1)
+                $entity->setActivate(0);
+            else
+                $entity->setActivate(1);
+
+            $em->persist($entity);
+            $em->flush();
+            die();
+            
         }   
     }
 
@@ -258,7 +269,7 @@ class ArticleController extends Controller
         /*$em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('KnnfWhatsupBundle:Article')->findAll(Query::HYDRATE_ARRAY);*/
         $em = $this->getDoctrine()->getEntityManager();
-        $query = $em->createQuery('SELECT a FROM KnnfWhatsupBundle:Article a');
+        $query = $em->createQuery('SELECT a FROM KnnfWhatsupBundle:Article a WHERE a.sandbox = 0 AND a.activate = 1');
         $myArray = $query->getArrayResult();
         die(json_encode((($myArray))));
         return new Response();

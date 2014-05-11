@@ -87,10 +87,12 @@
 								
 									{{ form_widget(form._token) }}
 									<div class="form-actions">
+											{{ form_widget(form.publish)}}
 											{{ form_widget(form.submit)}}
-
+											{{ form_widget(form.sandbox)}}
 											<div id="status"></div>
 									</div>
+
 									<div id="submitted"></div>
 								</form>
 							</div>

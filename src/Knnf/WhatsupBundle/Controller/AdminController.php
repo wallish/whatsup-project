@@ -111,13 +111,13 @@ class AdminController extends Controller
             'action' => $this->generateUrl('admin_add_article'),
             'method' => 'POST',
         ));
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer'));
+        $form->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            //die(var_dump($entity));
-            
+            $entity->setSandbox($form->get('sandbox')->isClicked() ? '1' : '0');
             //if($entity->slug != null)
             $entity->setSlug($this->to_slug($entity->getTitle()));
             
@@ -146,11 +146,19 @@ class AdminController extends Controller
             'method' => 'PUT',
         ));
 
-        $editForm->add('submit', 'submit', array('label' => 'Update'));
+        if($entity->getSandbox()){
+            $editForm->add('publish', 'submit', array('label' => 'Publier'));
+            $editForm->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon'));
+        }
+        else{
+            $editForm->add('submit', 'submit', array('label' => 'Mettre à jour'));
+        }
 
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setSandbox($form->get('sandbox')->isClicked() ? '1' : '0');
+
             $em->flush();
             $this->get('session')->getFlashBag()->add(
             'notice',
@@ -325,7 +333,6 @@ class AdminController extends Controller
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
         //$like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$data['article_id'],'AnnotationType' => 'like'));
         //$foo = count($like);
-        
         return $this->render('KnnfWhatsupBundle:Admin:article.html.twig', array(
            'articles' => $articles,
            'count' => count($articles),

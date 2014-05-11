@@ -91,8 +91,12 @@
 									</div>
 									{{ form_widget(form._token) }}
 									<div class="form-actions">
+									{% if entity.sandbox == 1 %}
+											{{ form_widget(form.publish)}}
+											{{ form_widget(form.sandbox)}}
+									{% else %}
 											{{ form_widget(form.submit)}}
-
+									{% endif %}
 											<div id="status"></div>
 									</div>
 									<div id="submitted"></div>

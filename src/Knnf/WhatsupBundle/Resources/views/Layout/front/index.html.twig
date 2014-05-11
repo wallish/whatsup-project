@@ -55,20 +55,26 @@
         }
 
 
-        body {background-color: #f8f8f8; color:#222;}
+        body {background-color: #eeeeee; color:#222;}
         .whatsup-header{height: 100px;}
         .whatsup-content {padding-top:10px;}
-        .whatsup-navbar {background-color: #f8f8f8;}
+        .whatsup-content > .container{background-color: #fff}
+        .whatsup-navbar {background-color: #eeeeee;}
         .whatsup-navbar ul li > a:hover {background-color: #222;}
         .whatsup-menu {background-color: #de4b39;}
         .navbar-brand {color: #fff;}
         .navbar ul.navbar-nav > li > a {color:#fff;font-family: 'helvetica_blk'; text-transform: uppercase;}
         .navbar ul.navbar-nav > li.active {background-color: #f17666;}
+        @media screen and (width: 972px) {
+          .box-head {
+            text-align: center
+          }
+        }
 
         .whatsup-wrapper {width:1024px; margin:auto; background-color: #000; min-height: 500px;}
         .box-head {width:100%;border-bottom:2px solid #de4b39; margin-bottom: 8px;}
 
-        .agenda_body {background-color: #000;max-height:500px; overflow-y:scroll;}
+        .agenda_body {background-color: #E2E2E2;max-height:500px;min-height:500px; overflow-y:scroll;}
         .agenda_event {margin-top:5px;padding: 0 15px; }
         .event_month, .event_day {text-align: center; padding:3px 0;font-weight: bold;}
         .event_month {background-color: #fff;color:#de4b39;}
@@ -78,6 +84,15 @@
    
  </head>
  <body>
+ <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&appId=643946492304938&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
     <div class="whatsup-header">
         <nav class="whatsup-navbar navbar navbar-fixed-top">
             <div class="container whatsup-top-bar">
@@ -125,31 +140,31 @@
                         <div class="row">
                             <a href="#">Accueil</a>
                         </div>
+                        <div class="row"><a href="{{ path('category_show', { 'slug': 'technologies' }) }}">Technologies</a></div>
                     </div>
                     <div class="col-md-4">
-                        <div class="row"><a href="#">Musique</a></div>
-                        <div class="row"><a href="#">Mode</a></div>
-                        <div class="row"><a href="#">Art</a></div>
+                        <div class="row"><a href="{{ path('category_show', { 'slug': 'musique' }) }}">Musique</a></div>
+                        <div class="row"><a href="{{ path('category_show', { 'slug': 'mode' }) }}">Mode</a></div>
+                        <div class="row"><a href="{{ path('category_show', { 'slug': 'art' }) }}">Art</a></div>
                     </div>
                     <div class="col-md-4">
-                        <div class="row"><a href="#">Cinema</a></div>
-                        <div class="row"><a href="#">Sorites</a></div>
-                        <div class="row"><a href="#">Geek</a></div>
+                        <div class="row"><a href="{{ path('category_show', { 'slug': 'cinoche' }) }}">Cinema</a></div>
+                        <div class="row"><a href="{{ path('category_show', { 'slug': 'sortie' }) }}">Sorites</a></div>
+                        <div class="row"><a href="{{ path('category_show', { 'slug': 'musique' }) }}">Divers</a></div>
                     </div>
                 </div>
                 <div class="col-md-2" style="text-align:center;">
-                    <br /><br /><br /><br /><br />
-                    WhatsUp!
-                    <br /><br /><br /><br /><br />
+                  
+                <img src="{{asset('bundles/knnfwhatsup/img/logo_whatsup.png')}}" width="200px" height="200px;">
                 </div>
                 <div class="col-md-5">
                     <div class="box-head">
                         <h2 style="font-family:'lighthouse_personal_useRg'; text-align:left;">Contact</h2>
                     </div>
                     <div class="col-md-4">
-                        0123456789<br />
-                        12 rue Waka waka<br />
-                        98765 Oukouk
+                        01 23 45 67 89<br />
+                        21 rue erard<br />
+                        75012 Paris
                     </div>
                     <div class="col-md-8" style="text-align:right;">
                         <a href="https://www.facebook.com/pages/Whats-Up-Rock-Family/138037362906184"><img width="62" height="62" alt="" src="{{asset('bundles/knnfwhatsup/img/facebook.jpg')}}" class=""></a>

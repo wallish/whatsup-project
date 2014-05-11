@@ -37,6 +37,7 @@
 										<thead>
 											<tr>
 												<th>ID</th>
+												<th>AUTEUR</th>
 												<th>TITRE</th>
 												<th>CATEGORIE</th>
 												<th>CONTENU</th>
@@ -47,18 +48,26 @@
 											{% for article in articles %}
 											<tr>
 												<td>{{ article.id }}</td>
+												<td>{{ article.user.username }}</td>
 												<td>{{ article.title }}</td>
-												<td>{#{ article.categoryid }#}</td>
-												<td>{{ article.content|slice(0, 20) }}</td>
+												<td>{{ article.category.name }}</td>
+												<td>{{ article.content|slice(0, 20) | raw }}</td>
 												<td>
-													<button class="btn btn-success btn-mini" onclick="activateUser('{{ article.id }}')">
-														<i class="fa fa-edit"></i> Validate
+												{% if article.activate == 1 %}
+													<button class="btn btn-success btn-mini" onclick="activateArticle('{{ article.id }}')">
+														<i class="fa fa-edit"></i> Activer
 													</button>
+												{% else %}
+													<button class="btn btn-warning btn-mini" onclick="activateArticle('{{ article.id }}')">
+															<i class="fa fa-edit"></i> Désactiver
+														</button>
+												{% endif %}
+											
 													<button class="btn btn-info btn-mini" onclick='window.location.href = "{{ path('admin_edit_article', { 'id': article.id }) }}"'>
-														<i class="fa fa-edit"></i> Edit
+														<i class="fa fa-edit"></i> Editer
 													</button>
-													<button class="btn btn-danger btn-mini" onclick="deleteUser('{{ article.id }}')">
-														<i class="fa fa-edit"></i> Delete
+													<button class="btn btn-danger btn-mini" onclick="deleteArticle('{{ article.id }}')">
+														<i class="fa fa-edit"></i> Supprimer
 													</button>
 												</td>
 											</tr>

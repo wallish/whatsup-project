@@ -42,7 +42,7 @@ class CategoryController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Category')->findOneBy(array('slug' => $slug));
-        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
+        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array('category' => $entity));
 
         if (!$entity ) throw $this->createNotFoundException('Unable to find Category entity.');
 
@@ -140,6 +140,27 @@ class CategoryController extends Controller
         return $this->render('KnnfWhatsupBundle:Category:delete.html.twig');
         //return true;
 
+    }
+
+    public function activateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
+
+            $entity = $em->getRepository('KnnfWhatsupBundle:Category')->find($data['id']);
+
+            if($entity->getActivate() == 1)
+                $entity->setActivate(0);
+            else
+                $entity->setActivate(1);
+
+            $em->persist($entity);
+            $em->flush();
+            die();
+            
+        }   
     }
 
 }

@@ -60,7 +60,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 
@@ -98,6 +98,13 @@ class Article
      * @ORM\Column(name="activate", type="integer")
      */
     private $activate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sandbox", type="integer")
+     */
+    private $sandbox;
 
     /**
      * @var integer
@@ -466,5 +473,28 @@ class Article
     public function getPush()
     {
         return $this->push;
+    }
+
+    /**
+     * Set sandbox
+     *
+     * @param integer $sandbox
+     * @return Article
+     */
+    public function setSandbox($sandbox)
+    {
+        $this->sandbox = $sandbox;
+
+        return $this;
+    }
+
+    /**
+     * Get sandbox
+     *
+     * @return integer 
+     */
+    public function getSandbox()
+    {
+        return $this->sandbox;
     }
 }

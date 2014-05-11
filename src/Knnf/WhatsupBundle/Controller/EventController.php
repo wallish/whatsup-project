@@ -44,7 +44,7 @@ class EventController extends Controller
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+       // $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('KnnfWhatsupBundle:Event:show.html.twig', array(
             'entity'      => $entity));
@@ -111,14 +111,36 @@ class EventController extends Controller
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
             if(!$data['id']) die('Missing parameter');
-           /* $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($data['id']);*/
-            $article = $this->_getRepository()->delete($data['id']);
+            $em = $this->getDoctrine()->getManager();
+            $event = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array('id' => $data['id']));
+            $em->remove($event[0]);
+            $em->flush();
         }
 
         return $this->render('KnnfWhatsupBundle:Event:delete.html.twig');
         //return true;
 
+    }
+
+    public function activateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
+
+            $entity = $em->getRepository('KnnfWhatsupBundle:Event')->find($data['id']);
+
+            if($entity->getActivate() == 1)
+                $entity->setActivate(0);
+            else
+                $entity->setActivate(1);
+
+            $em->persist($entity);
+            $em->flush();
+            die();
+            
+        }   
     }
   
 }
