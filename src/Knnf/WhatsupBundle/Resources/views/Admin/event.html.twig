@@ -51,7 +51,7 @@
 												<td>{{ event.title }}</td>
 												<td>{{ event.place }}</td>
 												<td>{{ event.description }}</td>
-												<td>{{ event.datestart | date('d-m-Y') }} - {{ event.dateends | date('d-m-Y') }}</td>
+												<td>{{ event.datestart | date('d / m / Y') }} à {{ event.dateend | date('d / m / Y') }}</td>
 												<td>
 													{% if event.activate == 1 %}
 

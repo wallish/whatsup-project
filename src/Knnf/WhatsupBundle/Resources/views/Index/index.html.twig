@@ -62,7 +62,7 @@
                     <div class="agenda_content" id="agenda_content">
                     {% if events != null %}
                         {% for event in events %}  
-                            <div class="row agenda_event" onclick='displayEvent({{event.id}})'>
+                            <div class="row agenda_event" onclick='displayEvent({{event.id}})' data-toggle="modal" data-target="#event_description{{event.id}}">
                                 <div class="col-md-2 event_date_box">
                                     <div class="row event_month">{{ event.datestart | date('M') }}</div>
                                     <div class="row event_day">{{ event.datestart | date('d') }}</div>
@@ -76,7 +76,7 @@
                                 <div class="col-md-1 event_action">
                                 </div>
                             </div>
-                            <div id="event_description">
+                            {#<div id="event_description">
                             <div id="agenda_content_description{{event.id}}" title="Description event">
                                <table>
                                <tr><td>Titre : </td><td>{{event.description}}</td></tr>
@@ -88,8 +88,25 @@
                                <tr><td>Mise à jour le : </td><td>{{event.dateupdate | date('d-m-Y')}}</td></tr>
                                <tr><td><a href="{{path('event_show', {'id': event.id,})}}" >Voir l'event</td></tr>
                                </table>
+                            </div>#}
+
+                            <div id="event_description{{event.id}}" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-sm tata">
+                                <div class="modal-content" style="padding:15px;">
+                                   <table>
+                               <tr><td>Titre : </td><td>{{event.description}}</td></tr>
+                               <tr><td>Lieu : </td><td>{{event.place}}</td></tr>
+                               <tr><td>Adresse : </td><td>{{event.address}}</td></tr>
+                               <tr><td>Billeterie : </td><td>{{event.orderlink}}</td></tr>
+                               <tr><td>Date : </td><td>{{event.datestart | date('d-m-Y')}} - {{event.dateend | date('d-m-Y')}}</td></tr>
+                               <tr><td>Horaire : </td><td>{{event.hourstart | date('H:i')}} - {{event.hourend | date('H:i')}}</td></tr>
+                               <tr><td>Mise à jour le : </td><td>{{event.dateupdate | date('d-m-Y')}}</td></tr>
+                               <tr><td><a href="{{path('event_show', {'id': event.id,})}}" >Voir l'event</td></tr>
+                               </table>
+                                </div>
+                              </div>
                             </div>
-                            </div>
+                           {# </div>#}
                         {% endfor %}
                     {% endif %}
                        
@@ -288,6 +305,7 @@
             </div>
         </div>
     </div>
+    
     {% block javascripts %}
         <script>
         var config = {
