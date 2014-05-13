@@ -95,8 +95,15 @@ liip_imagine:
         mosaique:
             quality: 75
             filters:
-                thumbnail: { size: [120, 90], mode: outbound }        
-
+                thumbnail: { size: [120, 90], mode: outbound }
+        lookbook_mosaique:
+            quality: 75
+            filters:
+                thumbnail: { size: [240, 160], mode: outbound }                
+        lookbook_display:
+            quality: 75
+            filters:
+                thumbnail: { size: [600, 300], mode: outbound }                
 services:
     twig.extension.intl:
        class: Twig_Extensions_Extension_Intl

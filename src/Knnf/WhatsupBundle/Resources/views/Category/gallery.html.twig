@@ -9,8 +9,11 @@
   <div id="gallery-container">
     
     <ul class="items--small">
-      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-1.png') }}" alt="" /></a></li>
-      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-2.png') }}" alt="" /></a></li>
+    {% for lookbook in lookbooks %}
+    {% set toto = '/uploads/documents/{{lookbook.path}}' %}
+      <li class="item"><a href="#"><img src="{{ '/uploads/documents/nirun.jpg' | imagine_filter('lookbook_mosaique') }}" alt="" /></a></li>
+    {% endfor %}
+      {#<li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-2.png') }}" alt="" /></a></li>
       <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-3.png') }}" alt="" /></a></li>
       <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-4.png') }}" alt="" /></a></li>
       <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-5.png') }}" alt="" /></a></li>
@@ -20,21 +23,26 @@
       <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-9.png') }}" alt="" /></a></li>
       <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-10.png') }}" alt="" /></a></li>
       <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-11.png') }}" alt="" /></a></li>
-      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-12.png') }}" alt="" /></a></li>
+      <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-12.png') }}" alt="" /></a></li>#}
     </ul>
     <ul class="items--big">
+    {% for lookbook in lookbooks %}
       <li class="item--big">
-        <a href="#">
+        
           <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-1.jpg') }}" alt="" />
+            <div style="background-color:#DE4B39;color:#fff">{{lookbook.title}}</div>
+            <img src="{{ '/uploads/documents/nirun.jpg' | imagine_filter('lookbook_display') }}" alt="" />
             <figcaption class="img-caption">
-              John Snow 
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
+            <a href="{{ path('user_show', { 'id': app.user.id }) }}">
+              {{lookbook.user.username}}
+              </a>
+              <button id="signalement" type="button" class="btn btn-danger btn-xs">Signaler</button>
             </figcaption>
           </figure>
-          </a>
+          
       </li>
-      <li class="item--big">
+    {% endfor %}
+      {#<li class="item--big">
         <a href="#">
           <figure>
             <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-2.jpg') }}" alt="" />
@@ -175,9 +183,9 @@
             </figcaption>
           </figure>
           </a>
-      </li>
+      </li>#}
     </ul>
-    <div class="controls">
+    <div class="controls" style="background-color:#010101">
       <span class="control icon-arrow-left" data-direction="previous"></span> 
       <span class="control icon-arrow-right" data-direction="next"></span> 
       <span class="grid icon-grid"></span>
@@ -199,10 +207,12 @@
      $('#gallery-container').sGallery({
         fullScreenEnabled: true
       });
-     
+        $( "#signalement" ).click(function() {
+          $( "#dialog-form" ).dialog( "open" );
+        });
     });
 
-     /* function addSignalement(id)
+      function addSignalement(id)
         {
             $.ajax({
                 url: "{{ path('annotation_add')}}",
@@ -223,6 +233,7 @@
 
 
 
+    
         $( "#dialog-form" ).dialog({
             autoOpen: false,
             height: 300,
@@ -232,10 +243,11 @@
                     $( this ).dialog( "close" );
                 },
                 Submit: function() {
-                	alert('send');
+                    alert('tata');
                 }
             }
-        });*/
+        });
+
 
   </script>
 {% endblock %}

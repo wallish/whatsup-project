@@ -1,0 +1,12 @@
+lookbook_home:
+    pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Lookbook:index" }
+
+lookbook_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "KnnfWhatsupBundle:Lookbook:show" }
+
+lookbook_add:
+    pattern:  /add
+    defaults: { _controller: "KnnfWhatsupBundle:Lookbook:add" }
+

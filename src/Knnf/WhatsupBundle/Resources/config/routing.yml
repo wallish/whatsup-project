@@ -42,6 +42,10 @@ profile:
   resource: "@KnnfWhatsupBundle/Resources/config/routing/profile.yml"
   prefix: /profile
 
+lookbook:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/lookbook.yml"
+  prefix: /lookbook
+
 registration:
     pattern:  /registration/register
     defaults: { _controller: "KnnfWhatsupBundle:Registration:register" }
@@ -54,7 +58,7 @@ registration_confirm:
     pattern:  /registration/confirm/{token}
     defaults: { _controller: "KnnfWhatsupBundle:Registration:confirm" }
 
-registration_confirmed:
+registration_checkmail:
     pattern:  /registration/checkEmail
     defaults: { _controller: "KnnfWhatsupBundle:Registration:checkEmail" }
 

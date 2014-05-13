@@ -36,6 +36,12 @@ class Category
     private $name;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Knnf\WhatsupBundle\Entity\Category")
+     * @ORM\JoinColumn(name="categoryid", referencedColumnName="id",unique=false,nullable=false)
+     */
+    private $category;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=255)
@@ -192,5 +198,28 @@ class Category
     public function getDateupdate()
     {
         return $this->dateupdate;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Knnf\WhatsupBundle\Entity\Category $category
+     * @return Article
+     */
+    public function setCategory(\Knnf\WhatsupBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Knnf\WhatsupBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

@@ -119,7 +119,7 @@ class UserController extends Controller
 
         return $this->render('KnnfWhatsupBundle:User:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
         ));
     }
 
@@ -161,7 +161,8 @@ class UserController extends Controller
 
         $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
         $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
-        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user),null,5);
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user),array('id'=>'DESC'),5);
+        $events = $em->getRepository("KnnfWhatsupBundle:event")->findBy(array("user" => $user),array('id'=>'DESC'),5);
         $nbarticles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user));
         //$likes = $em->getRepository("KnnfWhatsupBundle:Annotation")->findBy(array("user" => $user));
 
@@ -182,7 +183,8 @@ class UserController extends Controller
             'articles' => $articles,
             'user' => $user,
             'nbarticles' => count($nbarticles),
-            'totalviews' => $userview['totalviews']
+            'totalviews' => $userview['totalviews'],
+            'events' => $events,
         ));
     }
 

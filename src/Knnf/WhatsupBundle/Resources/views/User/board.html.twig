@@ -7,13 +7,13 @@
         <div class="col-md-8 whatsup-singlearticle-left">
 
             {# Article #}
-            <div class="row" style="background-color:#E8E8E8">
+            <div class="whatsup-article-author-profil" width="780px" height="300px">
 <a href="{{path('article_add')}}">
     <button type="button" class="btn btn-default" onclick="windows">
       <span class="glyphicon glyphicon-book"></span> Publier un article
     </button>
 </a>
-<a href="{{path('article_add')}}">
+<a href="{{path('lookbook_add')}}">
 <button type="button" class="btn btn-default">
   <span class="glyphicon glyphicon-camera"></span> Publier une photo
 </button>
@@ -23,13 +23,10 @@
   <span class="glyphicon glyphicon-music"></span> Publier un événement
 </button>
 </a>
-<button type="button" class="btn btn-default">
-  <span class="glyphicon glyphicon-star"></span> Star
-</button>
 
 <div class="panel panel-default" style="width:500px;">
   <!-- Default panel contents -->
-<div class="panel-heading">Panel heading</div>
+<div class="panel-heading">Mes derniers articles</div>
   <!-- Table -->
   <table class="table">
   <tr>
@@ -42,8 +39,13 @@
   <tr>
   <td>{{article.title}}</td>
   <td>{{article.dateinsert | date('d-m-Y')}}</td>
-  <td>{% if article.activate == 1 %} Validé {% else %} En cours de validation {% endif %}</td>
-  <td> <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button></td>
+  <td>{% if article.activate == 1 %} <font style="color:green">Validé</font> {% else %} <font style="color:orange">En cours de validation</font> {% endif %}</td>
+  
+{% if article.activate == 1 %}
+<td>   <button type="button" class="btn btn-warning btn-xs disabled"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button></td>
+{% else %}
+<td>   <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button></td>
+{% endif %}
   </tr>
   {% endfor %}
   </table>
@@ -57,7 +59,7 @@
 </span>#}
     <div class="panel panel-default" style="width:500px;">
         <!-- Default panel contents -->
-        <div class="panel-heading">Panel heading</div>
+        <div class="panel-heading">Mes derniers événements</div>
         <!-- Table -->
         <table class="table">
             <tr>
@@ -66,12 +68,12 @@
             <th>Statut</th>
             <th>Action</th>
             </tr>
-            {% for article in articles %}
+            {% for event in events %}
             <tr>
-            <td>{{article.title}}</td>
-            <td>{{article.dateinsert | date('d-m-Y')}}</td>
-            <td>{% if article.activate == 1 %} Validé {% else %} En cours de validation {% endif %}</td>
-            <td> <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button></td>
+            <td>{{event.title}}</td>
+            <td>{{event.dateinsert | date('d-m-Y')}}</td>
+            <td>{% if event.activate == 1 %} <font style="color:green">Validé</font>  {% else %} <font style="color:orange">En cours de validation</font> {% endif %}</td>
+            <td> <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':event.id})}}">Editer</button></td>
             </tr>
             {% endfor %}
         </table>

@@ -18,6 +18,8 @@ class CategoryType extends AbstractType
             ->add('name')
             ->add('slug')
             ->add('activate')
+            ->add('category','entity', array('class' => 'KnnfWhatsupBundle:Category','property' => 'name','empty_value' => 'Catégorie parent','empty_data'  => null,'required'    => false))
+
             //->add('dateinsert')
             //->add('dateupdate')
         ;

@@ -47,7 +47,7 @@ class IndexController extends Controller
     public function menuAction()
     {
     	$em = $this->getDoctrine()->getManager();
-    	$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findBy(array('activate' => 1));
+    	$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findBy(array('activate' => 1,'category' => null));
 
     	return $this->render('KnnfWhatsupBundle:Index:menu.html.twig',array(
     		'categories' => $categories,

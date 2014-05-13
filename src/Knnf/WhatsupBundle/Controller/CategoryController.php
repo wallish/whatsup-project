@@ -58,6 +58,7 @@ class CategoryController extends Controller
         );
 
         $articles = $em->getRepository("KnnfWhatsupBundle:Article")->getList($page, $maxArticles, $entity);
+        $lookbooks = $em->getRepository("KnnfWhatsupBundle:Lookbook")->findAll();
 
         
         return $this->render(($slug != "mode") ? 'KnnfWhatsupBundle:Category:index.html.twig' : 'KnnfWhatsupBundle:Category:gallery.html.twig', array(
@@ -65,6 +66,7 @@ class CategoryController extends Controller
           'articles' => $articles,
           'pagination' => $pagination,
           'events' => $events,
+          'lookbooks' => $lookbooks,
 
         ));
     }

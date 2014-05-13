@@ -17,16 +17,17 @@ class RegistrationFormType extends BaseType
         parent::buildForm($builder, $options);
 
         // add your custom field
-        $builder->add('firstname')
-            ->add('lastname')
-            ->add('username')
-            ->add('password')
-            ->add('website')
+        $builder->add('firstname','text',array('label' => 'Prénom'))
+            ->add('lastname','text',array('label' => 'Nom'))
+            ->add('username','text',array('label' => 'Pseudo'))
+            //->add('password')
+            ->add('website','text',array('label' => 'Site web','required'    => false))
             ->add('birthday')
-            ->add('photo')
-            ->add('country')
-            ->add('city')
-            ->add('zipcode');
+            ->add('photo','text',array('label' => 'Avatard','required'    => false))
+            ->add('country','text',array('label' => 'Pays','required'    => false))
+            ->add('city','text',array('label' => 'Ville','required'    => false))
+            ->add('description','textarea',array('label' => 'Description','required'    => false))
+            ->add('zipcode','text',array('label' => 'Code postal','required'    => false));
     }
 
         public function setDefaultOptions(OptionsResolverInterface $resolver)

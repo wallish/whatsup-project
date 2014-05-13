@@ -52,6 +52,13 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="string", length=255)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="username", type="string", length=255)
      */
     // protected $username;
@@ -392,10 +399,42 @@ class User extends BaseUser
      *
      * @return string 
      */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+
+
+        /**
+     * Set zipcode
+     *
+     * @param string $zipcode
+     * @return User
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get zipcode
+     *
+     * @return string 
+     */
     public function getZipcode()
     {
         return $this->zipcode;
     }
+
+
+
+
+
+
+
 
     /**
      * Set dateinsert
