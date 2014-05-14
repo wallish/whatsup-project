@@ -9,10 +9,11 @@
                             <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 780px; height: 300px;">
                                 {% set i = 0 %}
                                 {% for article in articles %}
+                                {% set path = '/uploads/documents/'~article.path %}
                                     {% if (article.path is not empty) and (i < 5) %}
                                     {% set i=i+1 %}
                                     <div>
-                                        <img src="{{ '/uploads/documents/zaza.png' | imagine_filter('slide') }}" />
+                                        <img src="{{ path | imagine_filter('slide') }}" />
                                         <a href="{{ path('article_show', { 'slug': article.slug }) }}">
                                             <div class="whatsup-slider-caption" u="caption" t="caption-transition-name">
                                                 <div class="whatsup-slider-title">{{ article.title }}</div>
@@ -28,9 +29,6 @@
                         </div>
                   </div>
                   <div class="row">
-
-
-
                         <a href="#" class="col-md-6 articleItem" style="height:200px; background:url( {{ 'bundles/knnfwhatsup/img/viaduc.jpg' | imagine_filter('slide') }}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
@@ -41,16 +39,8 @@
                                 </h4>
                             </div>
                         </a>
-                        <a href="#" class="col-md-6 articleItem" style="height:200px; background:url({{asset('bundles/knnfwhatsup/img/guignol.jpg')}}) no-repeat scroll left center / cover;">
-                            <div class="contentItem">
-                                <div class="backgroundContent"></div>
-                                <h3 class="small">Look book</h3>
-                                <div class="linesmall"></div>
-                                <h4 class="author">
-                                    Nirunthan Parameswaran
-                                </h4>
-                            </div>
-                        </a>
+                    {#{ render(controller("KnnfWhatsupBundle:Article:authorOfTheMonth" )) }#}
+                    {{ render(controller("KnnfWhatsupBundle:Article:articleOfTheMonth")) }}
 
                   </div>
                 </div>
@@ -118,7 +108,7 @@
 
                 <div class="col-md-6">
                     <div class="row">
-                        <a href="#" class="col-md-6 articleItem" style="height:400px; background:url() no-repeat scroll left center / cover;">
+                        <a href="#" class="col-md-6 articleItem" style="height:400px; background:url({{asset('bundles/knnfwhatsup/img/shoe.jpg')}}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
                                 <h3 class="long">Look book</h3>
@@ -143,7 +133,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        <a href="/whatsup/web/app_dev.php/whatsup/article/{% if ( push|length > 0) %}{{push[0].slug}}{% else %}{{musics[0].slug}}{% endif %}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{% if ( push|length > 1) %}{{push[0].path}}{% else %}{{musics[0].path}}{% endif %}) no-repeat scroll left center / cover;">
+                        <a href="/article/{% if ( push|length > 0) %}{{push[0].slug}}{% else %}{{musics[0].slug}}{% endif %}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{% if ( push|length > 1) %}{{push[0].path}}{% else %}{{musics[0].path}}{% endif %}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
                                 <h3 class="large">{% if ( push|length > 0) %}{{push[0].title}}{% else %}{{musics[0].title}}{% endif %}</h3>
@@ -157,7 +147,7 @@
 
                     <div class="row">
                         
-                        <a href="/whatsup/web/app_dev.php/whatsup/article/{% if ( push|length > 1) %}{{push[1].slug}}{% else %}{{musics[1].slug}}{% endif %}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{% if ( push|length > 1) %}{{push[1].path}}{% else %}{{musics[1].path}}{% endif %}) no-repeat scroll left center / cover;">
+                        <a href="/article/{% if ( push|length > 1) %}{{push[1].slug}}{% else %}{{musics[1].slug}}{% endif %}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{% if ( push|length > 1) %}{{push[1].path}}{% else %}{{musics[1].path}}{% endif %}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
                                 <h3 class="large">{% if ( push|length > 1) %}{{push[1].title}}{% else %}{{musics[1].title}}{% endif %}</h3>
@@ -173,134 +163,51 @@
             </div>
             <div class="col-md-12">
                 <div class="row articles">
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/beaugrenelle.jpg')}}) no-repeat scroll left center / cover;">
+                {% for article in articles1|slice(0, 4) %}
+                    <a href="{{path('article_show',{'slug':article.slug})}}" class="col-md-3 articleItem" style="background:url({{asset('uploads/documents/'~ article.path)}}) no-repeat scroll left center / cover;">
                         <div class="contentItem">
                             <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
+                            <h3>{{article.title}}</h3>
                             <div class="line"></div>
                             <h4 class="author">
-                                Nirunthan Parameswaran
+                                {{article.user.username}}
                             </h4>
                         </div>
                     </a>
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel.jpg')}}) no-repeat scroll left center / cover;">
-                        <div class="contentItem">
-                            <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
-                            <div class="line"></div>
-                            <h4 class="author">
-                                Nirunthan Parameswaran
-                            </h4>
-                        </div>
-                    </a>
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/blanche.jpg')}}) no-repeat scroll left center / cover;">
-                        <div class="contentItem">
-                            <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
-                            <div class="line"></div>
-                            <h4 class="author">
-                                Nirunthan Parameswaran
-                            </h4>
-                        </div>
-                    </a>
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel2.jpg')}}) no-repeat scroll left center / cover;">
-                        <div class="contentItem">
-                            <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
-                            <div class="line"></div>
-                            <h4 class="author">
-                                Nirunthan Parameswaran
-                            </h4>
-                        </div>
-                    </a>
+                {% endfor %}
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="row">
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/beaugrenelle.jpg')}}) no-repeat scroll left center / cover;">
+                {% for article in articles1|slice(4, 8) %}
+                    <a href="{{path('article_show',{'slug':article.slug})}}" class="col-md-3 articleItem" style="background:url({{asset('uploads/documents/'~ article.path)}}) no-repeat scroll left center / cover;">
                         <div class="contentItem">
                             <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
+                            <h3>{{article.title}}</h3>
                             <div class="line"></div>
                             <h4 class="author">
-                                Nirunthan Parameswaran
+                                {{article.user.username}}
                             </h4>
                         </div>
                     </a>
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel.jpg')}}) no-repeat scroll left center / cover;">
-                        <div class="contentItem">
-                            <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
-                            <div class="line"></div>
-                            <h4 class="author">
-                                Nirunthan Parameswaran
-                            </h4>
-                        </div>
-                    </a>
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel2.jpg')}}) no-repeat scroll left center / cover;">
-                        <div class="contentItem">
-                            <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
-                            <div class="line"></div>
-                            <h4 class="author">
-                                Nirunthan Parameswaran
-                            </h4>
-                        </div>
-                    </a>
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/blanche.jpg')}}) no-repeat scroll left center / cover;">
-                        <div class="contentItem">
-                            <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
-                            <div class="line"></div>
-                            <h4 class="author">
-                                Nirunthan Parameswaran
-                            </h4>
-                        </div>
-                    </a>
+                {% endfor %}
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="row">
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel.jpg')}}) no-repeat scroll left center / cover;">
+                 {% for article in articles1|slice(8, 12) %}
+                    <a href="{{path('article_show',{'slug':article.slug})}}" class="col-md-3 articleItem" style="background:url({{asset('uploads/documents/'~ article.path)}}) no-repeat scroll left center / cover;">
                         <div class="contentItem">
                             <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
+                            <h3>{{article.title}}</h3>
                             <div class="line"></div>
                             <h4 class="author">
-                                Nirunthan Parameswaran
+                                {{article.user.username}}
                             </h4>
                         </div>
                     </a>
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/eiffel2.jpg')}}) no-repeat scroll left center / cover;">
-                        <div class="contentItem">
-                            <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
-                            <div class="line"></div>
-                            <h4 class="author">
-                                Nirunthan Parameswaran
-                            </h4>
-                        </div>
-                    </a>
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/blanche.jpg')}}) no-repeat scroll left center / cover;">
-                        <div class="contentItem">
-                            <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
-                            <div class="line"></div>
-                            <h4 class="author">
-                                Nirunthan Parameswaran
-                            </h4>
-                        </div>
-                    </a>
-                    <a href="#" class="col-md-3 articleItem" style="background:url({{asset('bundles/knnfwhatsup/img/beaugrenelle.jpg')}}) no-repeat scroll left center / cover;">
-                        <div class="contentItem">
-                            <div class="backgroundContent"></div>
-                            <h3>My Shoes</h3>
-                            <div class="line"></div>
-                            <h4 class="author">
-                                Nirunthan Parameswaran
-                            </h4>
-                        </div>
-                    </a>
+                {% endfor %}
+
                 </div>
             </div>
         </div>
@@ -314,92 +221,7 @@
             carouselInterval: 300
         }
 
-        var whatsup = {};
-
-        whatsup.app = {
-            firstTime: true,
-            initialize: function() {
-                var self = this;
-                $.ajax({
-                    url: "{{ path('article_getarticles')}}",
-                    type: "post",
-                    success: function(data){
-                        self.startCarrouselWith(JSON.parse(data));
-                    },
-                    error:function(){
-                        console.log("[WHATSUP] Cannot load datas from : {{ path('article_getarticles')}}");
-                    }
-                });
-            },
-            startCarrouselWith: function (datas) {
-                var self = this,
-                start = 0,
-                articleNumber = config.articleCount;
-
-                var parseArrays = function () {
-                    var arrayToSend;
-                    if((start + articleNumber) <= datas.length){
-                        arrayToSend = datas.slice(start, start + articleNumber);
-                        start = start + articleNumber;
-
-                    }else{
-                        // article left in the current array
-                        var articleLeftLength = datas.length - start;
-
-                        // get the remaining items
-                        var arrayFound = datas.slice(datas.length - articleLeftLength, datas.length);
-
-                        // the new index to start OR the item.length to refrive in the new array
-                        var newIndexToStart = 4 - articleLeftLength;
-
-                        // get the count from the first element
-                        var arrayFound2 = datas.slice(0, newIndexToStart);
-
-                        // merge them all
-                        arrayToSend = arrayFound.concat(arrayFound2);
-
-                        // define a new start index
-                        start = newIndexToStart;
-
-                    }
-                    // update the view
-                    self.updateArticleRow(arrayToSend);
-                }
-                parseArrays();
-                var dataInterval = setInterval(parseArrays, config.interval);
-            },
-            updateArticleRow: function (datas) {
-                var self = this,
-                contentToPush = [];
-                for (var i = datas.length - 1; i >= 0; i--) {
-                    var resu = datas[i];
-                    var slug = "/whatsup/web/app_dev.php/whatsup/article/" + resu.slug;
-                    var htmlToAppend = 
-                    '<a href="'+slug+'" class="col-md-3 articleItem" style="background:url(/whatsup/web/uploads/documents/'+resu.path+') no-repeat scroll left center / cover;">'+
-                        '<div class="contentItem">'+
-                            '<div class="backgroundContent"></div>'+
-                            '<h3>' + resu.title + '</h3>'+
-                            '<div class="line"></div>'+
-                            '<h4 class="author">'+
-                                (resu.author || 'Nirunthan Parameswaran') +
-                            '</h4>'+
-                        '</div>'+
-                    '</a>';
-                    contentToPush.push(htmlToAppend);
-                };
-                if(self.firstTime){
-                    self.firstTime = false;                   
-                    $('.row.articles').html(contentToPush.join(' '));
-
-                }else{
-                    $('.row.articles').fadeOut(config.carouselInterval, function () {                    
-                        $(this).html(contentToPush.join(' '));
-                        $(this).fadeIn(config.carouselInterval);
-                    });
-                }
-
-            }
-        }
+      
 
         window.onload = function () {
             $("#event_description").css("display","none");

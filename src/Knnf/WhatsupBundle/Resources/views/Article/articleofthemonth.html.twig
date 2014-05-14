@@ -1,7 +1,5 @@
 {# Article du mois #}
 
-
-<img src="/whatsup/web/uploads/documents/{{ article.path }}" class="whatsup-image" />
-<div class="whatsup-article-caption">
-	{{ article.title }}
-</div>
+<a href="{{path('article_show',{'slug':article.slug})}}">
+<img src="/whatsup/web/uploads/documents/{{ article.path }}" class="whatsup-image" width="390px"  height="200px" />
+</a>

@@ -36,8 +36,9 @@
 									<table class="table table-bordered table-striped table-hover">
 										<thead>
 											<tr>
-												<th>TITRE ARTICLE</th>
-												<th>AUTEUR</th>
+												<th>Description</th>
+												<th>SIGNALE PAR</th>
+												<th>DATE</th>
 												<th>ACTIONS</th>
 											</tr>
 										</thead>
@@ -45,7 +46,7 @@
 											{% for signalement in signalements %}
 											<tr>
 												<td>{{ signalement.AnnotationContent }}</td>
-												<td>{{ signalement.AnnotationType }}</td>
+												<td><a href="{{ url('user_show', { 'id': signalement.user.id }) }}">{{ signalement.user.username }}</a></td>
 												<td>{{ signalement.dateinsert | date('Y-m-d') }}</td>
 												<td>
 													<button class="btn btn-success btn-mini" onclick="activateEvent('{{ signalement.id }}')">
@@ -57,6 +58,11 @@
 													<button class="btn btn-danger btn-mini" onclick="deleteEvent('{{ signalement.id }}')">
 														<i class="fa fa-edit"></i> Delete
 													</button>
+													<a href="{{path('article_show',{'slug' :signalement.idArticle})}}">
+														<button class="btn btn-primary btn-mini" >
+														<i class="fa fa-edit"></i> Voir article
+													</button>
+													</a>
 												</td>
 											</tr>
 											{% endfor %}

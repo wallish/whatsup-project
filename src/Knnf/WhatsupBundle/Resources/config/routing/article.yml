@@ -23,6 +23,10 @@ article_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "KnnfWhatsupBundle:Article:edit" }
 
+article_show2:
+    pattern:  /{id}
+    defaults: { _controller: "KnnfWhatsupBundle:Article:show" }
+
 article_update:
     pattern:  /{id}/update
     defaults: { _controller: "KnnfWhatsupBundle:Article:update" }

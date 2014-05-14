@@ -10,8 +10,8 @@
     
     <ul class="items--small">
     {% for lookbook in lookbooks %}
-    {% set toto = '/uploads/documents/{{lookbook.path}}' %}
-      <li class="item"><a href="#"><img src="{{ '/uploads/documents/nirun.jpg' | imagine_filter('lookbook_mosaique') }}" alt="" /></a></li>
+    {% set toto = '/uploads/documents/'~lookbook.path %}
+      <li class="item"><a href="#"><img src="{{ toto | imagine_filter('lookbook_mosaique') }}" alt="" /></a></li>
     {% endfor %}
       {#<li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-2.png') }}" alt="" /></a></li>
       <li class="item"><a href="#"><img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/small-3.png') }}" alt="" /></a></li>
@@ -27,11 +27,12 @@
     </ul>
     <ul class="items--big">
     {% for lookbook in lookbooks %}
+    {% set tata = '/uploads/documents/'~lookbook.path %}
       <li class="item--big">
         
           <figure>
             <div style="background-color:#DE4B39;color:#fff">{{lookbook.title}}</div>
-            <img src="{{ '/uploads/documents/nirun.jpg' | imagine_filter('lookbook_display') }}" alt="" />
+            <img src="{{ tata | imagine_filter('lookbook_display') }}" alt="" />
             <figcaption class="img-caption">
             <a href="{{ path('user_show', { 'id': app.user.id }) }}">
               {{lookbook.user.username}}

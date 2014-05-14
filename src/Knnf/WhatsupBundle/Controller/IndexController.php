@@ -31,15 +31,21 @@ class IndexController extends Controller
 
 		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'));
-		$events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
+        $articles1 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'));
+        $articles2 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'));
+        $articles3 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'));
+        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
+		$lookbooks = $em->getRepository('KnnfWhatsupBundle:Lookbook')->findBy(array(),null,2);
         $musiques = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('category' => 5,'activate' => '1','sandbox' => 0),array('dateinsert' => 'desc'),2);
         $pushs = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'push' => 1,'activate' => '1'));
     	return $this->render('KnnfWhatsupBundle:Index:index.html.twig',array(
     		'categories' => $categories,
-    		'articles' => $articles,
+            'articles' => $articles1,
+    		'articles1' => $articles1,
             'events' => $events,
             'musics' => $musiques,
             'push' => $pushs,
+            'lookbooks' => $lookbooks,
         ));
 
     }

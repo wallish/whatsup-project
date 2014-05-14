@@ -48,8 +48,8 @@
 											{% for article in articles %}
 											<tr>
 												<td>{{ article.id }}</td>
-												<td>{{ article.user.username }}</td>
-												<td>{{ article.title }}</td>
+												<td><a href="{{path('user_show',{'id':article.user.id})}}">{{ article.user.username }}</a></td>
+												<td><a href="{{path('article_show',{'slug':article.slug})}}">{{ article.title }}</a></td>
 												<td>{{ article.category.name }}</td>
 												<td>{{ article.content|slice(0, 20) | raw }}</td>
 												<td>

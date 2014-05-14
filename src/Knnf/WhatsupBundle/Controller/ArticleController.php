@@ -106,7 +106,7 @@ class ArticleController extends Controller
             $query = $em->createQuery(
                 'SELECT IDENTITY(art.user), sum(art.views) as nviews
                 FROM KnnfWhatsupBundle:Article art
-                AND art.dateinsert like :month
+                WHERE art.dateinsert like :month
                 GROUP BY art.user
                 ORDER BY nviews DESC'
             )->setParameter(
@@ -173,6 +173,8 @@ class ArticleController extends Controller
         $user = $this->container->get('security.context')->getToken()->getUser();
 
         $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("slug"=>$slug));
+        if($entity == null)
+            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("id"=>$slug));
         $like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'like'));
         $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'comments'));
         

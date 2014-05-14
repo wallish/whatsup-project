@@ -62,8 +62,99 @@
                 
             </div>
         </div>
-{% block javascripts %}
 
+         <div id="ui" style="display:none">
+    <h3>Data Over Time</h3>
+    <div id='dataOverTimeConfig'></div>
+
+    <h3>Totals for each metric</h3>
+    <div id="scorecard"></div>
+
+    <h3>Source and Mediums by Visitor</h3>
+    <div id="sourceMediumTableConfig"></div>
+  <div>
+{% block javascripts %}
+<script src="https://www.google.com/jsapi"></script>
+   <script src="http://analytics-api-samples.googlecode.com/svn/trunk/src/reporting/javascript/ez-ga-dash/gadash-1.0.js" type="text/javascript"></script>
+    
+  <script src="https://apis.google.com/js/client.js?onload=gadashInit"></script>
+  <script>
+  gadash.configKeys({
+    'apiKey': 'AIzaSyAPusS7gzp0bTla1ogGW_hJOwamaBwVT5Q',
+    'clientId':'821751250764.apps.googleusercontent.com'
+  });
+
+
+  // Create new Chart.
+  var dataOverTime = new gadash.Chart();
+  var scoreCard = new gadash.Chart();
+  var sourceMediumTable = new gadash.Chart();
+
+
+  // Base chart configuration. Used for all charts.
+  var baseConfig = {
+    'last-n-days': 30,
+    'query': {
+      'metrics': 'ga:visitors, ga:visits, ga:pageviews',
+    },
+    'chartOptions': {
+      width: 700
+    }
+  };
+
+
+  // Configuration for data over time graph.
+  var dataOverTimeConfig = {
+    'divContainer': 'dataOverTimeConfig',
+    'type': 'LineChart',
+    'query': {
+      'dimensions': 'ga:date',
+      'sort': 'ga:date'
+    },
+    'chartOptions': {
+      height: 300,
+      legend: {position: 'bottom'},
+      hAxis: {title:'Date'},
+      curveType: 'function'
+    }
+  };
+
+
+  // Configuration for totals for each metric.
+  var scoreCardConfig = {
+    'divContainer': 'scorecard',
+  };
+
+
+  // Configuration for source medium table.
+  var sourceMediumTableConfig = {
+    'divContainer': 'sourceMediumTableConfig',
+    'query': {
+      'dimensions': 'ga:source,ga:medium',
+      'sort': '-ga:visitors',
+      'max-results': 100
+    }
+  };
+
+
+  /**
+   * Handler for the run demo button.
+   * Uses the table ID in the form to update the baseConfig object. Then
+   * sets baseConfig into each of the charts. Then each chart's specific
+   * configuration parameters are set. Finally all are rendered.
+   */
+  function renderGraph() {
+     // Add the table id to the base configuration object.
+     baseConfig.query.ids = document.getElementById('tableId').value;
+
+     dataOverTime.set(baseConfig).set(dataOverTimeConfig).render();
+     scoreCard.set(baseConfig).set(scoreCardConfig).render();
+     sourceMediumTable.set(baseConfig).set(sourceMediumTableConfig).render();
+
+     // Display UI.
+     document.getElementById('ui').style.display = 'block';
+   }
+  </script>
 
  {% endblock %}
         {% endblock %}
