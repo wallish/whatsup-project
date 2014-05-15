@@ -9,6 +9,8 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
+use Knnf\WhatsupBundle\Entity\User;
+
 
 class RegistrationController extends BaseController
 {
@@ -40,7 +42,7 @@ class RegistrationController extends BaseController
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
 
-                    // send mail confirme
+                    /**send mail confirme
                     ini_set('SMTP','smtp.numericable.fr');
                     ini_set('sendmail_from','contact@whatsupmusic.fr');
 
@@ -70,7 +72,7 @@ class RegistrationController extends BaseController
                     $message.= $passage_ligne.$message_html.$passage_ligne;
 
                     mail($mail,$sujet,$message,$header);
-//==========
+//==========*/
                     $response = new RedirectResponse($url);
                 }
     
@@ -79,9 +81,16 @@ class RegistrationController extends BaseController
                 return $response;
             }
         }
-    
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+        
         return $this->container->get('templating')->renderResponse('KnnfWhatsupBundle:Registration:register.html.'.$this->getEngine(), array(
                 'form' => $form->createView(),
+                'user' => $user,
         ));
     }
+    public function getDoctrine()
+{
+    return $this->container->get('doctrine');
+}
 }

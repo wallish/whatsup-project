@@ -2,6 +2,10 @@ event_home:
     pattern:  /
     defaults: { _controller: "KnnfWhatsupBundle:Event:index" }
 
+event_index:
+    pattern:  /index
+    defaults: { _controller: "KnnfWhatsupBundle:Event:index" }
+
 event:
     pattern:  /event/index/
     defaults: { _controller: "KnnfWhatsupBundle:Event:index" }

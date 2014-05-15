@@ -34,7 +34,7 @@
             <div style="background-color:#DE4B39;color:#fff">{{lookbook.title}}</div>
             <img src="{{ tata | imagine_filter('lookbook_display') }}" alt="" />
             <figcaption class="img-caption">
-            <a href="{{ path('user_show', { 'id': app.user.id }) }}">
+            <a href="{{ path('user_show', { 'id': lookbook.user.id }) }}">
               {{lookbook.user.username}}
               </a>
               <button id="signalement" type="button" class="btn btn-danger btn-xs">Signaler</button>

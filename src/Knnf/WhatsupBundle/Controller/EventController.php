@@ -28,9 +28,11 @@ class EventController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
 
         return $this->render('KnnfWhatsupBundle:Event:index.html.twig', array(
-            'entities' => $entities
+            'entities' => $entities,
+            'user' => $user,
         ));
     }
   
@@ -39,6 +41,7 @@ class EventController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('KnnfWhatsupBundle:Event')->find($id);
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Event entity.');
@@ -47,7 +50,10 @@ class EventController extends Controller
        // $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('KnnfWhatsupBundle:Event:show.html.twig', array(
-            'entity'      => $entity));
+            'entity'      => $entity,
+            'user' => $user
+
+            ));
     }
 
  
@@ -59,6 +65,9 @@ class EventController extends Controller
             'action' => $this->generateUrl('event_add'),
             'method' => 'POST',
         ));
+            $em = $this->getDoctrine()->getManager();
+        
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
         $form->handleRequest($request);
@@ -77,6 +86,7 @@ class EventController extends Controller
         return $this->render('KnnfWhatsupBundle:Event:add.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'user' => $user,
         ));
     }
 

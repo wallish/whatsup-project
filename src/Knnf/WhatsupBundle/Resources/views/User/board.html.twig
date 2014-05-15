@@ -7,6 +7,7 @@
         <div class="col-md-8 whatsup-singlearticle-left">
 
             {# Article #}
+            <br />
             <div class="whatsup-article-author-profil" width="780px" height="300px">
 <a href="{{path('article_add')}}">
     <button type="button" class="btn btn-default" onclick="windows">
@@ -20,15 +21,15 @@
 </a>
 <a href="{{path('event_add')}}">
 <button type="button" class="btn btn-default">
-  <span class="glyphicon glyphicon-music"></span> Publier un événement
+  <span class="glyphicon glyphicon-calendar"></span> Publier un événement
 </button>
 </a>
-
-<div class="panel panel-default" style="width:500px;">
+<br /><br />
+<div class="panel panel-default" style="width:100%;">
   <!-- Default panel contents -->
 <div class="panel-heading">Mes derniers articles</div>
   <!-- Table -->
-  <table class="table">
+  <table class="table table-striped">
   <tr>
         <th>Titre</th>
         <th>Publier le</th>
@@ -39,12 +40,16 @@
   <tr>
   <td>{{article.title}}</td>
   <td>{{article.dateinsert | date('d-m-Y')}}</td>
-  <td>{% if article.activate == 1 %} <font style="color:green">Validé</font> {% else %} <font style="color:orange">En cours de validation</font> {% endif %}</td>
+  <td>{% if article.activate == 1 %} <font style="color:green">Validé</font> {% elseif (article.activate == 0) and (article.sandbox != 1) %} <font style="color:orange">En cours de validation</font> {% elseif article.sandbox == 1 %} Brouillon {% endif %}</td>
   
 {% if article.activate == 1 %}
-<td>   <button type="button" class="btn btn-warning btn-xs disabled"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button></td>
+<td>   <button type="button" class="btn btn-warning btn-xs disabled">Editer</button></td>
 {% else %}
-<td>   <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button></td>
+<td>
+<a href="{{path('article_edit',{'id':article.id})}}">
+<button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button>
+</a>
+</td>
 {% endif %}
   </tr>
   {% endfor %}
@@ -57,11 +62,11 @@
 {#<h3 class="whatsup-article-title">{{ article.title }}</h3>
 <span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}
 </span>#}
-    <div class="panel panel-default" style="width:500px;">
+    <div class="panel panel-default" style="width:100%;">
         <!-- Default panel contents -->
         <div class="panel-heading">Mes derniers événements</div>
         <!-- Table -->
-        <table class="table">
+        <table class="table table-striped">
             <tr>
             <th>Titre</th>
             <th>Publier le</th>

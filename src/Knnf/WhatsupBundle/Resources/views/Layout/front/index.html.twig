@@ -75,7 +75,8 @@
         .box-head {width:100%;border-bottom:2px solid #de4b39; margin-bottom: 8px;}
 
         .agenda_body {background-color: #E2E2E2;max-height:500px;min-height:500px; overflow-y:scroll;}
-        .agenda_event {margin-top:5px;padding: 0 15px; }
+        .agenda_event {margin-top:5px;padding: 0 15px;transition: background-color 0.5s ease;cursor: pointer }
+        .agenda_event:hover{background-color: #FDFDFD ;}
         .event_month, .event_day {text-align: center; padding:3px 0;font-weight: bold;}
         .event_month {background-color: #fff;color:#de4b39;}
         .event_day {background-color: #373737; color: #fff;}
@@ -112,13 +113,13 @@
                 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     {{ render(controller("KnnfWhatsupBundle:Index:menu")) }}
-                
+                {#}
                   <form class="navbar-form navbar-right" role="search">
                     <div class="form-group">
                       <input type="text" class="form-control" placeholder="Search">
                     </div>
                     <button type="button" class="btn"><span class="glyphicon glyphicon-search"></span></button>
-                  </form>
+                  </form>{#}
                 </div><!-- /.navbar-collapse -->
                 
             </div>

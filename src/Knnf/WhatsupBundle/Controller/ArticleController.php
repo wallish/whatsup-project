@@ -54,10 +54,12 @@ class ArticleController extends Controller
                 FROM KnnfWhatsupBundle:Article art
                 WHERE art.dateinsert like :month
                 AND art.category = :category
+                AND art.activate = :activate
                 ORDER BY art.views DESC'
             )->setParameters(array(
                 'month' => date('Y').'-'.date('m').'%',
-                'category' => $category
+                'category' => $category,
+                'activate' => 1
             ))->setMaxResults(1);
         }
         else 
@@ -66,9 +68,11 @@ class ArticleController extends Controller
                 'SELECT art
                 FROM KnnfWhatsupBundle:Article art
                 WHERE art.dateinsert like :month
+                AND art.dateinsert = :activate
                 ORDER BY art.views DESC'
             )->setParameter(
-                'month', date('Y').'-'.date('m').'%'
+                'month', date('Y').'-'.date('m').'%',
+                'activate',1
             )->setMaxResults(1);
         }
         try 
@@ -79,6 +83,8 @@ class ArticleController extends Controller
         {
             $article = null;
         }
+        die(var_dump($article));
+        
         //die(var_dump($article));
         return $this->render("KnnfWhatsupBundle:Article:articleofthemonth.html.twig", array("article"=>$article));
     }
@@ -94,11 +100,14 @@ class ArticleController extends Controller
                 FROM KnnfWhatsupBundle:Article art
                 WHERE art.category = :category
                 AND art.dateinsert like :month
+                AND art.activate = :activate
                 GROUP BY art.user
                 ORDER BY nviews DESC'
             )->setParameters(array(
                 'month' => date('Y').'-'.date('m').'%',
-                'category' => $category
+                'category' => $category,
+                'activate' => 1
+
             ))->setMaxResults(1);
         }
         else
@@ -107,10 +116,12 @@ class ArticleController extends Controller
                 'SELECT IDENTITY(art.user), sum(art.views) as nviews
                 FROM KnnfWhatsupBundle:Article art
                 WHERE art.dateinsert like :month
+                AND art.activate = :activate
                 GROUP BY art.user
                 ORDER BY nviews DESC'
             )->setParameter(
-                'month', date('Y').'-'.date('m').'%'
+                'month', date('Y').'-'.date('m').'%',
+                'activate', 1
             )->setMaxResults(1);
         }
 
@@ -122,7 +133,6 @@ class ArticleController extends Controller
         {
             $article = null;
         }
-
         //echo "<pre>".print_r($result,true)."</pre>";
         $user = $em->getRepository('KnnfWhatsupBundle:User')->findOneBy(array("id"=>$result['1']));
         //echo "<pre>".print_r($result,true)."</pre>";
@@ -145,7 +155,7 @@ class ArticleController extends Controller
     public function authorArticlesAction($author, $limit = 0)
     {
         $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $author), null, $limit);
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $author,'activate' => 1), null, $limit);
 
         return $this->render("KnnfWhatsupBundle:Article:miniListArticles.html.twig", array(
             "articles"=>$articles
@@ -156,7 +166,7 @@ class ArticleController extends Controller
     public function authorMostViewArticlesAction($author, $limit = 0)
     {
         $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $author), array('views' => 'ASC'), $limit);
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $author,'activate' => 1), array('views' => 'ASC'), $limit);
 
         return $this->render("KnnfWhatsupBundle:Article:miniListArticles.html.twig", array(
             "articles"=>$articles
@@ -171,7 +181,7 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->container->get('security.context')->getToken()->getUser();
-
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
         $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("slug"=>$slug));
         if($entity == null)
             $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("id"=>$slug));
@@ -197,9 +207,12 @@ class ArticleController extends Controller
             'action' => $this->generateUrl('admin_add_article'),
             'method' => 'POST',
         ));
+            $em = $this->getDoctrine()->getManager();
+        
         $form->add('submit', 'submit', array('label' => 'Créer'));
         $form->add('publish', 'submit', array('label' => 'Publier'));
         $form->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon'));
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -222,6 +235,7 @@ class ArticleController extends Controller
         return $this->render('KnnfWhatsupBundle:Article:add.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'user' => $user,
         ));
     }
 

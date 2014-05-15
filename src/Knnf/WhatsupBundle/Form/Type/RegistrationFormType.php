@@ -22,7 +22,11 @@ class RegistrationFormType extends BaseType
             ->add('username','text',array('label' => 'Pseudo'))
             //->add('password')
             ->add('website','text',array('label' => 'Site web','required'    => false))
-            ->add('birthday')
+            ->add('birthday','date',array('widget' => 'single_text',
+                                                'input' => 'datetime',
+                                                'format' => 'dd/MM/yyyy',
+                                                'attr' => array('class' => 'date')
+                                                ))
             ->add('photo','text',array('label' => 'Avatard','required'    => false))
             ->add('country','text',array('label' => 'Pays','required'    => false))
             ->add('city','text',array('label' => 'Ville','required'    => false))

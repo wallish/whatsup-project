@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-md-4 agenda_body visible-lg" id="toto">
                     <div class="box-head">
-                        <h1 style="font-family:'lighthouse_personal_useRg'">Agenda</h1>
+                        <h1 style="font-family:'lighthouse_personal_useRg'"><a href="{{path('event_index')}}">Agenda</a></h1>
                     </div>
                     
                     <div class="agenda_content" id="agenda_content">
@@ -108,27 +108,18 @@
 
                 <div class="col-md-6">
                     <div class="row">
-                        <a href="#" class="col-md-6 articleItem" style="height:400px; background:url({{asset('bundles/knnfwhatsup/img/shoe.jpg')}}) no-repeat scroll left center / cover;">
+                    {% for lookbook in lookbooks %}
+                        <a href="#" class="col-md-6 articleItem" style="height:400px; background:url({{asset('uploads/documents/'~ lookbook.path)}}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
-                                <h3 class="long">Look book</h3>
+                                <h3 class="long">{{lookbook.title}}</h3>
                                 <div class="line"></div>
                                 <h4 class="author">
-                                    Nirunthan Parameswaran
+                                    {{lookbook.user.username}}
                                 </h4>
                             </div>
-                        </a>
-
-                        <a href="#" class="col-md-6 articleItem" style="height:400px; background:url({{asset('bundles/knnfwhatsup/img/shoe.jpg')}}) no-repeat scroll left center / cover;">
-                            <div class="contentItem">
-                                <div class="backgroundContent"></div>
-                                <h3 class="long">Look book</h3>
-                                <div class="line"></div>
-                                <h4 class="author">
-                                    Nirunthan Parameswaran
-                                </h4>
-                            </div>
-                        </a>
+                        </a>    
+                    {% endfor %}
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -139,7 +130,7 @@
                                 <h3 class="large">{% if ( push|length > 0) %}{{push[0].title}}{% else %}{{musics[0].title}}{% endif %}</h3>
                                 <div class="line2"></div>
                                 <h4 class="author">
-                                    Nirunthan Parameswaran
+                                   {% if ( push|length > 0) %}{{push[0].user.username}}{% else %}{{musics[0].user.username}}{% endif %}
                                 </h4>
                             </div>
                         </a>
@@ -153,7 +144,7 @@
                                 <h3 class="large">{% if ( push|length > 1) %}{{push[1].title}}{% else %}{{musics[1].title}}{% endif %}</h3>
                                 <div class="line2"></div>
                                 <h4 class="author">
-                                    Nirunthan Parameswaran
+                                    {% if ( push|length > 0) %}{{push[0].user.username}}{% else %}{{musics[0].user.username}}{% endif %}
                                 </h4>
                             </div>
                         </a>
