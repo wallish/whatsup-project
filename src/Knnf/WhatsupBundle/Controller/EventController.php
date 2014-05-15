@@ -69,7 +69,7 @@ class EventController extends Controller
         
         $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Soumettre','attr' => array('class' => 'btn btn-primary btn-sm')));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -106,7 +106,7 @@ class EventController extends Controller
             'method' => 'PUT',
         ));
 
-        $editForm->add('submit', 'submit', array('label' => 'Update'));
+        $editForm->add('submit', 'submit', array('label' => 'Mettre à jour','attr' => array('class' => 'btn btn-warning btn-sm')));
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {

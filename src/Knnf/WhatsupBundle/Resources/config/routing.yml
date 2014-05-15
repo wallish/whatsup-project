@@ -2,6 +2,10 @@ index:
     pattern: /index/index/
     defaults: { _controller: "KnnfWhatsupBundle:Index:index" }
 
+index_todo:
+    pattern: /index/todo
+    defaults: { _controller: "KnnfWhatsupBundle:Index:todo" }
+
 admin:
   resource: "@KnnfWhatsupBundle/Resources/config/routing/admin.yml"
   prefix: /admin

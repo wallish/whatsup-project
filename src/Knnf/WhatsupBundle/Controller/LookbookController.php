@@ -59,7 +59,7 @@ class LookbookController extends Controller
         ));
             $em = $this->getDoctrine()->getManager();
         
-        $form->add('submit', 'submit', array('label' => 'Publier'));
+        $form->add('submit', 'submit', array('label' => 'Publier','attr' => array('class' => 'btn btn-primary btn-sm')));
         $form->handleRequest($request);
         $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
         if ($form->isValid()) {

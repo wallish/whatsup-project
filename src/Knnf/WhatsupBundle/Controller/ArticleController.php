@@ -54,12 +54,10 @@ class ArticleController extends Controller
                 FROM KnnfWhatsupBundle:Article art
                 WHERE art.dateinsert like :month
                 AND art.category = :category
-                AND art.activate = :activate
                 ORDER BY art.views DESC'
             )->setParameters(array(
                 'month' => date('Y').'-'.date('m').'%',
                 'category' => $category,
-                'activate' => 1
             ))->setMaxResults(1);
         }
         else 
@@ -68,11 +66,9 @@ class ArticleController extends Controller
                 'SELECT art
                 FROM KnnfWhatsupBundle:Article art
                 WHERE art.dateinsert like :month
-                AND art.dateinsert = :activate
                 ORDER BY art.views DESC'
             )->setParameter(
-                'month', date('Y').'-'.date('m').'%',
-                'activate',1
+                'month', date('Y').'-'.date('m').'%'
             )->setMaxResults(1);
         }
         try 
@@ -83,7 +79,7 @@ class ArticleController extends Controller
         {
             $article = null;
         }
-        die(var_dump($article));
+        //die(var_dump($article));
         
         //die(var_dump($article));
         return $this->render("KnnfWhatsupBundle:Article:articleofthemonth.html.twig", array("article"=>$article));
@@ -100,13 +96,11 @@ class ArticleController extends Controller
                 FROM KnnfWhatsupBundle:Article art
                 WHERE art.category = :category
                 AND art.dateinsert like :month
-                AND art.activate = :activate
                 GROUP BY art.user
                 ORDER BY nviews DESC'
             )->setParameters(array(
                 'month' => date('Y').'-'.date('m').'%',
-                'category' => $category,
-                'activate' => 1
+                'category' => $category
 
             ))->setMaxResults(1);
         }
@@ -116,12 +110,10 @@ class ArticleController extends Controller
                 'SELECT IDENTITY(art.user), sum(art.views) as nviews
                 FROM KnnfWhatsupBundle:Article art
                 WHERE art.dateinsert like :month
-                AND art.activate = :activate
                 GROUP BY art.user
                 ORDER BY nviews DESC'
             )->setParameter(
-                'month', date('Y').'-'.date('m').'%',
-                'activate', 1
+                'month', date('Y').'-'.date('m').'%'
             )->setMaxResults(1);
         }
 
@@ -209,9 +201,9 @@ class ArticleController extends Controller
         ));
             $em = $this->getDoctrine()->getManager();
         
-        $form->add('submit', 'submit', array('label' => 'Créer'));
-        $form->add('publish', 'submit', array('label' => 'Publier'));
-        $form->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon'));
+        $form->add('publish', 'submit', array('label' => 'Soumettre','attr' => array('class' => 'btn btn-primary btn-sm')));
+        $form->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon','attr' => array('class' => 'btn btn-warning btn-sm')));
+        $form->add('submit', 'submit', array('label' => 'Mettre à jour','attr' => array('class' => 'btn btn-default btn-sm')));
         $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
         $form->handleRequest($request);
 
@@ -243,6 +235,7 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($id);
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
 
         if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
         
@@ -252,11 +245,11 @@ class ArticleController extends Controller
         ));
 
         if($entity->getSandbox()){
-            $editForm->add('publish', 'submit', array('label' => 'Publier'));
-            $editForm->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon'));
+            $editForm->add('publish', 'submit', array('label' => 'Soumettre','attr' => array('class' => 'btn btn-primary btn-sm')));
+            $editForm->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon','attr' => array('class' => 'btn btn-warning btn-sm')));
         }
         else{
-            $editForm->add('submit', 'submit', array('label' => 'Mettre à jour'));
+            $editForm->add('submit', 'submit', array('label' => 'Mettre à jour','attr' => array('class' => 'btn btn-default btn-sm')));
         }
 
         $editForm->handleRequest($request);
@@ -274,6 +267,7 @@ class ArticleController extends Controller
          return $this->render('KnnfWhatsupBundle:Article:edit.html.twig', array(
             'entity'      => $entity,
             'form'   => $editForm->createView(),
+            'user' => $user
         ));
     }
     public function deleteAction(Request $request)

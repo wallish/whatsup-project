@@ -27,7 +27,7 @@
 <br /><br />
 <div class="panel panel-default" style="width:100%;">
   <!-- Default panel contents -->
-<div class="panel-heading">Mes derniers articles</div>
+<div class="panel-heading"><a href="#" style="color:black">Mes derniers articles</a></div>
   <!-- Table -->
   <table class="table table-striped">
   <tr>
@@ -38,7 +38,7 @@
   </tr>
   {% for article in articles %}
   <tr>
-  <td>{{article.title}}</td>
+  <td><a href="{{path('article_show',{'slug':article.slug})}}" style="color:black">{{article.title}}</a></td>
   <td>{{article.dateinsert | date('d-m-Y')}}</td>
   <td>{% if article.activate == 1 %} <font style="color:green">Validé</font> {% elseif (article.activate == 0) and (article.sandbox != 1) %} <font style="color:orange">En cours de validation</font> {% elseif article.sandbox == 1 %} Brouillon {% endif %}</td>
   
@@ -64,7 +64,7 @@
 </span>#}
     <div class="panel panel-default" style="width:100%;">
         <!-- Default panel contents -->
-        <div class="panel-heading">Mes derniers événements</div>
+        <div class="panel-heading"><a href="#" style="color:black">Mes derniers événements</a></div>
         <!-- Table -->
         <table class="table table-striped">
             <tr>
@@ -75,7 +75,7 @@
             </tr>
             {% for event in events %}
             <tr>
-            <td>{{event.title}}</td>
+            <td><a href="{{path('event_show',{'id':event.id})}}" style="color:black">{{event.title}}</a></td>
             <td>{{event.dateinsert | date('d-m-Y')}}</td>
             <td>{% if event.activate == 1 %} <font style="color:green">Validé</font>  {% else %} <font style="color:orange">En cours de validation</font> {% endif %}</td>
             <td> <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':event.id})}}">Editer</button></td>

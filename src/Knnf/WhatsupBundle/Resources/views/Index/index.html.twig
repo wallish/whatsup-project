@@ -109,7 +109,7 @@
                 <div class="col-md-6">
                     <div class="row">
                     {% for lookbook in lookbooks %}
-                        <a href="#" class="col-md-6 articleItem" style="height:400px; background:url({{asset('uploads/documents/'~ lookbook.path)}}) no-repeat scroll left center / cover;">
+                        <a href="{{path('lookbook_show',{'id':lookbook.id})}}" class="col-md-6 articleItem" style="height:400px; background:url({{asset('uploads/documents/'~ lookbook.path)}}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
                                 <h3 class="long">{{lookbook.title}}</h3>
@@ -124,27 +124,48 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        <a href="/article/{% if ( push|length > 0) %}{{push[0].slug}}{% else %}{{musics[0].slug}}{% endif %}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{% if ( push|length > 1) %}{{push[0].path}}{% else %}{{musics[0].path}}{% endif %}) no-repeat scroll left center / cover;">
+                        {% if ( push|length > 1) %}
+                            {% set bar_slug = push[0].slug %}
+                            {% set bar_title = push[0].title %}
+                            {% set bar_username = push[0].user.username %}
+                            {% set bar_path = push[0].path %}
+                        {% else %}
+                            {% set bar_slug = musics[0].slug %}
+                            {% set bar_title = musics[0].title %}
+                            {% set bar_username = musics[0].user.username %}
+                            {% set bar_path = musics[0].path %}
+                        {% endif %}
+                        <a href="{{path('article_show',{'slug':bar_slug})}}" class="col-md-12 articleItem" style="height:200px; background:url({{asset('uploads/documents/'~ bar_path)}}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
-                                <h3 class="large">{% if ( push|length > 0) %}{{push[0].title}}{% else %}{{musics[0].title}}{% endif %}</h3>
+                                <h3 class="large">{{bar_title}}</h3>
                                 <div class="line2"></div>
                                 <h4 class="author">
-                                   {% if ( push|length > 0) %}{{push[0].user.username}}{% else %}{{musics[0].user.username}}{% endif %}
+                                   {{bar_username}}
                                 </h4>
                             </div>
                         </a>
                     </div>
 
                     <div class="row">
-                        
-                        <a href="/article/{% if ( push|length > 1) %}{{push[1].slug}}{% else %}{{musics[1].slug}}{% endif %}" class="col-md-12 articleItem" style="height:200px; background:url(/whatsup/web/uploads/documents/{% if ( push|length > 1) %}{{push[1].path}}{% else %}{{musics[1].path}}{% endif %}) no-repeat scroll left center / cover;">
+                        {% if ( push|length > 1) %}
+                            {% set bar_slug2 = push[1].slug %}
+                            {% set bar_title2 = push[1].title %}
+                            {% set bar_username2 = push[1].user.username %}
+                            {% set bar_path2 = push[1].path %}
+                        {% else %}
+                            {% set bar_slug2 = musics[1].slug %}
+                            {% set bar_title2 = musics[1].title %}
+                            {% set bar_username2 = musics[1].user.username %}
+                            {% set bar_path2 = musics[1].path %}
+                        {% endif %}
+                        <a href="{{path('article_show',{'slug':bar_slug2})}}" class="col-md-12 articleItem" style="height:200px; background:url({{asset('uploads/documents/'~ bar_path2)}}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
-                                <h3 class="large">{% if ( push|length > 1) %}{{push[1].title}}{% else %}{{musics[1].title}}{% endif %}</h3>
+                                <h3 class="large">{{bar_title2}}</h3>
                                 <div class="line2"></div>
                                 <h4 class="author">
-                                    {% if ( push|length > 0) %}{{push[0].user.username}}{% else %}{{musics[0].user.username}}{% endif %}
+                                   {{bar_username2}}
                                 </h4>
                             </div>
                         </a>

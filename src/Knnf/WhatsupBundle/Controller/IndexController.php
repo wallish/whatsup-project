@@ -61,4 +61,22 @@ class IndexController extends Controller
     	));
     }
 
+    public function todoAction(){
+        die('
+            liste des articles <br/>
+            liste des events <br/>
+
+            liste des articles user<br/>
+            liste des events user<br/>
+            liste des lookbooks user<br/>
+
+            fix bug edit article user<br/>
+            fix bug edit event user<br/>
+
+            fix responsive menu<br/>
+            fix responsive agenda<br/>
+            fix responsive footer<br/>
+            ');
+    }
+
 }
