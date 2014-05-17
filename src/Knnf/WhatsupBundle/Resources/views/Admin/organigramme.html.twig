@@ -24,28 +24,14 @@
 				
 				<div class="row">
 					<div class="col-12">
-					<button class="btn btn-default" onclick='window.location.href = "{{ url('admin_add_organigramme')}}"'> Ajouter </a></button>
+					<button class="btn btn-default" onclick='window.location.href = "{{ url('admin_add_organigramme')}}"'> Modifier </a></button>
 						<div class="widget-box">
 							<div class="widget-title">
 								<span class="icon"><i class="glyphicon glyphicon-user"></i></span>
 								<h5>Organigramme</h5><span title="{{count}} events" class="label label-info tip-left">{{count}}</span>
 							</div>
-							<div class="widget-content nopadding">
-							<tbody>
-
-								{% for orga in organigrammes %}
-								{% set userlist = orga.userlist|split(',') %}
-								<tr>
-									<td><strong>{{ orga.name }}</strong></td>
-									
-								</tr>
-								{% for user in userlist %}
-								<tr>
-										<td>{{ user }}</td>
-								</tr>
-								{% endfor %}
-								{% endfor %}
-							</tbody>
+							<div class="widget-content ">
+							{{organigramme[0].description | raw}}
 							</div>
 						</div>
 					</div>

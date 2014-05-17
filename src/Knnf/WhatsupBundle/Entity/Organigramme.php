@@ -24,16 +24,9 @@ class Organigramme
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="description", type="text")
      */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="userlist", type="text")
-     */
-    private $userlist;
+    private $description;
 
 
     /**
@@ -47,48 +40,36 @@ class Organigramme
     }
 
     /**
-     * Set name
+     * Set id
      *
-     * @param string $name
+     * @param integer $id
+     * 
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
      * @return Organigramme
      */
-    public function setName($name)
+    public function setDescription($description)
     {
-        $this->name = $name;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get description
      *
      * @return string 
      */
-    public function getName()
+    public function getDescription()
     {
-        return $this->name;
-    }
-
-    /**
-     * Set userlist
-     *
-     * @param string $userlist
-     * @return Organigramme
-     */
-    public function setUserlist($userlist)
-    {
-        $this->userlist = $userlist;
-
-        return $this;
-    }
-
-    /**
-     * Get userlist
-     *
-     * @return string 
-     */
-    public function getUserlist()
-    {
-        return $this->userlist;
+        return $this->description;
     }
 }

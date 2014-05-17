@@ -53,6 +53,11 @@
 												<td>{{ user.username }}</td>
 												<td>{{ user.email }}</td>
 												<td>
+													<a href="{{path('user_show',{'id':user.id})}}">
+													<button class="btn btn-primary btn-mini">
+														<i class="fa fa-edit"></i> Voir la fiche
+													</button>
+													</a>
 													{% if user.activate == 1 %}
 													<button class="btn btn-success btn-mini" onclick="activateUser('{{ user.id }}')">
 														<i class="fa fa-edit"></i> Activer
@@ -65,9 +70,7 @@
 													<button class="btn btn-info btn-mini" onclick='window.location.href = "{{ path('admin_edit_user', { 'id': user.id }) }}"'>
 														<i class="fa fa-edit"></i> Editer
 													</button>
-													{#<button class="btn btn-danger btn-mini" onclick="deleteUser('{{ user.id }}')">
-														<i class="fa fa-edit"></i> Supprimer
-													</button>#}
+													
 												</td>
 											</tr>
 											{% endfor %}

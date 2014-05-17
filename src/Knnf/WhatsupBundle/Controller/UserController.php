@@ -156,6 +156,32 @@ class UserController extends Controller
         
     }
 
+    public function articleListAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('user' => $id,'activate' => 1));
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+
+
+        return $this->render("KnnfWhatsupBundle:User:articlelist.html.twig", array(
+            "articles"=>$articles,
+            'user' => $user,
+            
+        ));
+    }
+
+    public function eventListAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+
+        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array("id" => $id));
+        return $this->render("KnnfWhatsupBundle:User:eventlist.html.twig", array(
+            "events"=>$events,
+            'user' => $user,
+        ));
+    }
+
     public function boardAction($id){
         $em = $this->getDoctrine()->getManager();
 
@@ -205,6 +231,31 @@ class UserController extends Controller
 
     }
 
+    public function settingAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        //$user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array("id" => $id));
+        return $this->render("KnnfWhatsupBundle:User:setting.html.twig", array(
+            "events"=>$events,
+            'user' => $user,
+        ));
+    }
+
+    public function unsubscribeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        //$user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array("id" => $id));
+        return $this->render("KnnfWhatsupBundle:User:unsubscribe.html.twig", array(
+            "events"=>$events,
+            'user' => $user,
+        ));
+    }
 
     public function loginAction(){
         $entity = new User();

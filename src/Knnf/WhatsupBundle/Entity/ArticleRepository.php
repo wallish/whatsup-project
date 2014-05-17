@@ -72,4 +72,6 @@ class ArticleRepository extends EntityRepository
  
         return new Paginator($q);
     }
+
+
 }

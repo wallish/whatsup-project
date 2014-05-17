@@ -64,12 +64,6 @@ class Article
      */
     private $content;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="picture", type="string", length=255)
-     */
-    private $picture;
 
     /**
      * @var integer
@@ -121,6 +115,7 @@ class Article
     private $push;
 
      /**
+     *
      * @Assert\File(maxSize="6000000")
      */
     public $file;
@@ -268,28 +263,7 @@ class Article
         return $this->content;
     }
 
-    /**
-     * Set picture
-     *
-     * @param string $picture
-     * @return Article
-     */
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
 
-        return $this;
-    }
-
-    /**
-     * Get picture
-     *
-     * @return string 
-     */
-    public function getPicture()
-    {
-        return $this->picture;
-    }
 
     /**
      * Set status

@@ -43,6 +43,8 @@ class ArticleController extends Controller
         ));
     }
 
+
+
     //Récupération de l'article du mois
     public function articleOfTheMonthAction($category = null)
     {
@@ -79,11 +81,15 @@ class ArticleController extends Controller
         {
             $article = null;
         }
+
+      
         //die(var_dump($article));
         
         //die(var_dump($article));
         return $this->render("KnnfWhatsupBundle:Article:articleofthemonth.html.twig", array("article"=>$article));
     }
+
+
 
     //Récupération de l'auteur du mois
     public function authorOfTheMonthAction($category = null) 
@@ -167,9 +173,10 @@ class ArticleController extends Controller
 
     public function showAction(Request $request,$slug)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $tata = $request->getClientIp();
         
-
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -188,6 +195,7 @@ class ArticleController extends Controller
             'nblike' => count($like),
             'nbcomments' => count($comments),
             'userlikes' => count($userlikes),
+            'current_url' => "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"
 
         ));
     }
@@ -254,14 +262,17 @@ class ArticleController extends Controller
 
         $editForm->handleRequest($request);
 
+        //die(var_dump($editForm->getErrorsAsString()));
+        //die(var_dump($editForm->isValid()));
         if ($editForm->isValid()) {
-            $entity->setSandbox($form->get('sandbox')->isClicked() ? '1' : '0');
+            //$entity->setSandbox($editForm->get('sandbox')->isClicked() ? '1' : '0');
 
             $em->flush();
             $this->get('session')->getFlashBag()->add(
-            'notice',
-            'Your changes were saved!'
-        );
+                'notice',
+                'Your changes were saved!'
+            );
+
             return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
         }
          return $this->render('KnnfWhatsupBundle:Article:edit.html.twig', array(
@@ -320,5 +331,11 @@ class ArticleController extends Controller
 
     function to_slug($string){
         return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
+    }
+
+    function getFbLike($url){
+        //$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $json = file_get_contents('https://api.facebook.com/method/fql.query?query=select%20total_count,like_count,comment_count,share_count,click_count%20from%20link_stat%20where%20url=%27'.$url.'%27&format=json');
+        return json_decode($json);
     }
 }

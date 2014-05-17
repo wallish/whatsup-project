@@ -12,4 +12,36 @@ use Doctrine\ORM\EntityRepository;
  */
 class AnnotationRepository extends EntityRepository
 {
+	public function getMaxVote($category = null)
+    {
+    	if($category != null)
+    	{
+	        $q = $this->_em->createQueryBuilder()
+	            ->select('count(annotation.idArticle) as nombre')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->where('annotation.category = '.$category->getId())
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->groupBy('annotation.idarticle')
+	            ->setParameter('AnnotationType', 'like');
+	            ;
+	        $query = $q->getQuery();
+        }
+        else
+        {
+        	$q = $this->_em->createQueryBuilder()
+	            ->select('count(annotation.idArticle) as nombre')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->groupBy('annotation.idArticle')
+	            ->setParameter('AnnotationType', 'like');
+
+
+	        $query = $q->getQuery();
+
+        }
+ 
+        $query->getResult(); 
+ 
+        return $q;
+    }
 }

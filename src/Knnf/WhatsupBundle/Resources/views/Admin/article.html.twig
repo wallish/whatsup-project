@@ -36,7 +36,6 @@
 									<table class="table table-bordered table-striped table-hover">
 										<thead>
 											<tr>
-												<th>ID</th>
 												<th>AUTEUR</th>
 												<th>TITRE</th>
 												<th>CATEGORIE</th>
@@ -47,7 +46,6 @@
 										<tbody>
 											{% for article in articles %}
 											<tr>
-												<td>{{ article.id }}</td>
 												<td><a href="{{path('user_show',{'id':article.user.id})}}">{{ article.user.username }}</a></td>
 												<td><a href="{{path('article_show',{'slug':article.slug})}}">{{ article.title }}</a></td>
 												<td>{{ article.category.name }}</td>

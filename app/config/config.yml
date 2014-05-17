@@ -99,11 +99,23 @@ liip_imagine:
         lookbook_mosaique:
             quality: 75
             filters:
-                thumbnail: { size: [240, 160], mode: outbound }                
+                thumbnail: { size: [290, 300], mode: outbound }                
         lookbook_display:
             quality: 75
             filters:
                 thumbnail: { size: [600, 300], mode: outbound }                
+        lookbook_likemonth:
+            quality: 75
+            filters:
+                thumbnail: { size: [390, 200], mode: outbound } 
+        comment_avatar:
+            quality: 75
+            filters:
+                thumbnail: { size: [100, 90], mode: outbound }
+        comment_avatar_form:
+            quality: 75
+            filters:
+                thumbnail: { size: [50, 50], mode: outbound }               
 services:
     twig.extension.intl:
        class: Twig_Extensions_Extension_Intl

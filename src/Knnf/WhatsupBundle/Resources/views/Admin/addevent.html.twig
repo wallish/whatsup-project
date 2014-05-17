@@ -77,14 +77,14 @@
 										<div class="form-group">
 											<label class="control-label">Date début</label>
 											<div class="controls">
-											{{ form_widget(form.datestart, {'attr': {'class': 'datepicker form-control input-small','data-date-format' : 'dd-mm-yyyy'}})}}
+											{{ form_widget(form.datestart)}}
 											</div>
 									</div>
 									<div id="form-wizard-2" class="step">
 										<div class="form-group">
 											<label class="control-label">Date fin</label>
 											<div class="controls">
-											{{ form_widget(form.dateend, {'attr': {'class': 'datepicker form-control input-small','data-date-format' : 'dd-mm-yyyy'}})}}
+											{{ form_widget(form.dateend)}}
 											</div>
 									</div>
 									<div id="form-wizard-2" class="step">
@@ -126,10 +126,18 @@
         </div>
 
         {% block javascripts %}
-			<script>
-			jQuery.noConflict();
-					
-			</script>
+			<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+       
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css" type="text/css" />
+
+        <script type="text/javascript">
+          jQuery.noConflict();
+          $("form input.date").datepicker({
+              dateFormat: 'dd/mm/yy',
+              firstDay:1
+          }).attr("readonly","readonly");
+        </script>
 		{% endblock %}
 	{% endblock %}
 

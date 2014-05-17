@@ -37,21 +37,14 @@
                 <td>{{ entity.orderlink }}</td>
             </tr>
             <tr>
-                <th>Date début</th>
-                <td>{{ entity.datestart|date('d / m / Y') }}</td>
+                <th>Date</th>
+                <td>le {{ entity.datestart|date('d / m / Y') }} au {{ entity.dateend|date('d / m / Y') }}</td>
             </tr>
             <tr>
-                <th>Date de fin</th>
-                <td>{{ entity.dateend|date('d / m / Y') }}</td>
+                <th>Heure </th>
+                <td>{{ entity.hourstart|date('H:i') }} à {{ entity.hourend|date('H:i') }}</td>
             </tr>
-            <tr>
-                <th>Heure début</th>
-                <td>{{ entity.hourstart|date('H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Heure de fin</th>
-                <td>{{ entity.hourend|date('H:i:s') }}</td>
-            </tr>
+         
           
         </tbody>
     </table>
@@ -208,7 +201,7 @@ function TrouverAdresse() {
       strposition=strposition.replace('(', '');
       strposition=strposition.replace(')', '');
       // Affichage des coordonnées dans le <span>
-      document.getElementById('text_latlng').innerHTML='Coordonnées : '+strposition;
+      //document.getElementById('text_latlng').innerHTML='Coordonnées : '+strposition;
       // Création du marqueur du lieu (épingle)
       var marker = new google.maps.Marker({
           map: map,

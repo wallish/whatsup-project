@@ -5,11 +5,10 @@
 
         {# partie gauche de la page article #}
         <div class="col-md-8 whatsup-singlearticle-left">
-<h2><strong>Tableau de bord</strong></h2>
+
             {# Article #}
             <br />
             <div class="whatsup-article-author-profil" width="780px" height="300px">
-            
 <a href="{{path('article_add')}}">
     <button type="button" class="btn btn-default" onclick="windows">
       <span class="glyphicon glyphicon-book"></span> Publier un article
@@ -25,74 +24,92 @@
   <span class="glyphicon glyphicon-calendar"></span> Publier un événement
 </button>
 </a>
-<a href="{{path('event_add')}}">
-<button type="button" class="btn btn-default">
-  <span class="glyphicon glyphicon-cog"></span> Paramètre
-</button>
-</a>
 <br /><br />
 <div class="panel panel-default" style="width:100%;">
-  <!-- Default panel contents -->
-<div class="panel-heading"><a href="#" style="color:black">Mes derniers articles</a></div>
-  <!-- Table -->
-  <table class="table table-striped">
-  <tr>
-        <th>Titre</th>
-        <th>Publier le</th>
-        <th>Statut</th>
-        <th>Action</th>
-  </tr>
-  {% for article in articles %}
-  <tr>
-  <td><a href="{{path('article_show',{'slug':article.slug})}}" style="color:black">{{article.title}}</a></td>
-  <td>{{article.dateinsert | date('d-m-Y')}}</td>
-  <td>{% if article.activate == 1 %} <font style="color:green">Validé</font> {% elseif (article.activate == 0) and (article.sandbox != 1) %} <font style="color:orange">En cours de validation</font> {% elseif article.sandbox == 1 %} Brouillon {% endif %}</td>
-  
-{% if article.activate == 1 %}
-<td>   <button type="button" class="btn btn-warning btn-xs disabled">Editer</button></td>
-{% else %}
-<td>
-<a href="{{path('article_edit',{'id':article.id})}}">
-<button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button>
-</a>
-</td>
-{% endif %}
-  </tr>
-  {% endfor %}
-  </table>
+        <div class="widget-box">
+          <h2>Ajouter un événement</h2>
+          
+<form class="form-horizontal" role="form" method="POST" {{ form_enctype(form) }}>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+    <div class="col-sm-10">
+      {{ form_widget(form.title, {'attr': {'class': 'form-control input-small'}})}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-10">
+      {{ form_widget(form.description, {'attr': {'class': 'form-control input-small'}})}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword4" class="col-sm-2 control-label">Adresse</label>
+    <div class="col-sm-10">
+      {{ form_widget(form.address, {'attr': {'class': 'form-control input-small'}})}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Lieu</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.place, {'attr': {'class': 'form-control input-small'}})}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Billeterie</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.orderlink, {'attr': {'class': 'form-control input-small'}})}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Date début</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.datestart, {'attr': {'class': 'datepicker form-control input-small','data-date-format' : 'dd-mm-yyyy'}})}}
+    </div>
+  </div>
+    <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Date fin</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.dateend, {'attr': {'class': 'datepicker form-control input-small','data-date-format' : 'dd-mm-yyyy'}})}}
+    </div>
+  </div>
+    <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Horaire début</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.hourstart, {'attr': {'class': 'timepicker form-control input-small','data-date-format' : 'dd-mm-yyyy'}})}}
+    </div>
+  </div>
+    <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Horaire fin</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.hourend, {'attr': {'class': 'timepicker form-control input-small','data-date-format' : 'dd-mm-yyyy'}})}}
+    </div>
+  </div>
+    <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Catégorie</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.category, {'class': 'form-control input-small'})}}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputPassword5" class="col-sm-2 control-label">Action</label>
+    <div class="col-sm-10">
+     {{ form_widget(form.submit)}}
+    </div>
+  </div>
+  {{ form_widget(form._token) }}
+</form>
+
+
+
+            </div>
+
 </div>
 
         
 </div>
 <div class="whatsup-article-author-profil" width="780px" height="300px">
-{#<h3 class="whatsup-article-title">{{ article.title }}</h3>
-<span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}
-</span>#}
-    <div class="panel panel-default" style="width:100%;">
-        <!-- Default panel contents -->
-        <div class="panel-heading"><a href="#" style="color:black">Mes derniers événements</a></div>
-        <!-- Table -->
-        <table class="table table-striped">
-            <tr>
-            <th>Titre</th>
-            <th>Publier le</th>
-            <th>Statut</th>
-            <th>Action</th>
-            </tr>
-            {% for event in events %}
-            <tr>
-            <td><a href="{{path('event_show',{'id':event.id})}}" style="color:black">{{event.title}}</a></td>
-            <td>{{event.dateinsert | date('d-m-Y')}}</td>
-            <td>{% if event.activate == 1 %} <font style="color:green">Validé</font>  {% else %} <font style="color:orange">En cours de validation</font> {% endif %}</td>
-            <td> <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':event.id})}}">Editer</button>
-            
 
-
-            </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
 
 </div>
          
@@ -197,7 +214,7 @@ span.tags
     left: 50%;
     margin-left: -10px;
     z-index: 10;
-}
+    }
     </style>
 
         {% block javascripts %}

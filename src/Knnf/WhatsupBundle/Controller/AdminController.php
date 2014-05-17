@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Knnf\WhatsupBundle\Form\UserType;
 use Knnf\WhatsupBundle\Form\ArticleType;
 use Knnf\WhatsupBundle\Form\CategoryType;
+use Knnf\WhatsupBundle\Form\OrganigrammeType;
 use Knnf\WhatsupBundle\Form\MediaType;
 use Knnf\WhatsupBundle\Form\EventType;
 
@@ -112,6 +113,7 @@ class AdminController extends Controller
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Créer'));
+        $form->add('publish', 'submit', array('label' => 'Soumettre','attr' => array('class' => 'btn btn-primary btn-sm')));
         $form->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon'));
         $form->handleRequest($request);
 
@@ -263,26 +265,17 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $organigrammes = $em->getRepository('KnnfWhatsupBundle:organigramme')->findAll();
         //die(var_dump($organigrammes));
+         $entity = $em->getRepository('KnnfWhatsupBundle:Organigramme')->find(1);
+         $form = $this->createForm(new OrganigrammeType(), $entity, array(
+            'action' => $this->generateUrl('admin_add_organigramme', array('id' => 1)),
+            'method' => 'PUT',
+        ));
+        $form->add('submit', 'submit', array('label' => 'Mettre à jour','attr' => array('class' => 'btn btn-default')));
 
-        if ($request->getMethod()=='POST') {
+        $form->handleRequest($request);
+        if ($request->getMethod()=='PUT') {
             $data = $request->request->all();
-            $entity1 = new Organigramme();
-            $entity1->setName($data['niveau1']);
-            $entity1->setUserlist($data['userlist1']);
-            $entity2 = new Organigramme();
-            $entity2->setName($data['niveau2']);
-            $entity2->setUserlist($data['userlist2']);
-            $entity3 = new Organigramme();
-            $entity3->setName($data['niveau3']);
-            $entity3->setUserlist($data['userlist3']);
-            $entity4 = new Organigramme();
-            $entity4->setName($data['niveau4']);
-            $entity4->setUserlist($data['userlist4']);
-
-            $em->persist($entity1);
-            $em->persist($entity2);
-            $em->persist($entity3);
-            $em->persist($entity4);
+            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_organigramme'));
@@ -290,6 +283,7 @@ class AdminController extends Controller
 
         return $this->render('KnnfWhatsupBundle:Admin:addorganigramme.html.twig', array(
             'organigrammes' => $organigrammes,
+            'form' => $form->createView(),
         ));
     }
  
@@ -308,7 +302,7 @@ class AdminController extends Controller
             'method' => 'PUT',
         ));
 
-        $editForm->add('submit', 'submit', array('label' => 'Update'));
+        $editForm->add('submit', 'submit', array('label' => 'Mettre à jour'));
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -398,11 +392,11 @@ class AdminController extends Controller
     public function organigrammeAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $organigrammes = $em->getRepository('KnnfWhatsupBundle:organigramme')->findAll();
+        $organigramme = $em->getRepository('KnnfWhatsupBundle:organigramme')->findBy(array('id' => 1));
         
         return $this->render('KnnfWhatsupBundle:Admin:organigramme.html.twig', array(
-           'organigrammes' => $organigrammes,
-           'count' => count($organigrammes),
+           'organigramme' => $organigramme,
+           'count' => count($organigramme),
         ));
     }
 

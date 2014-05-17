@@ -198,7 +198,9 @@
                             <h3>{{article.title}}</h3>
                             <div class="line"></div>
                             <h4 class="author">
+                            {% if article.user != null %}
                                 {{article.user.username}}
+                            {% endif %}
                             </h4>
                         </div>
                     </a>

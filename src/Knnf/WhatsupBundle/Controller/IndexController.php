@@ -63,19 +63,30 @@ class IndexController extends Controller
 
     public function todoAction(){
         die('
+            add gestion des droits <br/>
+            add google analytics<br/>
+            add organigramme front<br/><br/>
+            add ordre catégorie menu <br/><br/>
+
             liste des articles <br/>
-            liste des events <br/>
+            liste des events <br/><br/>
 
             liste des articles user<br/>
             liste des events user<br/>
-            liste des lookbooks user<br/>
+            liste des lookbooks user<br/><br/>
 
             fix bug edit article user<br/>
             fix bug edit event user<br/>
+            fix bug edit user user<br/>
+            fix bug organigramme back<br/><br/>
 
             fix responsive menu<br/>
             fix responsive agenda<br/>
-            fix responsive footer<br/>
+            fix responsive footer<br/><br/>
+            fix register view<br/>
+            fix login view<br/><br/>
+            fix datepicker color <br/>
+            replace datepicker <br/>
             ');
     }
 

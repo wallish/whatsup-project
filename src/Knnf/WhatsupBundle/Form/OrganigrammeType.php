@@ -15,8 +15,7 @@ class OrganigrammeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('userlist')
+            ->add('description','textarea', array('attr' => array('class' => 'ckeditor')))
         ;
     }
     

@@ -1,9 +1,11 @@
 
 {% if comments != null %}
 {% for comment in comments %}
+	{% set path = '/uploads/documents/'~comment.user.path %}
+
 <div class="comment">
 	<div class="avatar">
-		<img src="{{ (comment.user.photo|length  > 0) ? asset('bundles/knnfwhatsup/img/avatar/') ~ comment.user.photo  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
+		<img src="{{ (comment.user.path|length  > 0) ? path | imagine_filter('comment_avatar')  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
 	</div>
 	<div class="comment-bloc">
 		<div class="comment-username"><strong>{{ comment.user.username }}</strong></div>

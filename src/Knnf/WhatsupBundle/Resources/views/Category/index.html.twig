@@ -10,10 +10,12 @@
 						    <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 780px; height: 300px;">
                                 {% set i = 0 %}
 						        {% for article in articles %}
+                                {% set path = '/uploads/documents/'~article.path %}
+
                                     {% if (article.path is not empty) and (i < 5) %}
                                     {% set i=i+1 %}
 							        <div>
-								        <img u="image" src="/whatsup/web/uploads/documents/{{article.path}}" />
+								        <img u="image" src="{{ path | imagine_filter('slide') }}" />
 									    <a href="{{ path('article_show', { 'slug': article.slug }) }}">
 										    <div class="whatsup-slider-caption" u="caption" t="caption-transition-name">
 										        <div class="whatsup-slider-title">{{ article.title }}</div>
@@ -68,7 +70,7 @@
                                <tr><td>Date : </td><td>{{event.datestart | date('d-m-Y')}} - {{event.dateend | date('d-m-Y')}}</td></tr>
                                <tr><td>Horaire : </td><td>{{event.hourstart | date('H:i')}} - {{event.hourend | date('H:i')}}</td></tr>
                                <tr><td>Mise à jour le : </td><td>{{event.dateupdate | date('d-m-Y')}}</td></tr>
-                               <tr><td><a href="http://www.google.com" >Voir l'event</td></tr>
+                               <tr><td><a href="{{ path('event_show',{'id':event.id}) }}" >Voir l'event</td></tr>
                                </table>
                             </div>
                             </div>
@@ -79,11 +81,12 @@
             </div>
             <div class="row whatsup-article-row">
                 {% for article in articles %}
+                    {% set path2 = '/uploads/documents/'~article.path %}
                     {% if (loop.index is divisibleby(4)) and (loop.index > 4) %}
                         </div>
                         <div class="row whatsup-article-row">
                     {% endif %}
-                    <a href="{{ path('article_show', { 'slug': article.slug }) }}" class="col-md-3 whatsup-article-box articleItem" style="background:url('/whatsup/web/uploads/documents/{{ article.path }}') no-repeat scroll left center / cover;">
+                    <a href="{{ path('article_show', { 'slug': article.slug }) }}" class="col-md-3 whatsup-article-box articleItem" style="background:url('{{ path2 | imagine_filter('lookbook_mosaique') }}') no-repeat scroll left center / cover;">
                         <div id="content-{{ article.id }}" class="contentItem">
                             <div class="backgroundContent"></div>
                             <h3>{{ article.title }}</h3>

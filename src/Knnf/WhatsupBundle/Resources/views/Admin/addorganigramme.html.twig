@@ -23,59 +23,15 @@
 
             <div id="breadcrumb">
                 <a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
-                <a href="{{ path('admin_article')}}" class="current">Organigramme</a>
+                <a href="{{ path('admin_article')}}" >Organigramme</a>
+                <a href="{{ path('admin_add_organigramme')}}" class="current">Modifier</a>
             </div>
             <div class="container-fluid">
-					<form class="form-inline" role="form" style="width:300px" method="POST">
-					  <div class="form-group">
-					    <label class="sr-only" for="niveau1">Niveau 1 </label>
-					    <input type="text" class="form-control" id="niveau1" placeholder="Enter email" name="niveau1" value="{% if (organigrammes|length >= 1) %} {{organigrammes[0].name}} {% endif %}">
-					  </div>
-					  <div class="form-group">
-					    <label class="sr-only" for="list1">Nom</label>
-					    <textarea class="form-control" rows="3" name="userlist1">{% if (organigrammes|length >= 1) %} {{organigrammes[0].userlist}} {% endif %}</textarea>
-
-					  </div>
-					
-					  {#niveau 2#}
-					  <div class="form-group">
-					    <label class="sr-only" for="niveau1">Niveau 2 </label>
-					    <input type="text" class="form-control" id="niveau1" placeholder="Enter email" name="niveau2" value="{% if (organigrammes|length >= 2) %} {{organigrammes[1].name}} {% endif %}">
-					  </div>
-					  <div class="form-group">
-					    <label class="sr-only" for="list1">Nom</label>
-					    <textarea class="form-control" rows="3" name="userlist2">{% if (organigrammes|length >= 2) %} {{organigrammes[1].userlist}} {% endif %}</textarea>
-
-					  </div>
-					
-					  {#niveau 3#}
-					  <div class="form-group">
-					    <label class="sr-only" for="niveau1">Niveau 3 </label>
-					    <input  type="text" class="form-control" id="niveau1" placeholder="Enter email" name="niveau3" value="{% if (organigrammes|length >= 3) %} {{organigrammes[2].name}} {% endif %}">
-					  </div>
-					  <div class="form-group">
-					    <label class="sr-only" for="list1">Nom</label>
-					    <textarea class="form-control" rows="3" name="userlist3"> {% if (organigrammes|length >= 3) %} {{organigrammes[2].userlist}} {% endif %} </textarea>
-
-					  </div>
-					
-					  {#niveau 4#}
-					  <div class="form-group">
-					    <label class="sr-only" for="niveau1">Niveau 4 </label>
-					    <input type="text" class="form-control" id="niveau1" placeholder="Enter email" name="niveau4" value="{% if (organigrammes|length >= 4) %} {{organigrammes[3].name}} {% endif %}">
-					  </div>
-					  <div class="form-group">
-					    <label class="sr-only" for="list1">Nom</label>
-					    <textarea class="form-control" rows="3" name="userlist4">{% if (organigrammes|length >= 4) %} {{organigrammes[3].userlist}} {% endif %}</textarea>
-
-					  </div>{{organigrammes|length}}
-					  <div class="form-group">
-					    <div class="col-sm-offset-2 col-sm-10">
-					      <button type="submit" class="btn btn-default">Enregistrer</button>
-					    </div>
-					  </div>
-					</form>
+				
+					{{form(form)}}
             </div>
+
+            
         </div>
 
 

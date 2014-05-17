@@ -7,7 +7,7 @@
         <div class="col-md-8 whatsup-singlearticle-left">
             {# Article #}
             <div class="whatsup-article">
-                <h3 class="whatsup-article-title">{{ article.title }}</h3>
+                <h3 class="whatsup-article-title"><strong>{{ article.title }}</strong></h3>
                 <!-- <a id="signalement" class="btn btn-danger btn-mini">signaler</a>
                 <a id="signalement" class="btn btn-primary btn-mini" onclick="addLike({{ article.id }})">Like</a> -->
                 <span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}
@@ -25,13 +25,15 @@
             {% endif %}
             <button id="signalement" type="button" class="btn btn-danger btn-xs">Signaler</button>
             {% endif %}
-                <div class="fb-share-button" data-href="http://localhost/whatsup/web/app_dev.php/whatsup/article/test2" data-type="button"></div>
+                <div class="fb-share-button" data-href="{{current_url}}" data-type="button"></div>
+                <div class="fb-like" data-href="{{current_url}}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
             </div>
             <div class="whatsup-article-author">
                 <div class="line"></div>
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="{{ (article.user.photo|length  > 0) ? asset('bundles/knnfwhatsup/img/avatar/') ~ article.user.photo  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
+                        {% set path_autor = '/uploads/documents/'~article.user.path %}
+                        <img src="{{ (article.user.path|length  > 0) ? path_autor | imagine_filter('comment_avatar')  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
                     </div>
                     <div class="col-md-10">
                         <div class="whatsup-username">{#article.user.username#} toto</div>
@@ -48,18 +50,19 @@
                 <div>
                     <form >
                         <label for="name">Poster un commentaire</label><br/>
-                        <img src="{{ (app.user.photo|length  > 0) ? asset('bundles/knnfwhatsup/img/avatar/') ~ app.user.photo  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="50px" />
+                        {% set path_form_comment = '/uploads/documents/'~app.user.path %}
+                        <img src="{{ (app.user.path|length  > 0) ? path_form_comment | imagine_filter('comment_avatar_form')  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="50px" />
                         <textarea name="commentaire"></textarea>
                         <br/>
                         <input type="submit" onclick="addComments({{article.id}})" value="Envoyer"/>     
                     </form>
                 </div>
                 <br/>
-                <h5>Commentaires</h5>
+                <h2><strong>Commentaires</strong></h2>
                 {{ render(controller("KnnfWhatsupBundle:Article:comment", {"article_id": article.id} )) }}
             </div>
             {% else %}
-                <h5>Commentaires</h5>
+                <h2><strong>Commentaires</strong></h2>
                 {{ render(controller("KnnfWhatsupBundle:Article:comment", {"article_id": article.id} )) }}
                 <div class="connect">
                     <a href="{{ path('fos_user_security_login') }}" title="connecte-toi">Connecte-toi</a> ou <a href="{{ path('registration') }}" title="inscris-toi">Inscris-toi</a> pour poster un commentaire.
@@ -71,12 +74,12 @@
         {# partie droite de la page article #}
         <div class="col-md-4 whatsup-article-relative">
             <div>
-                <h4>Articles relatifs</h4>
+                <h4><strong>Articles relatifs</strong></h4>
                 {{ render(controller("KnnfWhatsupBundle:Article:categoryArticles", {"category":article.category, "limit":3} )) | raw }}
 
             </div>
             <div>
-                <h4>Derniers articles de l'auteur</h4>
+                <h4><strong>Derniers articles de l'auteur</strong></h4>
                 {{ render(controller("KnnfWhatsupBundle:Article:authorArticles", {"author": article.user, "limit":3} )) }}
 
             </div>

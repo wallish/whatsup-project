@@ -22,10 +22,12 @@ class OrganigrammeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('KnnfWhatsupBundle:Organigramme')->findAll();
+        $organigramme = $em->getRepository('KnnfWhatsupBundle:organigramme')->findBy(array('id' => 1));
+        $user = $em->getRepository('KnnfWhatsupBundle:user')->findBy(array('id' => 2));
 
         return $this->render('KnnfWhatsupBundle:Organigramme:index.html.twig', array(
-            'entities' => $entities,
+            'organigramme' => $organigramme,
+            'user' => $user
         ));
     }
 

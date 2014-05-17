@@ -46,3 +46,19 @@ user_login:
 user_board:
     pattern:  /{id}/board
     defaults: { _controller: "KnnfWhatsupBundle:User:board" }
+
+user_article_list:
+    pattern:  /{id}/articlelist
+    defaults: { _controller: "KnnfWhatsupBundle:User:articlelist" }
+
+user_event_list:
+    pattern:  /{id}/eventlist
+    defaults: { _controller: "KnnfWhatsupBundle:User:eventlist" }
+
+user_setting:
+    pattern:  /setting
+    defaults: { _controller: "KnnfWhatsupBundle:User:setting" }
+
+user_unsubscribe:
+    pattern:  /unsubscribe
+    defaults: { _controller: "KnnfWhatsupBundle:User:unsubscribe" }

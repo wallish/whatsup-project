@@ -47,14 +47,9 @@
 											<tr>
 												<td>{{ signalement.AnnotationContent }}</td>
 												<td><a href="{{ url('user_show', { 'id': signalement.user.id }) }}">{{ signalement.user.username }}</a></td>
-												<td>{{ signalement.dateinsert | date('Y-m-d') }}</td>
+												<td>{{ signalement.dateinsert | date('d-m-Y') }}</td>
 												<td>
-													<button class="btn btn-success btn-mini" onclick="activateEvent('{{ signalement.id }}')">
-														<i class="fa fa-edit"></i> Validate
-													</button>
-													<button class="btn btn-info btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': signalement.id }) }}"'>
-														<i class="fa fa-edit"></i> Edit
-													</button>
+												
 													<button class="btn btn-danger btn-mini" onclick="deleteEvent('{{ signalement.id }}')">
 														<i class="fa fa-edit"></i> Delete
 													</button>

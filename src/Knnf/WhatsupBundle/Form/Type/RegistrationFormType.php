@@ -27,10 +27,10 @@ class RegistrationFormType extends BaseType
                                                 'format' => 'dd/MM/yyyy',
                                                 'attr' => array('class' => 'date')
                                                 ))
-            ->add('photo','text',array('label' => 'Avatard','required'    => false))
             ->add('country','text',array('label' => 'Pays','required'    => false))
             ->add('city','text',array('label' => 'Ville','required'    => false))
             ->add('description','textarea',array('label' => 'Description','required'    => false))
+            ->add('file','file')
             ->add('zipcode','text',array('label' => 'Code postal','required'    => false));
     }
 
