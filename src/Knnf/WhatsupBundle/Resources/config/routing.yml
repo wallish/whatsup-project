@@ -50,6 +50,13 @@ lookbook:
   resource: "@KnnfWhatsupBundle/Resources/config/routing/lookbook.yml"
   prefix: /lookbook
 
+setting:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/setting.yml"
+  prefix: /setting
+
+
+
+
 registration:
     pattern:  /registration/register
     defaults: { _controller: "KnnfWhatsupBundle:Registration:register" }
@@ -70,3 +77,5 @@ registration_checkmail:
 contact_index:
     pattern: /contact
     defaults: { _controller: KnnfWhatsupBundle:Contact:index }
+
+

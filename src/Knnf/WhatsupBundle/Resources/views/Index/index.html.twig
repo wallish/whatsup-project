@@ -29,7 +29,7 @@
                         </div>
                   </div>
                   <div class="row">
-                        <a href="#" class="col-md-6 articleItem" style="height:200px; background:url( {{ 'bundles/knnfwhatsup/img/viaduc.jpg' | imagine_filter('slide') }}) no-repeat scroll left center / cover;">
+                        {#<a href="#" class="col-md-6 articleItem" style="height:200px; background:url( {{ 'bundles/knnfwhatsup/img/viaduc.jpg' | imagine_filter('slide') }}) no-repeat scroll left center / cover;">
                             <div class="contentItem">
                                 <div class="backgroundContent"></div>
                                 <h3 class="small">Look book</h3>
@@ -38,21 +38,22 @@
                                     Nirunthan Parameswaran
                                 </h4>
                             </div>
-                        </a>
-                    {#{ render(controller("KnnfWhatsupBundle:Article:authorOfTheMonth" )) }#}
+                        </a>#}
+                    {{ render(controller("KnnfWhatsupBundle:Article:authorOfTheMonth" )) }}
                     {{ render(controller("KnnfWhatsupBundle:Article:articleOfTheMonth")) }}
 
                   </div>
                 </div>
                 <div class="col-md-4 agenda_body visible-lg" id="toto">
                     <div class="box-head">
-                        <h1 style="font-family:'lighthouse_personal_useRg'"><a href="{{path('event_index')}}">Agenda</a></h1>
+                        <h1 style="font-family:'lighthouse_personal_useRg'"><a href="{{path('event_index')}}" style="color:#373737">Agenda</a></h1>
                     </div>
                     
                     <div class="agenda_content" id="agenda_content">
                     {% if events != null %}
                         {% for event in events %}  
-                            <div class="row agenda_event" onclick='displayEvent({{event.id}})' data-toggle="modal" data-target="#event_description{{event.id}}">
+                        <a href="{{path('event_show', {'id': event.id})}}" style="color:#373737">
+                            <div class="row agenda_event" >
                                 <div class="col-md-2 event_date_box">
                                     <div class="row event_month">{{ event.datestart | date('M') }}</div>
                                     <div class="row event_day">{{ event.datestart | date('d') }}</div>
@@ -66,36 +67,8 @@
                                 <div class="col-md-1 event_action">
                                 </div>
                             </div>
-                            {#<div id="event_description">
-                            <div id="agenda_content_description{{event.id}}" title="Description event">
-                               <table>
-                               <tr><td>Titre : </td><td>{{event.description}}</td></tr>
-                               <tr><td>Lieu : </td><td>{{event.place}}</td></tr>
-                               <tr><td>Adresse : </td><td>{{event.address}}</td></tr>
-                               <tr><td>Billeterie : </td><td>{{event.orderlink}}</td></tr>
-                               <tr><td>Date : </td><td>{{event.datestart | date('d-m-Y')}} - {{event.dateend | date('d-m-Y')}}</td></tr>
-                               <tr><td>Horaire : </td><td>{{event.hourstart | date('H:i')}} - {{event.hourend | date('H:i')}}</td></tr>
-                               <tr><td>Mise à jour le : </td><td>{{event.dateupdate | date('d-m-Y')}}</td></tr>
-                               <tr><td><a href="{{path('event_show', {'id': event.id,})}}" >Voir l'event</td></tr>
-                               </table>
-                            </div>#}
-
-                            <div id="event_description{{event.id}}" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-sm tata">
-                                <div class="modal-content" style="padding:15px;">
-                                   <table>
-                               <tr><td>Titre : </td><td>{{event.description}}</td></tr>
-                               <tr><td>Lieu : </td><td>{{event.place}}</td></tr>
-                               <tr><td>Adresse : </td><td>{{event.address}}</td></tr>
-                               <tr><td>Billeterie : </td><td>{{event.orderlink}}</td></tr>
-                               <tr><td>Date : </td><td>{{event.datestart | date('d-m-Y')}} - {{event.dateend | date('d-m-Y')}}</td></tr>
-                               <tr><td>Horaire : </td><td>{{event.hourstart | date('H:i')}} - {{event.hourend | date('H:i')}}</td></tr>
-                               <tr><td>Mise à jour le : </td><td>{{event.dateupdate | date('d-m-Y')}}</td></tr>
-                               <tr><td><a href="{{path('event_show', {'id': event.id,})}}" >Voir l'event</td></tr>
-                               </table>
-                                </div>
-                              </div>
-                            </div>
+                        </a>
+              
                            {# </div>#}
                         {% endfor %}
                     {% endif %}
@@ -175,7 +148,14 @@
             </div>
             <div class="col-md-12">
                 <div class="row articles">
-                {% for article in articles1|slice(0, 4) %}
+                {% if favory1 != null %}
+                    {% set loop1 = favory1 %}
+                {% else %}
+                    {% set loop1 = articles1 %}
+                {% endif %}
+
+
+                {% for article in loop1|slice(0, 4) %}
                     <a href="{{path('article_show',{'slug':article.slug})}}" class="col-md-3 articleItem" style="background:url({{asset('uploads/documents/'~ article.path)}}) no-repeat scroll left center / cover;">
                         <div class="contentItem">
                             <div class="backgroundContent"></div>
@@ -190,8 +170,14 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="row">
-                {% for article in articles1|slice(4, 8) %}
+                <div class="row articles">
+                {% if favory2 != null %}
+                {% set loop2 = favory2 %}
+                {% else %}
+                {% set loop2 = articles1|slice(5, 8) %}
+                {% endif %}
+
+                {% for article in loop2 %}
                     <a href="{{path('article_show',{'slug':article.slug})}}" class="col-md-3 articleItem" style="background:url({{asset('uploads/documents/'~ article.path)}}) no-repeat scroll left center / cover;">
                         <div class="contentItem">
                             <div class="backgroundContent"></div>
@@ -208,34 +194,41 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="row">
-                 {% for article in articles1|slice(8, 12) %}
+                <div class="row articles">
+                {% if favory3 != null %}
+                {% set loop3 = favory3 %}
+                {% else %}
+                {% set loop3 = articles1|slice(9, 12) %}
+                {% endif %}
+                {% for article in loop3 %}
                     <a href="{{path('article_show',{'slug':article.slug})}}" class="col-md-3 articleItem" style="background:url({{asset('uploads/documents/'~ article.path)}}) no-repeat scroll left center / cover;">
                         <div class="contentItem">
                             <div class="backgroundContent"></div>
                             <h3>{{article.title}}</h3>
                             <div class="line"></div>
                             <h4 class="author">
+                            {% if article.user != null %}
                                 {{article.user.username}}
+                            {% endif %}
                             </h4>
                         </div>
                     </a>
                 {% endfor %}
-
                 </div>
             </div>
+
+
         </div>
     </div>
     
     {% block javascripts %}
         <script>
+     
         var config = {
             interval: 7000,
             articleCount:4,
             carouselInterval: 300
         }
-
-      
 
         window.onload = function () {
             $("#event_description").css("display","none");

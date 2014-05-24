@@ -49,6 +49,12 @@ class Annotation
     private $idArticle;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Knnf\WhatsupBundle\Entity\Article")
+     * @ORM\JoinColumn(name="articleid", referencedColumnName="id",unique=false,nullable=false)
+     */
+    private $article;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="AnnotationType", type="string", length=50)
@@ -246,5 +252,28 @@ class Annotation
     public function getDateinsert()
     {
         return $this->dateinsert;
+    }
+
+    /**
+     * Set article
+     *
+     * @param \Knnf\WhatsupBundle\Entity\Article $article
+     * @return Article
+     */
+    public function setArticle(\Knnf\WhatsupBundle\Entity\Article $article = null)
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return \Knnf\WhatsupBundle\Entity\Article 
+     */
+    public function getArticle()
+    {
+        return $this->article;
     }
 }

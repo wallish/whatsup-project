@@ -10,7 +10,7 @@
                 <h3 class="whatsup-article-title"><strong>{{ article.title }}</strong></h3>
                 <!-- <a id="signalement" class="btn btn-danger btn-mini">signaler</a>
                 <a id="signalement" class="btn btn-primary btn-mini" onclick="addLike({{ article.id }})">Like</a> -->
-                <span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}
+                <span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }} - {{ article.category.name }}
                 </span>
                 <div class="whatsup-article-body">
                     {{ article.content | raw }}
@@ -36,9 +36,9 @@
                         <img src="{{ (article.user.path|length  > 0) ? path_autor | imagine_filter('comment_avatar')  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" height="92px" />
                     </div>
                     <div class="col-md-10">
-                        <div class="whatsup-username">{#article.user.username#} toto</div>
-                        <div >{{nbcomments}} commentaire</div>
-                        <div id="like">{{nblike}} like</div>
+                        <div class="whatsup-username"><a href="{{path('user_show',{'id':article.user.id})}}">{{article.user.username}}</a></div>
+                        <div >{{nbcomments}} commentaires</div>
+                        <div id="like">{{nblike}} likes</div>
                        
                     </div>
                     

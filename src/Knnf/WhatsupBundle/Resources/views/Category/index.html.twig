@@ -31,10 +31,10 @@
 						</div>
                   	</div>
 	              	<div class="row whatsup-category-bests">
-	                    <div class="col-md-7 whatsup-articleofthemonth whatsup-article-box">
+	                    <div class="col-md-6 whatsup-articleofthemonth whatsup-article-box">
 	                        {{ render(controller("KnnfWhatsupBundle:Article:articleOfTheMonth", {"category": entity} )) }}
 	                    </div>
-	                    <div class="col-md-5">
+	                    <div class="col-md-6 whatsup-articleofthemonth whatsup-article-box">
                             {{ render(controller("KnnfWhatsupBundle:Article:authorOfTheMonth", {"category": entity} )) }}
 	                    </div>  
                   	</div>
@@ -45,7 +45,8 @@
                     </div>
                     <div class="agenda_content">
                         {% if events != null %}
-                        {% for event in events %}  
+                        {% for event in events %} 
+                        <a href="{{path('event_show', {'id': event.id})}}" style="color:#373737"> 
                             <div class="row agenda_event" onclick='displayEvent({{event.id}})'>
                                 <div class="col-md-2 event_date_box">
                                     <div class="row event_month">{{ event.datestart | date('M') }}</div>
@@ -60,20 +61,7 @@
                                 <div class="col-md-1 event_action">
                                 </div>
                             </div>
-                            <div id="event_description">
-                            <div id="agenda_content_description{{event.id}}" title="Description event">
-                               <table>
-                               <tr><td>Titre : </td><td>{{event.description}}</td></tr>
-                               <tr><td>Lieu : </td><td>{{event.place}}</td></tr>
-                               <tr><td>Adresse : </td><td>{{event.address}}</td></tr>
-                               <tr><td>Billeterie : </td><td>{{event.orderlink}}</td></tr>
-                               <tr><td>Date : </td><td>{{event.datestart | date('d-m-Y')}} - {{event.dateend | date('d-m-Y')}}</td></tr>
-                               <tr><td>Horaire : </td><td>{{event.hourstart | date('H:i')}} - {{event.hourend | date('H:i')}}</td></tr>
-                               <tr><td>Mise à jour le : </td><td>{{event.dateupdate | date('d-m-Y')}}</td></tr>
-                               <tr><td><a href="{{ path('event_show',{'id':event.id}) }}" >Voir l'event</td></tr>
-                               </table>
-                            </div>
-                            </div>
+                            </a>
                         {% endfor %}
                     {% endif %}
                     </div>

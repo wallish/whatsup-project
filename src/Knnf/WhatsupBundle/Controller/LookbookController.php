@@ -24,7 +24,7 @@ class LookbookController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('KnnfWhatsupBundle:Lookbook')->findAll();
+        $entities = $em->getRepository('KnnfWhatsupBundle:Lookbook')->findBy(array('activate' => 1));
 
         return $this->render('KnnfWhatsupBundle:Lookbook:index.html.twig', array(
             'entities' => $entities,
@@ -40,13 +40,14 @@ class LookbookController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('KnnfWhatsupBundle:Lookbook')->find($id);
+        $user = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array('id' => $entity->getUser()->getId()));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Lookbook entity.');
         }
-
         return $this->render('KnnfWhatsupBundle:Lookbook:show.html.twig', array(
             'entity'      => $entity,
+            'user' => $user[0],
         ));
     }
 
@@ -68,7 +69,7 @@ class LookbookController extends Controller
             $user = $this->container->get('security.context')->getToken()->getUser();
             
             $entity->setUser($user);
-            $entity->setActivate(0);
+            $entity->setActivate(1);
             $entity->upload();
             $em->persist($entity);
             $em->flush();

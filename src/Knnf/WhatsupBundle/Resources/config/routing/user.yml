@@ -44,7 +44,7 @@ user_login:
     #requirements: { _method: post|delete }
 
 user_board:
-    pattern:  /{id}/board
+    pattern:  /board
     defaults: { _controller: "KnnfWhatsupBundle:User:board" }
 
 user_article_list:
@@ -62,3 +62,7 @@ user_setting:
 user_unsubscribe:
     pattern:  /unsubscribe
     defaults: { _controller: "KnnfWhatsupBundle:User:unsubscribe" }
+
+user_setting:
+    pattern:  /setting
+    defaults: { _controller: "KnnfWhatsupBundle:User:setting" }

@@ -26,22 +26,22 @@
                             <li class="popover-visits">
                                 <div class="left sparkline_bar_good"><span>2,4,9,7,12,10,12</span>+10%</div>
                                 <div class="right">
-                                    <strong>36094</strong>
-                                    Visits
+                                    <strong>{{articles|length}}</strong>
+                                    Articles
                                 </div>
                             </li>
                             <li class="popover-users">
                                 <div class="left sparkline_bar_neutral"><span>20,15,18,14,10,9,9,9</span>0%</div>
                                 <div class="right">
-                                    <strong>1433</strong>
-                                    Users
+                                    <strong>{{users|length}}</strong>
+                                    Utilisateurs
                                 </div>
                             </li>
                             <li class="popover-orders">
                                 <div class="left sparkline_bar_bad"><span>3,5,9,7,12,20,10</span>-50%</div>
                                 <div class="right">
-                                    <strong>8650</strong>
-                                    Orders
+                                    <strong>{{lookbooks|length}}</strong>
+                                    Lookbooks
                                 </div>
                             </li>
                             <li class="popover-tickets">
@@ -56,10 +56,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="alert alert-danger">
-                            Le commentaire de <strong>toto</strong> vient d'être signalé sur l'article "je suis un gros chocolat" <a href="#">Voir le commentaire</a>
-                            <a href="#" data-dismiss="alert" class="close">×</a>
-                        </div>
+                      
                         
                         </div>                  
                     </div>
@@ -71,12 +68,13 @@
                             <div class="widget-content nopadding">
                                 <ul class="recent-posts">
                                     {% for article in articles|slice(0, 3) %}
+                                    {% set path = '/uploads/documents/'~article.path %}
                                     <li>
                                         <div class="user-thumb">
-                                            <img width="40" height="40" alt="User" src="/whatsup/web/bundles/knnfwhatsup/img/demo/av2.jpg">
+                                            <img  alt="User" src="{{ path | imagine_filter('avatar_index_admin')}}" style="margin-left: -3px;margin-top: -3px;">
                                         </div>
                                         <div class="article-post">
-                                            <span class="user-info"> Par : User le {{article.dateinsert|date('d-m-Y')}} </span>
+                                            <span class="user-info"> Par : <a href="{{path('user_show',{'id':article.user.id})}}">{{article.user.username}}</a> le {{article.dateinsert|date('d-m-Y')}} </span>
                                             <p>
                                                 <a href="#">{{article.title}}</a>
                                             </p>
@@ -97,14 +95,16 @@
                             <div class="widget-content nopadding">
                                 <ul class="recent-comments">
                                     {% for event in events|slice(0, 3) %}
+                                    {% set path = '/uploads/documents/'~event.user.path %}
+
                                     <li>
                                         <div class="user-thumb">
-                                            <img width="40" height="40" alt="User" src="/whatsup/web/bundles/knnfwhatsup/img/demo/av1.jpg">
+                                            <img width="40" height="40" alt="User" src="{{ path | imagine_filter('avatar_index_admin')}}" style="margin-left: -3px;margin-top: -3px;">
                                         </div>
                                         <div class="comments">
-                                            <span class="user-info"> Par : User le {{event.dateinsert|date('d-m-Y')}} </span>
+                                            <span class="user-info"> Par : <a href="{{path('user_show',{'id':event.user.id})}}">{{event.user.username}}</a> le {{event.dateinsert|date('d-m-Y')}} </span>
                                             <p>
-                                                <a href="#">{{event.title}}</a>
+                                                <a href="{{path('event_show',{'id':event.id})}}">{{event.title}}</a>
                                             </p>
                                             <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': event.id }) }}"'>Editer</a> {% if event.activate != 1 %}<a href="#" class="btn btn-success btn-mini" onclick="activateUser('{{ event.id }}')" >Publier</a>{% else %} <a href="#" class="btn btn-warning btn-mini" onclick="activateUser('{{ event.id }}')" >Désactiver</a> {% endif %} <a href="#" class="btn btn-danger btn-mini" onclick="deleteEvent('{{ event.id }}')" >Supprimer</a>
                                         </div>
@@ -126,16 +126,18 @@
                             <div class="widget-content nopadding">
                                 <ul class="recent-comments">
                                     {% for annotation in annotations|slice(0, 3) %}
+                                    {% set path = '/uploads/documents/'~annotation.user.path %}
+                                    
                                     <li>
                                         <div class="user-thumb">
-                                            <img width="40" height="40" alt="User" src="/whatsup/web/bundles/knnfwhatsup/img/demo/av1.jpg">
+                                            <img width="40" height="40" alt="User" src="{{ path | imagine_filter('avatar_index_admin')}}" style="margin-left: -3px;margin-top: -3px;">
                                         </div>
                                         <div class="comments">
-                                            <span class="user-info"> Par : User le {{annotation.dateinsert|date('d-m-Y')}} </span>
+                                            <span class="user-info"> Par : <a href="{{path('user_show',{'id':annotation.user.id})}}">{{annotation.user.username}}</a> le {{annotation.dateinsert|date('d-m-Y')}} </span>
                                             <p>
                                                 <a href="#">{{annotation.AnnotationContent}}</a>
                                             </p>
-                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': annotation.id }) }}"'>Editer</a>  <a href="#" class="btn btn-danger btn-mini" onclick="deleteEvent('{{ annotation.id }}')" >Supprimer</a> <a href="#" class="btn btn-warning btn-mini">Signaler</a>
+                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': annotation.id }) }}"'>Editer</a>  <a href="#" class="btn btn-danger btn-mini" onclick="deleteAnnotation('{{ annotation.id }}')" >Supprimer</a> <a href="{{path('admin_show_annotation',{'id':annotation.id})}}" class="btn btn-primary btn-mini">Voir</a>
                                         </div>
                                     </li>
                                     {% endfor %}
@@ -152,12 +154,14 @@
                             <div class="widget-content nopadding">
                                 <ul class="recent-comments">
                                     {% for event in events|slice(0, 3) %}
+                                    {% set path = '/uploads/documents/'~event.user.path %}
+
                                     <li>
                                         <div class="user-thumb">
-                                            <img width="40" height="40" alt="User" src="/whatsup/web/bundles/knnfwhatsup/img/demo/av1.jpg">
+                                            <img width="40" height="40" alt="User" src="{{ path | imagine_filter('avatar_index_admin')}}" style="margin-left: -3px;margin-top: -3px;">
                                         </div>
                                         <div class="comments">
-                                            <span class="user-info"> Par : User le {{event.dateinsert|date('d-m-Y')}} </span>
+                                            <span class="user-info"> Par : <a href="{{path('user_show',{'id':event.user.id})}}">{{event.user.username}}</a> le {{event.dateinsert|date('d-m-Y')}} </span>
                                             <p>
                                                 <a href="#">{{event.title}}</a>
                                             </p>
@@ -192,6 +196,22 @@
 function deleteArticle(id){
     $.ajax({
         url: "{{ path('article_delete')}}",
+        type: "post",
+        data: {id : id},
+        success: function(){
+            alert("success");
+            //$("#result").html('Submitted successfully');
+        },
+        error:function(){
+            alert("failure");
+            //$("#result").html('There is error while submit');
+        }
+    });
+};
+
+function deleteAnnotation(id){
+    $.ajax({
+        url: "{{ path('annotation_delete')}}",
         type: "post",
         data: {id : id},
         success: function(){

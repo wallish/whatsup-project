@@ -95,3 +95,15 @@ admin_organigramme:
 admin_add_organigramme:
     pattern: /addorganigramme/
     defaults: { _controller: KnnfWhatsupBundle:Admin:addorganigramme }
+
+admin_lookbook:
+    pattern: /lookbook
+    defaults: { _controller: KnnfWhatsupBundle:Admin:lookbook }
+
+admin_show_annotation:
+    pattern: /{id}/annotationshow/
+    defaults: { _controller: KnnfWhatsupBundle:Admin:annotationshow }
+
+admin_edit_annotation:
+    pattern: /{id}/editannotation
+    defaults: { _controller: KnnfWhatsupBundle:Admin:editannotation }

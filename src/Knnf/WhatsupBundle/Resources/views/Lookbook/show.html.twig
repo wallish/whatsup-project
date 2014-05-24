@@ -4,8 +4,26 @@
     {% block content %}
     <center>
         <div class="whatsup-article-author-profil">
-            <img src="/whatsup/web/uploads/documents/{{ entity.path }}" class="whatsup-image" width="780px" height="300px" />
+            <img src="/whatsup/web/uploads/documents/{{ entity.path }}" class="whatsup-image"  />
         </div>
     </center>
+
+    <div class="whatsup-article-author">
+        <div class="line"></div>
+        <div class="row">
+            <div class="col-md-2">
+                {% set path_autor = '/uploads/documents/'~user.path %}
+                <img src="{{ (user.path|length  > 0) ? path_autor | imagine_filter('comment_avatar')  : asset('bundles/knnfwhatsup/img/default-avatar.png') }}" />
+            </div>
+            <div class="col-md-10">
+                <div class="whatsup-username"><a href="{{path('user_show',{'id': user.id})}}">{{user.username}}</a></div>
+                <div > articles</div>
+                <div > commentaires</div>
+                <div id="like"> likes</div>
+               
+            </div>
+            
+        </div>
+    </div>
     {% endblock %}
 {% endblock %}

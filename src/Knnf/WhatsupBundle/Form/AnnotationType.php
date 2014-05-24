@@ -15,11 +15,11 @@ class AnnotationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('idUser')
-            ->add('AnnotationType')
-            ->add('AnnotationContent')
-            ->add('user')
-            ->add('idArticle')
+            
+           // ->add('AnnotationType')
+            ->add('AnnotationContent','textarea')
+            //->add('user')
+            //->add('idArticle')
         ;
     }
     

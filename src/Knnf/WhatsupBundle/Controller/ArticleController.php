@@ -211,7 +211,7 @@ class ArticleController extends Controller
         
         $form->add('publish', 'submit', array('label' => 'Soumettre','attr' => array('class' => 'btn btn-primary btn-sm')));
         $form->add('sandbox', 'submit', array('label' => 'Enregistrer comme brouillon','attr' => array('class' => 'btn btn-warning btn-sm')));
-        $form->add('submit', 'submit', array('label' => 'Mettre à jour','attr' => array('class' => 'btn btn-default btn-sm')));
+        //$form->add('submit', 'submit', array('label' => 'Mettre à jour','attr' => array('class' => 'btn btn-default btn-sm')));
         $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
         $form->handleRequest($request);
 

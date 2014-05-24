@@ -1,5 +1,7 @@
 {# Auteur du mois #}
 
-<div class="whatsup-article-caption">
-	{{ user.username }}
-</div>
+<a href="{{path('user_show',{'id':user.id})}}">
+{% set path = '/uploads/documents/'~user.path %}
+
+<img src="{{ path | imagine_filter('user_article_ofmonth') }}" class="whatsup-image" width="386px"  height="200px" />
+</a>

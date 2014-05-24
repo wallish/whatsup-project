@@ -43,10 +43,12 @@ class AnnotationController extends Controller
             $data = $request->request->all();
 
             //die(var_dump($data));
+            $article = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('id' => $data['article_id']));
 
             $entity->setIdArticle($data['article_id']);
             $user = $this->container->get('security.context')->getToken()->getUser();
             $entity->setUser($user);
+            $entity->setArticle($article);
             $entity->setAnnotationType($data['type']);
             $entity->setAnnotationContent($data['description']);
 
@@ -123,7 +125,8 @@ class AnnotationController extends Controller
 
         return $this->render('KnnfWhatsupBundle:Annotation:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
@@ -202,24 +205,20 @@ class AnnotationController extends Controller
      * Deletes a Annotation entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('KnnfWhatsupBundle:Annotation')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Annotation entity.');
-            }
-
-            $em->remove($entity);
+            $articles = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('id' => $data['id']));
+            $em->remove($articles[0]);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('annotation'));
+        return $this->render('KnnfWhatsupBundle:Article:delete.html.twig');
+        //return true;
+
     }
 
     /**
@@ -237,5 +236,26 @@ class AnnotationController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    public function activateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
+
+            $entity = $em->getRepository('KnnfWhatsupBundle:Annotation')->find($data['id']);
+
+            if($entity->getActivate() == 1)
+                $entity->setActivate(0);
+            else
+                $entity->setActivate(1);
+
+            $em->persist($entity);
+            $em->flush();
+            die();
+            
+        }   
     }
 }

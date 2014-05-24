@@ -5,6 +5,7 @@ namespace Knnf\WhatsupBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Knnf\WhatsupBundle\Entity\Article;
+use Knnf\WhatsupBundle\Entity\Annotation;
 use Knnf\WhatsupBundle\Entity\User;
 use Knnf\WhatsupBundle\Entity\Category;
 use Knnf\WhatsupBundle\Entity\Media;
@@ -17,6 +18,7 @@ use Knnf\WhatsupBundle\Form\CategoryType;
 use Knnf\WhatsupBundle\Form\OrganigrammeType;
 use Knnf\WhatsupBundle\Form\MediaType;
 use Knnf\WhatsupBundle\Form\EventType;
+use Knnf\WhatsupBundle\Form\AnnotationType;
 
 
 class AdminController extends Controller
@@ -30,10 +32,9 @@ class AdminController extends Controller
         $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         $medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
-        $annotations = $em->getRepository('KnnfWhatsupBundle:Annotation')->findAll();
-       // $foo = explode('/',$_SERVER["REQUEST_URI"]);
-        //var_dump($foo[6]);
-        
+        $annotations = $em->getRepository('KnnfWhatsupBundle:Annotation')->findAll(array('annotationtype' => 'signalement'));
+        $users = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
+        $lookbooks = $em->getRepository('KnnfWhatsupBundle:Lookbook')->findAll();
         
         return $this->render('KnnfWhatsupBundle:Admin:index.html.twig', array(
            'articles' => $articles,
@@ -42,6 +43,8 @@ class AdminController extends Controller
            'medias' => $medias,
            'events' => $events,
            'annotations' => $annotations,
+           'users' => $users,
+           'lookbooks' => $lookbooks,
         ));
     }
 
@@ -317,6 +320,37 @@ class AdminController extends Controller
         ));
     }
 
+    public function editannotationAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('KnnfWhatsupBundle:Annotation')->find($id);
+
+        if (!$entity) throw $this->createNotFoundException('Unable to find Annotation entity.');
+        
+
+        $editForm = $this->createForm(new AnnotationType(), $entity, array(
+            'action' => $this->generateUrl('admin_edit_annotation', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $editForm->add('submit', 'submit', array('label' => 'Modifier'));
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+          
+            $em->flush();
+            return $this->redirect($this->generateUrl('admin_edit_annotation', array('id' => $id,'entity' => $entity,)));
+        }
+
+        return $this->render('KnnfWhatsupBundle:Admin:editannotation.html.twig', array(
+            'entity'      => $entity,
+            'form'   => $editForm->createView(),
+            'entity' => $entity,
+        ));
+    }
+
 
 
 
@@ -367,14 +401,14 @@ class AdminController extends Controller
         ));
     }
 
-    public function mediaAction()
+    public function lookbookAction()
     {
 		$em = $this->getDoctrine()->getManager();
-		$medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
+		$lookbooks = $em->getRepository('KnnfWhatsupBundle:lookbook')->findAll();
 		
-        return $this->render('KnnfWhatsupBundle:Admin:media.html.twig', array(
-           'medias' => $medias,
-           'count' => count($medias),
+        return $this->render('KnnfWhatsupBundle:Admin:lookbook.html.twig', array(
+           'lookbooks' => $lookbooks,
+           'count' => count($lookbooks),
         ));
     }
 
@@ -404,12 +438,22 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $signalements = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'signalement'));
-        
         return $this->render('KnnfWhatsupBundle:Admin:signalement.html.twig', array(
            'signalements' => $signalements,
            'count' => count($signalements),
         ));
     }
+
+    public function annotationShowAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $annotation = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('id' => $id));
+        return $this->render('KnnfWhatsupBundle:Admin:annotationshow.html.twig', array(
+           'annotation' => $annotation[0],
+        ));
+        
+    }
+
      function to_slug($string){
         return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
     }

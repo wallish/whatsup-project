@@ -10,7 +10,9 @@ class IndexController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-    		
+        $favory1 = null;
+        $favory2 = null;
+		$favory3 = null;
         /*
         // Pour récupérer le service UserManager du bundle
         $userManager = $this->get('fos_user.user_manager');
@@ -26,14 +28,26 @@ class IndexController extends Controller
         // Pour récupérer la liste de tous les utilisateurs
         $users = $userManager->findUsers();
         */
-
-
-
+        $articles1 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'),array('dateinsert' => 'desc'));
+        $articles2 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'),array('dateinsert' => 'desc'));
+        $articles3 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'),array('dateinsert' => 'desc'));
+        //die(var_dump($this->container->get('security.context')->getToken()->getUser()));
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $favory = $em->getRepository('KnnfWhatsupBundle:Setting')->findBy(array('user' => $user));
+        if($favory){
+            if($favory[0]->getCategory() != null){
+                $favory1 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1','category' => $favory[0]->getCategory()),array('dateinsert' => 'desc'));
+            }
+            if($favory[0]->getCategory2() != null){
+                $favory2 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1','category' => $favory[0]->getCategory2()),array('dateinsert' => 'desc'));
+            }
+            if($favory[0]->getCategory3() != null){
+                $favory3 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1','category' => $favory[0]->getCategory3()),array('dateinsert' => 'desc'));
+            }
+        }
 		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'));
-        $articles1 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'));
-        $articles2 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'));
-        $articles3 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'));
+        
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
 		$lookbooks = $em->getRepository('KnnfWhatsupBundle:Lookbook')->findBy(array(),array('dateinsert' => 'DESC'),2);
         $musiques = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('category' => 5,'activate' => '1','sandbox' => 0),array('dateinsert' => 'desc'),2);
@@ -41,11 +55,14 @@ class IndexController extends Controller
     	return $this->render('KnnfWhatsupBundle:Index:index.html.twig',array(
     		'categories' => $categories,
             'articles' => $articles1,
-    		'articles1' => $articles1,
+            'articles1' => $articles1,
             'events' => $events,
             'musics' => $musiques,
             'push' => $pushs,
             'lookbooks' => $lookbooks,
+            'favory1' => $favory1,
+            'favory2' => $favory2,
+            'favory3' => $favory3,
         ));
 
     }

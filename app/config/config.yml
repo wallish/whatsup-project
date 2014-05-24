@@ -115,7 +115,27 @@ liip_imagine:
         comment_avatar_form:
             quality: 75
             filters:
-                thumbnail: { size: [50, 50], mode: outbound }               
+                thumbnail: { size: [50, 50], mode: outbound }
+        biblio:
+            quality: 75
+            filters:
+                thumbnail: { size: [80, 80], mode: outbound }
+        avatar_index_admin:
+            quality: 75
+            filters:
+                thumbnail: { size: [40, 40], mode: outbound } 
+        user_show:
+            quality: 75
+            filters:
+                thumbnail: { size: [150, 150], mode: outbound } 
+        user_show_miniarticle:
+            quality: 75
+            filters:
+                thumbnail: { size: [195, 200], mode: outbound } 
+        user_article_ofmonth:
+            quality: 75
+            filters:
+                thumbnail: { size: [390, 200], mode: outbound }                                                                                                                         
 services:
     twig.extension.intl:
        class: Twig_Extensions_Extension_Intl

@@ -6,8 +6,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Knnf\WhatsupBundle\Entity\User;
+use Knnf\WhatsupBundle\Entity\Setting;
 use Knnf\WhatsupBundle\Form\UserType;
 use Knnf\WhatsupBundle\Form\Type\RegistrationFormType;
+use Knnf\WhatsupBundle\Form\SettingType;
 
 /**
  * User controller.
@@ -42,7 +44,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
-        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => $id));
         $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user),null,3);
         $nbarticles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user));
         //$likes = $em->getRepository("KnnfWhatsupBundle:Annotation")->findBy(array("user" => $user));
@@ -62,7 +64,7 @@ class UserController extends Controller
         return $this->render('KnnfWhatsupBundle:User:show.html.twig', array(
             'entity' => $entity,
             'articles' => $articles,
-            'user' => $user,
+            'user' => $user[0],
             'nbarticles' => count($nbarticles),
             'totalviews' => $userview['totalviews']
         ));
@@ -160,7 +162,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('user' => $id,'activate' => 1));
-        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => $id));
 
 
         return $this->render("KnnfWhatsupBundle:User:articlelist.html.twig", array(
@@ -173,7 +175,7 @@ class UserController extends Controller
     public function eventListAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => $id));
 
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array("id" => $id));
         return $this->render("KnnfWhatsupBundle:User:eventlist.html.twig", array(
@@ -182,16 +184,19 @@ class UserController extends Controller
         ));
     }
 
-    public function boardAction($id){
+    public function boardAction(){
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if (!$user)throw $this->createNotFoundException('Need to be logged');
+
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
-        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
+        $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($user);
+        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => $user));
         $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user),array('id'=>'DESC'),5);
         $events = $em->getRepository("KnnfWhatsupBundle:event")->findBy(array("user" => $user),array('id'=>'DESC'),5);
         $nbarticles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user));
+        $lookbooks = $em->getRepository("KnnfWhatsupBundle:lookbook")->findBy(array("user" => $user),array('id'=>'DESC'),5);
         //$likes = $em->getRepository("KnnfWhatsupBundle:Annotation")->findBy(array("user" => $user));
-
 
         $query = $em->createQuery(
                 'SELECT art, sum(art.views) as totalviews
@@ -211,6 +216,7 @@ class UserController extends Controller
             'nbarticles' => count($nbarticles),
             'totalviews' => $userview['totalviews'],
             'events' => $events,
+            'lookbooks' => $lookbooks,
         ));
     }
 
@@ -229,19 +235,6 @@ class UserController extends Controller
         return $this->render('KnnfWhatsupBundle:User:delete.html.twig');
         //return true;
 
-    }
-
-    public function settingAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        //$user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
-        $user = $this->container->get('security.context')->getToken()->getUser();
-
-        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array("id" => $id));
-        return $this->render("KnnfWhatsupBundle:User:setting.html.twig", array(
-            "events"=>$events,
-            'user' => $user,
-        ));
     }
 
     public function unsubscribeAction()
@@ -269,6 +262,39 @@ class UserController extends Controller
         ));
     }
 
+
+    public function settingAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        $entity = $em->getRepository('KnnfWhatsupBundle:Setting')->findBy(array('user' => $user->getId()));
+        /*if($entity == null)
+             $entity = new Setting();*/
+
+        $form = $this->createForm(new SettingType(), $entity[0], array(
+            'action' => $this->generateUrl('user_setting'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Valider','attr' => array('class' => 'btn btn-primary btn-sm')));
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $entity[0]->setUser($user);
+            $em->persist($entity[0]);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('user_setting'));
+        }
+
+        return $this->render('KnnfWhatsupBundle:User:setting.html.twig', array(
+            'form' => $form->createView(),
+            'user' => $user,
+            'entity' => $entity
+        ));
+    }
     public function registerAction(){
         
     }

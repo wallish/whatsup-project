@@ -1,0 +1,7 @@
+index_setting:
+    pattern: /index
+    defaults: { _controller: KnnfWhatsupBundle:Setting:index }
+
+setting_list:
+    pattern: /list
+    defaults: { _controller: KnnfWhatsupBundle:Setting:list }

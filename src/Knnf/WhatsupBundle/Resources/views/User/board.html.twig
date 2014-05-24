@@ -25,15 +25,20 @@
   <span class="glyphicon glyphicon-calendar"></span> Publier un événement
 </button>
 </a>
-<a href="{{path('event_add')}}">
+<a href="{{path('user_setting')}}">
 <button type="button" class="btn btn-default">
   <span class="glyphicon glyphicon-cog"></span> Paramètre
+</button>
+</a>
+<a href="{{path('user_setting')}}">
+<button type="button" class="btn btn-default">
+  <span class="glyphicon glyphicon-cog"></span> Editer profil
 </button>
 </a>
 <br /><br />
 <div class="panel panel-default" style="width:100%;">
   <!-- Default panel contents -->
-<div class="panel-heading"><a href="#" style="color:black">Mes derniers articles</a></div>
+<div class="panel-heading"><a href="{{path('user_article_list',{'id':user[0].id})}}" style="color:black">Mes derniers articles</a></div>
   <!-- Table -->
   <table class="table table-striped">
   <tr>
@@ -70,7 +75,7 @@
 </span>#}
     <div class="panel panel-default" style="width:100%;">
         <!-- Default panel contents -->
-        <div class="panel-heading"><a href="#" style="color:black">Mes derniers événements</a></div>
+        <div class="panel-heading"><a href="{{path('user_event_list',{'id':user[0].id})}}" style="color:black">Mes derniers événements</a></div>
         <!-- Table -->
         <table class="table table-striped">
             <tr>
@@ -84,7 +89,41 @@
             <td><a href="{{path('event_show',{'id':event.id})}}" style="color:black">{{event.title}}</a></td>
             <td>{{event.dateinsert | date('d-m-Y')}}</td>
             <td>{% if event.activate == 1 %} <font style="color:green">Validé</font>  {% else %} <font style="color:orange">En cours de validation</font> {% endif %}</td>
-            <td> <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':event.id})}}">Editer</button>
+            {% if event.activate == 1 %}
+            <td> <a href="{{path('event_edit',{'id':event.id})}}"><button type="button" class="btn btn-primary btn-xs" >Voir</button></a></td>
+            {% else %}
+              <td> <a href="{{path('event_show',{'id':event.id})}}"><button type="button" class="btn btn-warning btn-xs" >Editer</button></a></td>
+            {% endif %}
+
+
+            
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+<div class="whatsup-article-author-profil" width="780px" height="300px">
+{#<h3 class="whatsup-article-title">{{ article.title }}</h3>
+<span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}
+</span>#}
+    <div class="panel panel-default" style="width:100%;">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><a href="{{path('user_event_list',{'id':user[0].id})}}" style="color:black">Mes dernières photos</a></div>
+        <!-- Table -->
+        <table class="table table-striped">
+            <tr>
+            <th>Titre</th>
+            <th>Publier le</th>
+            <th>Statut</th>
+            </tr>
+            {% for lookbook in lookbooks %}
+            <tr>
+            <td><a href="{{path('lookbook_show',{'id':lookbook.id})}}" style="color:black">{{lookbook.title}}</a></td>
+            <td>{{lookbook.dateinsert | date('d-m-Y')}}</td>
+            <td>{% if lookbook.activate == 1 %} <font style="color:green">Validé</font>  {% else %} <font style="color:red">Désactivé</font> {% endif %}</td>
+            <td> <a href="{{path('lookbook_show',{'id':lookbook.id})}}"><button type="button" class="btn btn-primary btn-xs">Voir</button></a>
             
 
 

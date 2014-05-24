@@ -3,7 +3,7 @@
 namespace Knnf\WhatsupBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-
+use Doctrine\ORM\Query\ResultSetMapping;
 /**
  * AnnotationRepository
  *
@@ -39,9 +39,25 @@ class AnnotationRepository extends EntityRepository
 	        $query = $q->getQuery();
 
         }
- 
+ 	
+
         $query->getResult(); 
  
         return $q;
     }
+
+    /*public function test(){
+    	$rsm = new ResultSetMapping();
+    	$sql = "SELECT idArticle,COUNT(*) as 'like'
+												FROM `annotation` 
+												WHERE AnnotationType  = 'like'
+												GROUP BY idArticle
+												ORDER BY COUNT(*) DESC";
+    	//$em = $this->getDoctrine()->getManager();
+    	
+
+    	return $this->_em->getConnection()->exec( $sql );
+    }*/
+
+	
 }

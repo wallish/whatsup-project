@@ -49,4 +49,12 @@ class UserRepository extends EntityRepository
         $em->flush();
 	}
 
+	 public function test(){
+	    $qb = $this->_em->createQueryBuilder();
+	    $qb->select('count(article.id)');
+	    $qb->from('KnnfWhatsupBundle:Article','article');
+
+	    return $count = $qb->getQuery()->getSingleScalarResult();
+	}
+
 }
