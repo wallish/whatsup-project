@@ -52,7 +52,8 @@ class IndexController extends Controller
 		$lookbooks = $em->getRepository('KnnfWhatsupBundle:Lookbook')->findBy(array(),array('dateinsert' => 'DESC'),2);
         $musiques = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('category' => 5,'activate' => '1','sandbox' => 0),array('dateinsert' => 'desc'),2);
         $pushs = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'push' => 1,'activate' => '1'));
-    	return $this->render('KnnfWhatsupBundle:Index:index.html.twig',array(
+    	
+        return $this->render('KnnfWhatsupBundle:Index:index.html.twig',array(
     		'categories' => $categories,
             'articles' => $articles1,
             'articles1' => $articles1,
@@ -71,11 +72,20 @@ class IndexController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
     	$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findBy(array('activate' => 1,'category' => null));
-
     	return $this->render('KnnfWhatsupBundle:Index:menu.html.twig',array(
     		'categories' => $categories,
 
     	));
+    }
+
+    public function footer(){
+
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
+        return $this->render('KnnfWhatsupBundle:Index:footer.html.twig',array(
+            'media' => $media,
+
+        ));
     }
 
     public function todoAction(){

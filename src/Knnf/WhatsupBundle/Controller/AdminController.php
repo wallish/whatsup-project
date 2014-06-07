@@ -31,9 +31,9 @@ class AdminController extends Controller
        // $users = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
         $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         $medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
-        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
-        $annotations = $em->getRepository('KnnfWhatsupBundle:Annotation')->findAll(array('annotationtype' => 'signalement'));
-        $users = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
+        $events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array(),array('dateupdate' => 'desc'));
+        $annotations = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'signalement'),array('dateupdate' => 'desc'));
+        $users = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array(),array('dateupdate' => 'desc'));
         $lookbooks = $em->getRepository('KnnfWhatsupBundle:Lookbook')->findAll();
         
         return $this->render('KnnfWhatsupBundle:Admin:index.html.twig', array(
@@ -162,7 +162,8 @@ class AdminController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $entity->setSandbox($form->get('sandbox')->isClicked() ? '1' : '0');
+            die('tata');
+            $entity->setSandbox($editForm->get('sandbox')->isClicked() ? '1' : '0');
 
             $em->flush();
             $this->get('session')->getFlashBag()->add(
@@ -358,7 +359,7 @@ class AdminController extends Controller
     public function articleAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
+        $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array(),array('dateinsert' => 'desc'));
         //$like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$data['article_id'],'AnnotationType' => 'like'));
         //$foo = count($like);
         return $this->render('KnnfWhatsupBundle:Admin:article.html.twig', array(
@@ -371,7 +372,7 @@ class AdminController extends Controller
     public function commentsAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'comments'));
+        $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'comments'),array('dateinsert' => 'desc'));
         
         return $this->render('KnnfWhatsupBundle:Admin:comments.html.twig', array(
            'comments' => $comments,
@@ -382,7 +383,7 @@ class AdminController extends Controller
     public function userAction()
     {
 		$em = $this->getDoctrine()->getManager();
-		$users = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
+		$users = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array(),array('dateinsert' => 'desc'));
 		
         return $this->render('KnnfWhatsupBundle:Admin:user.html.twig', array(
            'users' => $users,
@@ -404,7 +405,7 @@ class AdminController extends Controller
     public function lookbookAction()
     {
 		$em = $this->getDoctrine()->getManager();
-		$lookbooks = $em->getRepository('KnnfWhatsupBundle:lookbook')->findAll();
+		$lookbooks = $em->getRepository('KnnfWhatsupBundle:lookbook')->findBy(array(),array('dateinsert' => 'desc'));
 		
         return $this->render('KnnfWhatsupBundle:Admin:lookbook.html.twig', array(
            'lookbooks' => $lookbooks,
@@ -415,7 +416,7 @@ class AdminController extends Controller
     public function eventAction()
     {
 		$em = $this->getDoctrine()->getManager();
-		$events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
+		$events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array(),array('dateinsert' => 'desc'));
 		
         return $this->render('KnnfWhatsupBundle:Admin:event.html.twig', array(
            'events' => $events,
@@ -437,7 +438,7 @@ class AdminController extends Controller
     public function signalementAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $signalements = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'signalement'));
+        $signalements = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'signalement'),array('dateinsert' => 'desc'));
         return $this->render('KnnfWhatsupBundle:Admin:signalement.html.twig', array(
            'signalements' => $signalements,
            'count' => count($signalements),

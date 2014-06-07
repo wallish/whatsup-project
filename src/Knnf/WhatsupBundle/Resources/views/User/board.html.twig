@@ -20,6 +20,8 @@
   <span class="glyphicon glyphicon-camera"></span> Publier une photo
 </button>
 </a>
+
+
 <a href="{{path('event_add')}}">
 <button type="button" class="btn btn-default">
   <span class="glyphicon glyphicon-calendar"></span> Publier un événement
@@ -30,7 +32,7 @@
   <span class="glyphicon glyphicon-cog"></span> Paramètre
 </button>
 </a>
-<a href="{{path('user_setting')}}">
+<a href="{{path('profile_edit')}}">
 <button type="button" class="btn btn-default">
   <span class="glyphicon glyphicon-cog"></span> Editer profil
 </button>
@@ -90,9 +92,9 @@
             <td>{{event.dateinsert | date('d-m-Y')}}</td>
             <td>{% if event.activate == 1 %} <font style="color:green">Validé</font>  {% else %} <font style="color:orange">En cours de validation</font> {% endif %}</td>
             {% if event.activate == 1 %}
-            <td> <a href="{{path('event_edit',{'id':event.id})}}"><button type="button" class="btn btn-primary btn-xs" >Voir</button></a></td>
+            <td> <a href="{{path('event_show',{'id':event.id})}}"><button type="button" class="btn btn-primary btn-xs" >Voir</button></a></td>
             {% else %}
-              <td> <a href="{{path('event_show',{'id':event.id})}}"><button type="button" class="btn btn-warning btn-xs" >Editer</button></a></td>
+              <td> <a href="{{path('event_edit',{'id':event.id})}}"><button type="button" class="btn btn-warning btn-xs" >Editer</button></a></td>
             {% endif %}
 
 

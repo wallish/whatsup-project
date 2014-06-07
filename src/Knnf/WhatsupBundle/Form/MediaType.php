@@ -15,10 +15,8 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type')
-            ->add('name')
-            ->add('title')
-            ->add('file')
+            ->add('type','text',array('read_only' => true))
+            ->add('content')
         ;
     }
     

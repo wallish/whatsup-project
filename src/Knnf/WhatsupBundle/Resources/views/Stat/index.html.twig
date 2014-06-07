@@ -8,10 +8,7 @@
             <div id="content-header">
                 <h1>Statistique</h1>
                 <div class="btn-group">
-                    <a class="btn"><i class="glyphicon glyphicon-file"></i></a>
-                    <a class="btn" title="Manage Users"><i class="glyphicon glyphicon-user"></i></a>
-                    <a class="btn"><i class="glyphicon glyphicon-comment"></i><span class="label label-danger">5</span></a>
-                    <a class="btn"><i class="glyphicon glyphicon-shopping-cart"></i></a>
+                    
                 </div>
             </div>
 
@@ -24,31 +21,71 @@
                     <div class="col-12 center" style="text-align: center;">                 
                         <ul class="stat-boxes">
                             <li class="popover-visits">
-                                <div class="left sparkline_bar_good"><span>2,4,9,7,12,10,12</span>+10%</div>
+                                <div class="left sparkline_bar_good"><span>Visiteur total</span></div>
                                 <div class="right">
-                                    <strong>36094</strong>
-                                    Visits
+                                    <strong>xxx</strong>
+                                    
                                 </div>
                             </li>
                             <li class="popover-users">
-                                <div class="left sparkline_bar_neutral"><span>20,15,18,14,10,9,9,9</span>0%</div>
+                                <div class="left sparkline_bar_good"><span>Visiteurs journalier</span></div>
                                 <div class="right">
-                                    <strong>1433</strong>
-                                    Users
+                                    <strong>xxx</strong>
+                                     
                                 </div>
                             </li>
                             <li class="popover-orders">
-                                <div class="left sparkline_bar_bad"><span>3,5,9,7,12,20,10</span>-50%</div>
+                                <div class="left sparkline_bar_good"><span>Utilisateurs inscrits</span></div>
                                 <div class="right">
-                                    <strong>8650</strong>
-                                    Orders
+                                    <strong>{{totalUser['nombre']}}</strong>
+                                    
                                 </div>
                             </li>
                             <li class="popover-tickets">
-                                <div class="left sparkline_line_good"><span>12,6,9,23,14,10,17</span>+70%</div>
+                                <div class="left sparkline_bar_good"><span>Articles publiés dans la journées</span></div>
                                 <div class="right">
-                                    <strong>2968</strong>
-                                    Tickets
+                                    <strong>{{dailyArticle['nombre']}}</strong>
+                                    
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="stat-boxes">
+                            <li class="popover-visits">
+                                <div class="left sparkline_bar_good"><span>Utilisateurs inscrits dans la journée</span></div>
+                                <div class="right">
+                                    <strong>{{dailySubscription['nombre']}}</strong>
+                                    
+                                </div>
+                            </li>
+                         
+                            <li class="popover-orders">
+                                <div class="left sparkline_bar_good"><span>L'auteur du mois</span></div>
+                                <div class="right">
+                                    <strong>xxx</strong>
+                                    
+                                </div>
+                            </li>
+                            <li class="popover-tickets">
+                                <div class="left sparkline_bar_good"><span>Signalements en cours</span></div>
+                                <div class="right">
+                                    <strong>{{dailySignalement['nombre']}}</strong>
+                                    
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="stat-boxes">
+                            <li class="popover-visits">
+                                <div class="left sparkline_bar_good"><span>Commentaires dans la journée</span></div>
+                                <div class="right">
+                                    <strong>{{dailyComment['nombre']}}</strong>
+                                    
+                                </div>
+                            </li>
+                            <li class="popover-users">
+                                <div class="left sparkline_bar_good"><span>Catégorie la plus visitée ({{getCategoryView}})</span></div>
+                                <div class="right">
+                                    <strong>{{categoryMostView.name}}</strong>
+                                     
                                 </div>
                             </li>
                         </ul>

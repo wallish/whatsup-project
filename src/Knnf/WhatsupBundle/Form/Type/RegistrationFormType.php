@@ -30,8 +30,8 @@ class RegistrationFormType extends BaseType
             ->add('country','text',array('label' => 'Pays','required'    => false))
             ->add('city','text',array('label' => 'Ville','required'    => false))
             ->add('description','textarea',array('label' => 'Description','required'    => false))
-            ->add('file','file')
-            ->add('zipcode','text',array('label' => 'Code postal','required'    => false));
+            ->add('file','file',array('label' => 'Avatar','required'    => false));
+            //->add('zipcode','text',array('label' => 'Code postal','required'    => false));
     }
 
         public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -6,6 +6,10 @@ index_todo:
     pattern: /index/todo
     defaults: { _controller: "KnnfWhatsupBundle:Index:todo" }
 
+index_footer:
+    pattern: /index/footer
+    defaults: { _controller: "KnnfWhatsupBundle:Index:footer" }
+
 admin:
   resource: "@KnnfWhatsupBundle/Resources/config/routing/admin.yml"
   prefix: /admin
@@ -72,6 +76,10 @@ registration_confirm:
 registration_checkmail:
     pattern:  /registration/checkEmail
     defaults: { _controller: "KnnfWhatsupBundle:Registration:checkEmail" }
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
 
 
 contact_index:

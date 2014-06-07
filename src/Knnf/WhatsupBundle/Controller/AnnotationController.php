@@ -37,18 +37,21 @@ class AnnotationController extends Controller
     {
 
         $entity = new Annotation();
+        $em = $this->getDoctrine()->getManager();
         
 
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
 
             //die(var_dump($data));
+
             $article = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('id' => $data['article_id']));
 
             $entity->setIdArticle($data['article_id']);
             $user = $this->container->get('security.context')->getToken()->getUser();
             $entity->setUser($user);
-            $entity->setArticle($article);
+
+            $entity->setArticle($article[0]);
             $entity->setAnnotationType($data['type']);
             $entity->setAnnotationContent($data['description']);
 

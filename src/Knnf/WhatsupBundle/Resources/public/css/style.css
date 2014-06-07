@@ -16,7 +16,7 @@ a { color: #de4d3b;}
 .whatsup-article-relative > div {background-color: #fff; padding: 0 10px; margin-bottom: 10px;padding-bottom: 2px;}
 .whatsup-article-relative div h4 {color: #000; text-transform: uppercase; font-size: 12px; margin: 0; padding: 10px 0; font-family: 'helvetica_blk';}
 .whatsup-top-bar {background-color: #222;color: #fff;}
-.whatsup-top-bar a + span + a {float: right; margin-top: 12px; font-weight: bold; color: #fff; margin-right: 20px;}
+.whatsup-top-bar a + span + a {float: right;  font-weight: bold; color: #fff; margin-right: 20px;}
 .whatsup-top-bar a + span + a:before {content: '▶'; margin-right: 8px; font-size: 10px; vertical-align: middle; }
 .connexion {float: right; margin-top: 12px; font-weight: bold; color: #fff; margin-right: 20px;}
 .connexion a {color: #fff;}

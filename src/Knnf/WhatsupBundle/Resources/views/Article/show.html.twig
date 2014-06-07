@@ -25,9 +25,27 @@
             {% endif %}
             <button id="signalement" type="button" class="btn btn-danger btn-xs">Signaler</button>
             {% endif %}
+
                 <div class="fb-share-button" data-href="{{current_url}}" data-type="button"></div>
                 <div class="fb-like" data-href="{{current_url}}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
             </div>
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+            <a class="addthis_button_preferred_1"></a>
+            <a class="addthis_button_preferred_2"></a>
+            <a class="addthis_button_preferred_3"></a>
+            <a class="addthis_button_preferred_4"></a>
+            <a class="addthis_button_compact"></a>
+            <a class="addthis_counter addthis_bubble_style"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-538783a56bb2832d"></script>
+            <script type="text/javascript">
+                addthis.sharecounters.getShareCounts('facebook', function(obj) {        
+                    console.log(obj)
+                });
+            </script>
+            <!-- AddThis Button END -->
             <div class="whatsup-article-author">
                 <div class="line"></div>
                 <div class="row">
@@ -39,6 +57,7 @@
                         <div class="whatsup-username"><a href="{{path('user_show',{'id':article.user.id})}}">{{article.user.username}}</a></div>
                         <div >{{nbcomments}} commentaires</div>
                         <div id="like">{{nblike}} likes</div>
+                        <div id="view">{{nbview}} vue</div>
                        
                     </div>
                     

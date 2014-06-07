@@ -1,10 +1,40 @@
+ <nav class="navbar navbar-default container" role="navigation">
+              <div class="container-fluid" style="background-color:#DE4B39">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="{{ path('index')}}">Accueil</a>
+                </div>
 
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    {% for category in categories %}
+                    	{% if  category.category == null %}
+	                    <li class="dropdown">
+	                      <a href="{{ path('category_show', { 'slug': category.slug }) }}" class="dropdown-toggle" data-toggle="dropdown">{{category.name}} <b class="caret"></b></a>
+	                      <ul class="dropdown-menu">
 
-<ul class="nav navbar-nav">
-    <li class="active"><a href="{{ path('index') }}">Accueil</a></li>
-    {% for category in categories %}
-    <li><a href="{{ path('category_show', { 'slug': category.slug }) }}">{{category.name}}</a></li>
-    {% endfor %}
-    <li><a href="http://www.ebay.fr">E-COMMERCE</a></li>
-</ul>
+	                      {% for subcategory in categories  %}
+	                    	    <li><a href="{{ path('category_show', { 'slug': subcategory.slug }) }}">{{subcategory.name}}</a></li>
 
+	                      {% endfor %}
+	                      </ul>
+			                 
+	                    </li>
+	                    {% else  %}
+                    		<li><a href="#">{{category.name}}</a></li>
+                    	{% endif %}
+                    {% endfor %}
+                    <li><a href="http://www.ebay.fr">E-COMMERCE</a></li>
+                  </ul>
+                
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+
+</nav>

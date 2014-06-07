@@ -7,10 +7,7 @@
 			<div id="content-header">
 				<h1>Catégories</h1>
 				<div class="btn-group">
-					<a class="btn"><i class="glyphicon glyphicon-file"></i></a>
-					<a class="btn" title="Manage Users"><i class="glyphicon glyphicon-user"></i></a>
-					<a class="btn"><i class="glyphicon glyphicon-comment"></i><span class="label label-danger">5</span></a>
-					<a class="btn"><i class="glyphicon glyphicon-shopping-cart"></i></a>
+					
 				</div>
 			</div>
 			
@@ -35,7 +32,6 @@
 									<table class="table table-bordered table-striped table-hover">
 										<thead>
 											<tr>
-												<th>ID</th>
 												<th>CATEGORIE</th>
 												<th>SLUG</th>
 												<th>ACTIONS</th>
@@ -44,7 +40,6 @@
 										<tbody>
 											{% for category in categories %}
 											<tr>
-												<td>{{ category.id }}</td>
 												<td>{{ category.name }}</td>
 												<td>{{ category.slug }}</td>
 												<td>
@@ -59,10 +54,10 @@
 													</button>
 													{% endif %}
 													<button class="btn btn-info btn-mini" onclick='window.location.href = "{{ path('admin_edit_category', { 'id': category.id }) }}"'>
-														<i class="fa fa-edit"></i> Edit
+														<i class="fa fa-edit"></i> Modifier
 													</button>
 													<button class="btn btn-danger btn-mini" onclick="deleteCategory('{{ category.id }}')">
-														<i class="fa fa-edit"></i> Delete
+														<i class="fa fa-edit"></i> Supmerpri
 													</button>
 												</td>
 											</tr>

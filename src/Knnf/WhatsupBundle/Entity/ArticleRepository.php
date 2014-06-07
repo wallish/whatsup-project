@@ -73,6 +73,49 @@ class ArticleRepository extends EntityRepository
         return new Paginator($q);
     }
 
+    public function getDailyArticle()
+    {
+    	$now = date('Y-m-d 00:00:00');
+    	$now2 = date('Y-m-d 23:59:59');
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('count(Article.id) as nombre')
+	            ->from('KnnfWhatsupBundle:Article','Article')
+	            ->Where('Article.dateinsert > (:dateinsert)')
+	            ->andWhere('Article.dateinsert < (:dateinsert2)')
+	            ->andWhere('Article.activate = (:activate)')
+	            ->setParameter('dateinsert', $now)
+	            ->setParameter('dateinsert2', $now2)
+	            ->setParameter('activate', 1);
+	     
+	            
+	     return $q->getQuery()->getResult();
+    }
+
+    public function getCategoryView()
+    {
+    	$now = date('Y-m-d 00:00:00');
+    	$now2 = date('Y-m-d 23:59:59');
+    	$q = $this->_em->createQueryBuilder()
+	            ->select(array('IDENTITY(Article.category) as categoryid','sum(Article.views) as views'))
+	            ->from('KnnfWhatsupBundle:Article','Article')
+	            ->groupBy('Article.category')
+	            ->orderBy('views','desc')
+	           ;
+	     return $q->getQuery()->getResult();
+    }
+
+
+    public function changeArticleUser($id){
+    	$qb = $this->em->createQueryBuilder();
+		$q = $qb->update('KnnfWhatsupBundle:Article','Article')
+		        ->set('Article.userid', '2')
+		        ->where('Article.userid = ?1')
+		        ->setParameter(1, $id)
+		        ->getQuery();
+		$p = $q->execute();
+    }
+
+
    
 
 

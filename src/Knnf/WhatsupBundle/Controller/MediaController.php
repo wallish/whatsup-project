@@ -27,10 +27,10 @@ class MediaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
+        $medias = $em->getRepository('KnnfWhatsupBundle:Media')->findAll();
 
         return $this->render('KnnfWhatsupBundle:Media:index.html.twig', array(
-            'entities' => $entities
+            'medias' => $medias
         ));
     }
 
@@ -90,12 +90,12 @@ class MediaController extends Controller
             throw $this->createNotFoundException('Unable to find Media entity.');
         }
 
-        $editFor = $this->createForm(new MediaType(), $entity, array(
+        $editForm = $this->createForm(new MediaType(), $entity, array(
             'action' => $this->generateUrl('media_edit', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $editForm->add('submit', 'submit', array('label' => 'Update'));
+        $editForm->add('submit', 'submit', array('label' => 'Modifier','attr' => array('class' => 'btn btn-primary btn-sm')));
 
         $editForm->handleRequest($request);
 
@@ -107,7 +107,7 @@ class MediaController extends Controller
 
         return $this->render('KnnfWhatsupBundle:Media:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
         ));
     }
 

@@ -1,47 +1,69 @@
-{% extends '::base.html.twig' %}
+{% extends "KnnfWhatsupBundle:Layout:admin.html.twig" %}
 
-{% block body -%}
-    <h1>Media list</h1>
+{% block title %}KnnfWhatsupBundle:Admin:article{% endblock %}
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Title</th>
-                <th>File</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('media_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.type }}</td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.title }}</td>
-                <td>{{ entity.file }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('media_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('media_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('media_add') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+{% block body %}
+    {% block content %}
+        <div id="content">
+            <div id="content-header">
+                <h1>Configuration</h1>
+                <div class="btn-group">
+                    
+                </div>
+            </div>
+            
+            <div id="breadcrumb">
+                <a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
+                <a href="{{ path('media_home')}}" class="current">Configuration lien</a>
+            </div>
+            
+            <div class="container-fluid">
+                
+                <div class="row">
+                    <div class="col-12">
+                   
+                        <div class="widget-box">
+                            <div class="widget-title">
+                                <span class="icon"><i class="glyphicon glyphicon-user"></i></span>
+                                <h5>LISTE</h5><span title=" articles" class="label label-info tip-left"></span>
+                            </div>
+                            <div class="widget-content nopadding">
+                                {# Tableau listing articles #}
+                                <div class="widget-content nopadding">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Contenu</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for media in medias %}
+                                            <tr>
+                                                <td>{{ media.type }}</td>
+                                                <td>{{ media.content }}</td>
+                                                 <td>
+                                                 <a href="{{path('media_edit',{'id':media.id})}}">
+                                                    <button class="btn btn-primary btn-mini">
+                                                        <i class="fa fa-edit"></i> Modifier
+                                                    </button>
+                                                </a>
+                                                </td>
+                                            </tr>
+                                               
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>                            
+                                </div>
+                                {# Fin Tableau listing articles #}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
     {% endblock %}
+{% endblock %}

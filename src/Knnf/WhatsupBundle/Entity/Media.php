@@ -28,13 +28,6 @@ class Media
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Knnf\WhatsupBundle\Entity\User")
-     * @ORM\JoinColumn(name="userid", referencedColumnName="id" )
-     */
-    
-    private $user;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=255)
@@ -44,21 +37,9 @@ class Media
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="content", type="string", length=255)
      */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
-
-  
-
-
-
+    private $content;
 
 
     /**
@@ -95,96 +76,27 @@ class Media
     }
 
     /**
-     * Set name
+     * Set content
      *
-     * @param string $name
+     * @param string $content
      * @return Media
      */
-    public function setName($name)
+    public function setContent($content)
     {
-        $this->name = $name;
+        $this->content = $content;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get content
      *
      * @return string 
      */
-    public function getName()
+    public function getContent()
     {
-        return $this->name;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Media
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set file
-     *
-     * @param string $file
-     * @return Media
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-    /**
-     * Get file
-     *
-     * @return string 
-     */
-    public function getFile()
-    {
-        return $this->file;
+        return $this->content;
     }
 
 
-
-    /**
-     * Set user
-     *
-     * @param \Knnf\WhatsupBundle\Entity\User $user
-     * @return Media
-     */
-    public function setUser(\Knnf\WhatsupBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Knnf\WhatsupBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 }

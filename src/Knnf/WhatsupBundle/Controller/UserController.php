@@ -227,6 +227,8 @@ class UserController extends Controller
             if(!$data['id']) die('Missing parameter');
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array('id' => $data['id']));
+            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->changeArticleUser($user->getId());
+
             $em->remove($user[0]);
             $em->flush();
             die();
@@ -257,8 +259,12 @@ class UserController extends Controller
             'action' => $this->generateUrl('admin_add_user'),
             'method' => 'POST',
         ));
+        $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
+
         return $this->render('KnnfWhatsupBundle:User:login.html.twig', array(
             'form' => $registrationForm,
+            'categories' => $categories,
+
         ));
     }
 

@@ -204,7 +204,7 @@ class Category
      * Set category
      *
      * @param \Knnf\WhatsupBundle\Entity\Category $category
-     * @return Article
+     * @return Category
      */
     public function setCategory(\Knnf\WhatsupBundle\Entity\Category $category = null)
     {

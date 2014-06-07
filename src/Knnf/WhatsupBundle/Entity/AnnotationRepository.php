@@ -46,18 +46,40 @@ class AnnotationRepository extends EntityRepository
         return $q;
     }
 
-    /*public function test(){
-    	$rsm = new ResultSetMapping();
-    	$sql = "SELECT idArticle,COUNT(*) as 'like'
-												FROM `annotation` 
-												WHERE AnnotationType  = 'like'
-												GROUP BY idArticle
-												ORDER BY COUNT(*) DESC";
-    	//$em = $this->getDoctrine()->getManager();
-    	
+    public function getDailyComment()
+    {
+    	$now = date('Y-m-d 00:00:00');
+    	$now2 = date('Y-m-d 23:59:59');
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('count(annotation.idArticle) as nombre')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->andWhere('annotation.dateinsert > (:dateinsert)')
+	            ->andWhere('annotation.dateinsert < (:dateinsert2)')
+	            ->setParameter('AnnotationType', 'comments')
+	            ->setParameter('dateinsert', $now)
+	            ->setParameter('dateinsert2', $now2);
+	     
+	     return $q->getQuery()->getResult();
 
-    	return $this->_em->getConnection()->exec( $sql );
-    }*/
+    }
 
+    public function getDailySignalement()
+    {
+    	$now = date('Y-m-d 00:00:00');
+    	$now2 = date('Y-m-d 23:59:59');
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('count(annotation.idArticle) as nombre')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->andWhere('annotation.dateinsert > (:dateinsert)')
+	            ->andWhere('annotation.dateinsert < (:dateinsert2)')
+	            ->setParameter('AnnotationType', 'signalement')
+	            ->setParameter('dateinsert', $now)
+	            ->setParameter('dateinsert2', $now2);
+	     
+	     return $q->getQuery()->getResult();
+
+    }
 	
 }

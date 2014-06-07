@@ -8,8 +8,26 @@ class StatController extends Controller
 {
     public function indexAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        
+        $dailyComment = $em->getRepository('KnnfWhatsupBundle:Annotation')->getDailyComment();
+        $dailySubscription = $em->getRepository('KnnfWhatsupBundle:User')->getDailySubscription();
+        $dailyArticle = $em->getRepository('KnnfWhatsupBundle:Article')->getDailyArticle();
+        $dailySignalement = $em->getRepository('KnnfWhatsupBundle:Annotation')->getDailySignalement();
+        $totalUser = $em->getRepository('KnnfWhatsupBundle:User')->getTotalSubscription();
+        $getCategoryView = $em->getRepository('KnnfWhatsupBundle:Article')->getCategoryView();
+        
+        $categoryMostView = $em->getRepository('KnnfWhatsupBundle:Category')->findBy(array('id' => $getCategoryView[0]['categoryid']));
+        return $this->render('KnnfWhatsupBundle:Stat:index.html.twig',array(
+         'dailyComment' =>  $dailyComment[0] ,
+         'dailySubscription' =>  $dailySubscription[0] ,
+         'dailyArticle' =>  $dailyArticle[0] ,
+         'dailySignalement' =>  $dailySignalement[0] ,
+         'totalUser' =>  $totalUser[0] ,
+         'getCategoryView' =>  $getCategoryView[0]['views'] ,
+         'categoryMostView' =>  $categoryMostView[0] ,
 
-        return $this->render('KnnfWhatsupBundle:Stat:index.html.twig');
+        ));
     }
      public function googleAction()
     {

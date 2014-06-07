@@ -3,6 +3,7 @@
 {% extends "KnnfWhatsupBundle:Layout/front:index.html.twig" %}
 
 {% block content %}
+
     <div class="row" >
 
         {# partie gauche de la page article #}
@@ -16,7 +17,20 @@
 <br /><br />
 <div class="panel panel-default" style="width:100%;">
           <h2 class="main"><strong>Mes préférences</strong></h2>
-          
+          <br/>
+
+<a href="{{path('fos_user_change_password')}}">
+<button type="button" class="btn btn-default">
+  <span class="glyphicon glyphicon-user"></span> Changer de mot de passe
+</button>
+</a>
+<a href="">
+<button type="button" class="btn btn-default">
+  <span class="glyphicon glyphicon-user"></span> Supprimer son compte
+</button>
+</a>
+<br />
+<br />
 <form class="form-horizontal" role="form" method="POST" {{ form_enctype(form) }}>
  
   <div class="form-group">

@@ -9,6 +9,8 @@ use Knnf\WhatsupBundle\Entity\Article;
 use Knnf\WhatsupBundle\Entity\User;
 use Knnf\WhatsupBundle\Form\ArticleType;
 use Doctrine\ORM\Query;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
 /**
  * Article controller.
  *
@@ -176,18 +178,34 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $tata = $request->getClientIp();
+
+
         
-        $em = $this->getDoctrine()->getManager();
 
         $user = $this->container->get('security.context')->getToken()->getUser();
         $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
         $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("slug"=>$slug));
+        
+       
+        if(!$request->cookies->get('cookie'.$slug)){
+            $entity->setViews($entity->getViews() + 1);
+            $em->persist($entity);
+            $em->flush();
+
+            $cookie = new Cookie('cookie'.$slug, 1, time() + 3600 * 24 * 7);
+           
+            $response = new Response();
+            $response->headers->setCookie($cookie);
+            $response->send();
+        }
+        
         if($entity == null)
             $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("id"=>$slug));
         $like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'like'));
         $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'comments'));
         
         $userlikes = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity->getId(),'AnnotationType' => 'like','user' => $user));
+        $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
         
         if (!$entity) throw $this->createNotFoundException('Unable to find Article entity.');
         return $this->render('KnnfWhatsupBundle:Article:show.html.twig', array(
@@ -195,7 +213,9 @@ class ArticleController extends Controller
             'nblike' => count($like),
             'nbcomments' => count($comments),
             'userlikes' => count($userlikes),
-            'current_url' => "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"
+            'current_url' => "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",
+            'nbview' => $entity->getViews(),
+            'categories' => $categories
 
         ));
     }

@@ -57,4 +57,28 @@ class UserRepository extends EntityRepository
 	    return $count = $qb->getQuery()->getSingleScalarResult();
 	}
 
+    public function getDailySubscription()
+    {
+    	$now = date('Y-m-d 00:00:00');
+    	$now2 = date('Y-m-d 23:59:59');
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('count(User.id) as nombre')
+	            ->from('KnnfWhatsupBundle:User','User')
+	            ->Where('User.dateinsert > (:dateinsert)')
+	            ->andWhere('User.dateinsert < (:dateinsert2)')
+	            ->setParameter('dateinsert', $now)
+	            ->setParameter('dateinsert2', $now2);
+	            
+	     return $q->getQuery()->getResult();
+    }
+
+	public function getTotalSubscription()
+    {
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('count(User.id) as nombre')
+	            ->from('KnnfWhatsupBundle:User','User');
+	            
+	     return $q->getQuery()->getResult();
+    }
+
 }
