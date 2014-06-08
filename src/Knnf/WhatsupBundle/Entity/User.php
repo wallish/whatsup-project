@@ -85,6 +85,27 @@ class User extends BaseUser
      */
     private $website;
 
+        /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook", type="string", length=255)
+     */
+    private $facebook;
+
+        /**
+     * @var string
+     *
+     * @ORM\Column(name="twitter", type="string", length=255)
+     */
+    private $twitter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="google", type="string", length=255)
+     */
+    private $google;
+
     /**
      * @var \DateTime
      *
@@ -569,6 +590,81 @@ class User extends BaseUser
     public function getActivate()
     {
         return $this->activate;
+    }
+
+    /**
+     * Get facebook
+     *
+     * @return string 
+     */
+    public function getFacebook()
+    {
+        return $this->facebook;
+    }
+
+
+
+    /**
+     * Set facebook
+     *
+     * @param string $facebook
+     * @return Facebook
+     */
+    public function setFacebook($facebook)
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    /**
+     * Get twitter
+     *
+     * @return string 
+     */
+    public function getTwitter()
+    {
+        return $this->twitter;
+    }
+
+
+
+        /**
+     * Set twitter
+     *
+     * @param string $twitter
+     * @return Twitter
+     */
+    public function setTwitter($twitter)
+    {
+        $this->twitter = $twitter;
+
+        return $this;
+    }
+
+    /**
+     * Get google
+     *
+     * @return string 
+     */
+    public function getGoogle()
+    {
+        return $this->google;
+    }
+
+
+
+        /**
+     * Set google
+     *
+     * @param string $google
+     * @return Google
+     */
+    public function setGoogle($google)
+    {
+        $this->google = $google;
+
+        return $this;
     }
 
 

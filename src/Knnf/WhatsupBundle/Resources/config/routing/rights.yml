@@ -1,0 +1,30 @@
+rights:
+    pattern:  /
+    defaults: { _controller: "KnnfWhatsupBundle:Rights:index" }
+
+rights_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "KnnfWhatsupBundle:Rights:show" }
+
+rights_new:
+    pattern:  /new
+    defaults: { _controller: "KnnfWhatsupBundle:Rights:new" }
+
+rights_create:
+    pattern:  /create
+    defaults: { _controller: "KnnfWhatsupBundle:Rights:create" }
+    requirements: { _method: post }
+
+rights_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "KnnfWhatsupBundle:Rights:edit" }
+
+rights_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "KnnfWhatsupBundle:Rights:update" }
+    requirements: { _method: post|put }
+
+rights_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "KnnfWhatsupBundle:Rights:delete" }
+    requirements: { _method: post|delete }

@@ -80,7 +80,7 @@ class EventController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('event_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('event_show', array('id' => $entity->getId())));
         }
 
         return $this->render('KnnfWhatsupBundle:Event:add.html.twig', array(

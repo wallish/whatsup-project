@@ -59,6 +59,21 @@
                     <p><small>Likes</small></p>
                    
                 </div>
+
+<div class="col-md-8" style="text-align:right;">
+{% if user.facebook != null %}
+<a href="{{user.facebook}}"><img width="32" height="32" alt="" src="{{asset('bundles/knnfwhatsup/img/facebook.jpg')}}" class=""></a>
+{% endif %}
+{% if user.twitter != null %}
+            <a href="{{user.twitter}}"><img width="32" height="32" alt="" src="{{asset('bundles/knnfwhatsup/img/twitter.jpg')}}" class=""></a>
+{% endif %}
+
+{% if user.google != null %}
+            <a href="{{user.google}}"><img width="32" height="32" alt="" src="{{asset('bundles/knnfwhatsup/img/google.jpg')}}" class=""></a>
+{% endif %}
+
+
+    </div>
             </div>
          </div>                 
         </div>

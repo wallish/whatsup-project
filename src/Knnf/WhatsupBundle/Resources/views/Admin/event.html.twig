@@ -85,6 +85,10 @@
 		</div>
 		
 		{% block javascripts %}
+		
+				            
+       
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css" type="text/css" />
 			<script>
 				function deleteEvent(id)
 				{
@@ -117,6 +121,13 @@
 						}
 					});
 				};
+
+					        $("form input.date").datepicker({
+				    dateFormat: 'dd/mm/yy',
+				    firstDay:1
+				}).attr("readonly","readonly");
+
+	
 			</script>
 		{% endblock %}
 	{% endblock %}

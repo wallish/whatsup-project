@@ -58,8 +58,13 @@ setting:
   resource: "@KnnfWhatsupBundle/Resources/config/routing/setting.yml"
   prefix: /setting
 
+role:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/role.yml"
+  prefix: /role
 
-
+rights:
+  resource: "@KnnfWhatsupBundle/Resources/config/routing/rights.yml"
+  prefix: /rights
 
 registration:
     pattern:  /registration/register
