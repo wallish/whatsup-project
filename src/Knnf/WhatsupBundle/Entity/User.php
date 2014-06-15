@@ -23,6 +23,7 @@ class User extends BaseUser
         $this->dateinsert = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
         $this->dateupdate = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
         $this->activate = 1; // Par défaut, la date de création est la date d'aujourd'hui
+        $this->role = 2; // Par défaut, la date de création est la date d'aujourd'hui
        // $this->comments = new ArrayCollection();
     }
 
@@ -161,6 +162,12 @@ class User extends BaseUser
      * @ORM\Column(name="activate", type="integer")
      */
     private $activate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Knnf\WhatsupBundle\Entity\Role")
+     * @ORM\JoinColumn(name="role", referencedColumnName="id",unique=false )
+     */
+    private $role;
 
 
 
@@ -665,6 +672,37 @@ class User extends BaseUser
         $this->google = $google;
 
         return $this;
+    }
+
+
+    /**
+     * Set role
+     *
+     * @param integer $role
+     * @return User
+     */
+    public function setRole(\Knnf\WhatsupBundle\Entity\Role $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return integer 
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function getAge()
+    {
+        $dateInterval = $this->birthday->diff(new \DateTime());
+ 
+        return $dateInterval->y;
     }
 
 

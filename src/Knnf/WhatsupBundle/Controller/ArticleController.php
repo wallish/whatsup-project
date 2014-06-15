@@ -201,7 +201,9 @@ class ArticleController extends Controller
         
         if($entity == null)
             $entity = $em->getRepository('KnnfWhatsupBundle:Article')->findOneBy(array("id"=>$slug));
+        
         $like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'like'));
+        
         $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity,'AnnotationType' => 'comments'));
         
         $userlikes = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$entity->getId(),'AnnotationType' => 'like','user' => $user));
@@ -338,6 +340,8 @@ class ArticleController extends Controller
         }   
     }
 
+
+
     public function getArticlesAction(Request $request)
     {
         /*$em = $this->getDoctrine()->getManager();
@@ -354,8 +358,30 @@ class ArticleController extends Controller
     }
 
     function getFbLike($url){
-        //$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $json = file_get_contents('https://api.facebook.com/method/fql.query?query=select%20total_count,like_count,comment_count,share_count,click_count%20from%20link_stat%20where%20url=%27'.$url.'%27&format=json');
         return json_decode($json);
+    }
+
+
+    public function voteeAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
+
+            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($data['id']);
+
+            if($entity->getActivate() == 1)
+                $entity->setActivate(0);
+            else
+                $entity->setActivate(1);
+
+            $em->persist($entity);
+            $em->flush();
+            die();
+            
+        }   
     }
 }

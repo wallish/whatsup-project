@@ -1,49 +1,76 @@
-{% extends '::base.html.twig' %}
+{% extends "KnnfWhatsupBundle:Layout:admin.html.twig" %}
 
-{% block body -%}
-    <h1>Role list</h1>
+{% block title %}KnnfWhatsupBundle:Admin:role{% endblock %}
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Right</th>
-                <th>Activate</th>
-                <th>Dateinsert</th>
-                <th>Dateupdate</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('role_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.right }}</td>
-                <td>{{ entity.activate }}</td>
-                <td>{% if entity.dateinsert %}{{ entity.dateinsert|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.dateupdate %}{{ entity.dateupdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('role_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('role_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block body %}
+    {% block content %}
 
-        <ul>
-        <li>
-            <a href="{{ path('role_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+     <div id="content">
+            <div id="content-header">
+                <h1>Gestion des droits</h1>
+                <div class="btn-group">
+                    
+                </div>
+            </div>
+            
+            <div id="breadcrumb">
+                <a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
+                <a href="{{ path('role')}}" class="current">Role</a>
+            </div>
+            
+            <div class="container-fluid">
+                
+                <div class="row">
+                    <div class="col-12">
+                    <button class="btn btn-default" onclick='window.location.href = "{{ path('role_new') }}"'> Ajouter </a></button>
+                   
+                        <div class="widget-box">
+                            <div class="widget-title">
+                                <span class="icon"><i class="glyphicon glyphicon-user"></i></span>
+                                <h5>LISTE DES ROLES</h5><span title=" articles" class="label label-info tip-left"></span>
+                            </div>
+                            <div class="widget-content nopadding">
+                                {# Tableau listing articles #}
+                                <div class="widget-content nopadding">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Role</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for entity in entities %}
+                                            <tr>
+                                                <td>{{ entity.name }}</td>
+                                                 <td>
+                                                 <a href="{{ path('role_show', { 'id': entity.id }) }}">
+                                                    <button class="btn btn-primary btn-mini">
+                                                        <i class="fa fa-edit"></i> Voir
+                                                    </button>
+                                                </a>
+                                                <a href="{{ path('role_edit', { 'id': entity.id }) }}">
+                                                    <button class="btn btn-warning btn-mini">
+                                                        <i class="fa fa-edit"></i> Modifier
+                                                    </button>
+                                                </a>
+                                                </td>
+                                            </tr>
+                                               
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>                            
+                                </div>
+                                {# Fin Tableau listing articles #}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+
+  
     {% endblock %}
+{% endblock %}

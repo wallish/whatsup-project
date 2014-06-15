@@ -19,9 +19,9 @@
             <div class="whatsup-like">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             {% if userlikes > 0 %}
-            <button type="button" class="btn btn-primary btn-xs disabled"  onclick="addLike({{ article.id }})">Like</button>
+            <button id="vote" type="button" class="btn btn-primary btn-xs disabled"  onclick="addLike({{ article.id }})">Vote</button>
             {% else %}
-            <button type="button" class="btn btn-primary btn-xs"  onclick="addLike({{ article.id }})">Like</button>
+            <button id="vote" type="button" class="btn btn-primary btn-xs"  onclick="addLike({{ article.id }})">Vote</button>
             {% endif %}
             <button id="signalement" type="button" class="btn btn-danger btn-xs">Signaler</button>
             {% endif %}
@@ -33,7 +33,6 @@
             <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
             <a class="addthis_button_preferred_1"></a>
             <a class="addthis_button_preferred_2"></a>
-            <a class="addthis_button_preferred_3"></a>
             <a class="addthis_button_preferred_4"></a>
             <a class="addthis_button_compact"></a>
             <a class="addthis_counter addthis_bubble_style"></a>
@@ -177,6 +176,7 @@
                         },
                         success: function(data){
                             //alert(data);
+                            $( "#vote" ).removeClass( "btn btn-primary btn-xs" ).addClass( "btn btn-primary btn-xs disabled" );
                             $('#like').html(data+" likes")
                             //window.location.reload();
                         },
@@ -201,6 +201,9 @@
                         }
                     }
                 });
+
+
+                
 
                  
             </script>

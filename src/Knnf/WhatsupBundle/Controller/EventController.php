@@ -59,6 +59,9 @@ class EventController extends Controller
  
     public function addAction(Request $request)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'event_add');
+
         $entity = new Event();
 
         $form = $this->createForm(new EventType(), $entity, array(
@@ -67,7 +70,6 @@ class EventController extends Controller
         ));
             $em = $this->getDoctrine()->getManager();
         
-        $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => 2));
 
         $form->add('submit', 'submit', array('label' => 'Soumettre','attr' => array('class' => 'btn btn-primary btn-sm')));
         $form->handleRequest($request);
@@ -121,34 +123,6 @@ class EventController extends Controller
         ));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function deleteAction(Request $request)
     {
         if ($request->isMethod('POST')) {
@@ -184,6 +158,33 @@ class EventController extends Controller
             die();
             
         }   
+    }
+
+     public function checkAcl($user = null,$name=null)
+    {
+        if(!$name) die('Missing role name');
+
+        $em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository('KnnfWhatsupBundle:Role')->findBy(array('id' => ($user!= "anon.") ? $user->getRole():1));
+        $action = $em->getRepository('KnnfWhatsupBundle:Rights')->findBy(array('name' => $name));
+
+        $userRights = json_decode($role[0]->getRights());
+
+        if(!in_array($action[0]->getId(), $userRights)) die('Access denied');
+            
+        /*}else{
+            $role = $em->getRepository('KnnfWhatsupBundle:Role')->findBy(array('id' => $user->getRole()));
+            $action = $em->getRepository('KnnfWhatsupBundle:Rights')->findBy(array('name' => $name));
+            
+            $userRights = json_decode($role->getRights());
+            
+            if(!in_array($action->getId(), $userRights)){
+                 // redirect
+                 die('Access denied');
+             }
+        }*/
+            
+        
     }
   
 }

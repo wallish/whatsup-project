@@ -81,5 +81,24 @@ class AnnotationRepository extends EntityRepository
 	     return $q->getQuery()->getResult();
 
     }
+
+
+    public function getVoteByArticle(){
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('article.title,article.path,article.slug,annotation.idArticle as id,count(annotation.idArticle) as total')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->from('KnnfWhatsupBundle:Article','article')
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->andWhere('annotation.idArticle = article.id')
+	            ->setParameter('AnnotationType', 'like')
+	            ->groupBy('annotation.idArticle')
+	            ->orderBy('total','desc')
+	    ;
+	     
+	     return $q->getQuery()->getResult();
+
+    }
+
+
 	
 }

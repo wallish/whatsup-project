@@ -1,16 +1,49 @@
-{% extends '::base.html.twig' %}
+
+
+{% extends "KnnfWhatsupBundle:Layout:admin.html.twig" %}
 
 {% block body -%}
-    <h1>Role edit</h1>
+	{% block content %}
 
-    {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('role') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+
+
+	<div id="content">
+            <div id="content-header">
+                <h1>Dashboard</h1>
+                <div class="btn-group">
+                    
+                </div>
+            </div>
+
+            	
+
+
+
+            <div id="breadcrumb">
+                <a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
+                <a href="{{ path('role')}}" class="current">Role</a>
+                <a href="{{ path('role_edit', { 'id': entity.id }) }}" class="current">Editer</a>
+            </div>
+            <div class="container-fluid">
+               
+                
+	  	<div class="row">
+					<div class="col-12">
+						<div class="widget-box">
+							<div class="widget-title">
+								<span class="icon">
+									<i class="glyphicon glyphicon-plus"></i>
+								</span>
+								<h5>Editer role</h5>
+							</div>
+							{{ form(edit_form) }}
+						</div>
+					</div>
+			</div>
+
+            </div>
+        </div>
+	{% endblock %}
+
 {% endblock %}

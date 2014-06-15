@@ -17,6 +17,7 @@ class CategoryType extends AbstractType
         $builder
             ->add('name')
             ->add('slug')
+            //->add('order','text')
             ->add('activate')
             ->add('category','entity', array('class' => 'KnnfWhatsupBundle:Category','property' => 'name','empty_value' => 'Catégorie parent','empty_data'  => null,'required'    => false))
 

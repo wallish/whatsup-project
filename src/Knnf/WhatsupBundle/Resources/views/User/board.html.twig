@@ -9,24 +9,28 @@
             {# Article #}
             <br />
             <div class="whatsup-article-author-profil" width="780px" height="300px">
-            
+{% if 5 in rights %}          
 <a href="{{path('article_add')}}">
     <button type="button" class="btn btn-default" onclick="windows">
       <span class="glyphicon glyphicon-book"></span> Publier un article
     </button>
 </a>
+{% endif %}
+{% if 48 in rights %}    
 <a href="{{path('lookbook_add')}}">
 <button type="button" class="btn btn-default">
   <span class="glyphicon glyphicon-camera"></span> Publier une photo
 </button>
 </a>
-
-
+{% endif %}
+{% if 1 in rights %}    
 <a href="{{path('event_add')}}">
 <button type="button" class="btn btn-default">
   <span class="glyphicon glyphicon-calendar"></span> Publier un événement
 </button>
 </a>
+{% endif %}
+
 <a href="{{path('user_setting')}}">
 <button type="button" class="btn btn-default">
   <span class="glyphicon glyphicon-cog"></span> Paramètre
@@ -37,6 +41,15 @@
   <span class="glyphicon glyphicon-cog"></span> Editer profil
 </button>
 </a>
+
+{% if 9 in rights %}    
+<a href="{{path('admin_index')}}">
+<button type="button" class="btn btn-default">
+  <span class="glyphicon glyphicon-calendar"></span> Backoffice
+</button>
+</a>
+{% endif %}
+
 <br /><br />
 <div class="panel panel-default" style="width:100%;">
   <!-- Default panel contents -->
@@ -59,9 +72,12 @@
 <td>   <button type="button" class="btn btn-warning btn-xs disabled">Editer</button></td>
 {% else %}
 <td>
+{% if 6 in rights %}   
+
 <a href="{{path('article_edit',{'id':article.id})}}">
 <button type="button" class="btn btn-warning btn-xs"  onclick="{{path('article_edit',{'id':article.id})}}">Editer</button>
 </a>
+{% endif %}
 </td>
 {% endif %}
   </tr>
@@ -71,6 +87,7 @@
 
         
 </div>
+{% if 1 in rights %}  
 <div class="whatsup-article-author-profil" width="780px" height="300px">
 {#<h3 class="whatsup-article-title">{{ article.title }}</h3>
 <span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}
@@ -94,7 +111,9 @@
             {% if event.activate == 1 %}
             <td> <a href="{{path('event_show',{'id':event.id})}}"><button type="button" class="btn btn-primary btn-xs" >Voir</button></a></td>
             {% else %}
+                {% if 2 in rights %}   
               <td> <a href="{{path('event_edit',{'id':event.id})}}"><button type="button" class="btn btn-warning btn-xs" >Editer</button></a></td>
+                {% endif %}
             {% endif %}
 
 
@@ -105,7 +124,7 @@
     </div>
 
 </div>
-
+{% endif %}
 <div class="whatsup-article-author-profil" width="780px" height="300px">
 {#<h3 class="whatsup-article-title">{{ article.title }}</h3>
 <span class="whatsup-article-date">{{ article.dateinsert | localizeddate('full', 'none') }}

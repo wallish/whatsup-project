@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Knnf\WhatsupBundle\Entity\Role;
 use Knnf\WhatsupBundle\Entity\Category;
+use Knnf\WhatsupBundle\Entity\Rights;
 use Knnf\WhatsupBundle\Form\RoleType;
 
 /**
@@ -66,13 +67,13 @@ class RoleController extends Controller
     private function createCreateForm(Role $entity)
     {
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KnnfWhatsupBundle:Category')->fetchPairs();
-        $form = $this->createForm(new RoleType($categories), $entity, array(
+        $rights = $em->getRepository('KnnfWhatsupBundle:Rights')->fetchPairs();
+        $form = $this->createForm(new RoleType($rights), $entity, array(
             'action' => $this->generateUrl('role_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer','attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }
@@ -148,13 +149,13 @@ class RoleController extends Controller
     private function createEditForm(Role $entity)
     {
          $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('KnnfWhatsupBundle:Category')->fetchPairs();
-        $form = $this->createForm(new RoleType($categories), $entity, array(
+        $rights = $em->getRepository('KnnfWhatsupBundle:Rights')->fetchPairs();
+        $form = $this->createForm(new RoleType($rights), $entity, array(
             'action' => $this->generateUrl('role_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Modifier','attr' => array('class' => 'btn btn-warning')));
 
         return $form;
     }
@@ -173,10 +174,12 @@ class RoleController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
+        $entity->setRights(json_decode(($entity->getRights())));
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setRights(json_encode($entity->getRights()));
             $em->flush();
 
             return $this->redirect($this->generateUrl('role_edit', array('id' => $id)));
@@ -224,7 +227,7 @@ class RoleController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('role_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Supprimer','attr' => array('class' => 'btn btn-danger')))
             ->getForm()
         ;
     }

@@ -2,10 +2,6 @@
 
 {% block body -%}
 	{% block content %}
-
-
-
-
 	<div id="content">
             <div id="content-header">
                 <h1>Dashboard</h1>
@@ -13,10 +9,6 @@
                    
                 </div>
             </div>
-
-            	
-
-
 
             <div id="breadcrumb">
                 <a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
@@ -117,6 +109,13 @@
 											<label class="control-label">Photo</label>
 											<div class="controls">
 											{{ form_widget(form.photo, {'attr': {'class': 'form-control input-small'}})}}
+											</div>
+									</div>
+										<div id="form-wizard-2" class="step">
+										<div class="form-group">
+											<label class="control-label">Role</label>
+											<div class="controls">
+											{{ form_widget(form.role, {'attr': {'class': 'form-control input-small'}})}}
 											</div>
 									</div>
 									{{ form_widget(form._token) }}

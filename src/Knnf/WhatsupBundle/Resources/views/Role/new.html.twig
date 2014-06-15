@@ -1,15 +1,48 @@
-{% extends '::base.html.twig' %}
+
+{% extends "KnnfWhatsupBundle:Layout:admin.html.twig" %}
 
 {% block body -%}
-    <h1>Role creation</h1>
+	{% block content %}
 
-    {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('role') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+
+
+	<div id="content">
+            <div id="content-header">
+                <h1>Dashboard</h1>
+                <div class="btn-group">
+                    
+                </div>
+            </div>
+
+            	
+
+
+
+            <div id="breadcrumb">
+                <a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
+                <a href="{{ path('role')}}" class="current">Role</a>
+                <a href="{{ path('role_new')}}" class="current">Ajouter</a>
+            </div>
+            <div class="container-fluid">
+               
+                
+	  	<div class="row">
+					<div class="col-12">
+						<div class="widget-box">
+							<div class="widget-title">
+								<span class="icon">
+									<i class="glyphicon glyphicon-plus"></i>
+								</span>
+								<h5>Créer un role</h5>
+							</div>
+							{{ form(form) }}
+						</div>
+					</div>
+			</div>
+
+            </div>
+        </div>
+	{% endblock %}
+
 {% endblock %}

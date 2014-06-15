@@ -25,12 +25,14 @@ class RoleType extends AbstractType
 
         
         $builder
-            ->add('name')
+            ->add('name','text', array('label' => 'Nom du role','attr' => array('class' => 'form-control')))
             ->add('rights','choice', [
             'choices' => $this->choices,
             'multiple' => true,
-            'expanded' => true
-        ])
+            'expanded' => true,
+            'label' => 'Liste des droits',
+
+        ])  
     ;
 
             //->add('activate')

@@ -185,11 +185,11 @@ class UserController extends Controller
     }
 
     public function boardAction(){
+        $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!$user)throw $this->createNotFoundException('Need to be logged');
-
-        $em = $this->getDoctrine()->getManager();
-
+        $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
+        //die(var_dump(json_decode($role[0]->getRights())));
         $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($user);
         $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => $user));
         $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user),array('id'=>'DESC'),5);
@@ -217,6 +217,7 @@ class UserController extends Controller
             'totalviews' => $userview['totalviews'],
             'events' => $events,
             'lookbooks' => $lookbooks,
+            'rights' => json_decode($role[0]->getRights())
         ));
     }
 
@@ -301,8 +302,35 @@ class UserController extends Controller
             'entity' => $entity
         ));
     }
-    public function registerAction(){
+
+       public function checkAcl($user = null,$name=null)
+    {
+        if(!$name) die('Missing role name');
+
+        $em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository('KnnfWhatsupBundle:Role')->findBy(array('id' => ($user!= "anon.") ? $user->getRole():2));
+        $action = $em->getRepository('KnnfWhatsupBundle:Rights')->findBy(array('name' => $name));
+        $userRights = json_decode($role[0]->getRights());
+
+        
+
+
+        if(!in_array($action[0]->getId(), $userRights)) die('Access denied');
+            
+        /*}else{
+            $role = $em->getRepository('KnnfWhatsupBundle:Role')->findBy(array('id' => $user->getRole()));
+            $action = $em->getRepository('KnnfWhatsupBundle:Rights')->findBy(array('name' => $name));
+            
+            $userRights = json_decode($role->getRights());
+            
+            if(!in_array($action->getId(), $userRights)){
+                 // redirect
+                 die('Access denied');
+             }
+        }*/
+            
         
     }
+
  
 }

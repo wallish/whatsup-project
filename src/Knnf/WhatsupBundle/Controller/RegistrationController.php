@@ -58,6 +58,8 @@ class RegistrationController extends BaseController
                 'user' => $user,
         ));
     }
+
+
     public function getDoctrine()
 {
     return $this->container->get('doctrine');

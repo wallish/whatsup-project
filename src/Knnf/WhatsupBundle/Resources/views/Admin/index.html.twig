@@ -69,7 +69,7 @@
                                             <p>
                                                 <a href="#">{{article.title}}</a>
                                             </p>
-                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_article', { 'id': article.id }) }}"'>Editer</a> {% if article.activate != 1 %}<a href="#" class="btn btn-success btn-mini" onclick="activateUser('{{ article.id }}')" >Publier</a>{% else %} <a href="#" class="btn btn-warning btn-mini" onclick="activateUser('{{ article.id }}')" >Désactiver</a> {% endif %} <a href="#" class="btn btn-danger btn-mini" onclick="deleteArticle('{{ article.id }}')" >Supprimer</a>
+                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_article', { 'id': article.id }) }}"'>Editer</a> {% if article.activate != 1 %}<a href="#" class="btn btn-success btn-mini" onclick="activateArticle('{{ article.id }}')" >Publier</a>{% else %} <a href="#" class="btn btn-warning btn-mini" onclick="activateArticle('{{ article.id }}')" >Désactiver</a> {% endif %} <a href="#" class="btn btn-danger btn-mini" onclick="deleteArticle('{{ article.id }}')" >Supprimer</a>
                                         </div>
                                     </li>
                                     {% endfor %}
@@ -144,27 +144,26 @@
                             <div class="widget-title"><span class="icon"><i class="glyphicon glyphicon-comment"></i></span><h5>Articles les mieux notés</h5><span title="{{ events|length }} total comments" class="label label-info tip-left">{{ events|length }}</span></div>
                             <div class="widget-content nopadding">
                                 <ul class="recent-comments">
-                                    {% for event in events|slice(0, 3) %}
-                                    {% set path = '/uploads/documents/'~event.user.path %}
-
+                                    {% for bestvote in bestvotes|slice(0, 3) %}
+                                   
+                                       {% set path = '/uploads/documents/'~bestvote.path %}
+                                    
                                     <li>
                                         <div class="user-thumb">
                                             <img width="40" height="40" alt="User" src="{{ path | imagine_filter('avatar_index_admin')}}" style="margin-left: -3px;margin-top: -3px;">
                                         </div>
                                         <div class="comments">
-                                            <span class="user-info"> Par : <a href="{{path('user_show',{'id':event.user.id})}}">{{event.user.username}}</a> le {{event.dateinsert|date('d-m-Y')}} </span>
-                                            <p>
-                                                <a href="#">{{event.title}}</a>
-                                            </p>
-                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': event.id }) }}"'>Editer</a> <a href="#" class="btn btn-success btn-mini" onclick="activateEvent('{{ event.id }}')" >Publier</a> <a href="#" class="btn btn-danger btn-mini" onclick="deleteEvent('{{ event.id }}')" >Supprimer</a> <a href="#" class="btn btn-warning btn-mini">Mark as spam</a>
-
-
-                                        </div>
+                                        <span class="user-info"> {{ bestvote.title }}  </span>
+                                         <p>
+                                               Total  {{ bestvote.total }}
+                                        </p>
+                                        <a href="{{path('article_show',{'slug':bestvote.slug})}}" class="btn btn-primary btn-mini">Voir</a>
+                                  
+                                       </div>
                                     </li>
+
                                     {% endfor %}
-                                    <li class="viewall">
-                                        <a title="View all comments" class="tip-top" href="{{path('admin_event')}}"> + Voir les articles les mieux notés + </a>
-                                    </li>
+                                  
                                 </ul>
                             </div>
                         </div>
@@ -216,7 +215,7 @@ function deleteAnnotation(id){
             type: "post",
             data: {id : id},
             success: function(){
-                alert("success");
+               // alert("success");
                 window.location.reload();
             },
             error:function(){

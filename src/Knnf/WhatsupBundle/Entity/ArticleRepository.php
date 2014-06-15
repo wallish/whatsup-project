@@ -115,7 +115,6 @@ class ArticleRepository extends EntityRepository
 		$p = $q->execute();
     }
 
-
    
 
 

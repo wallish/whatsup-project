@@ -13,7 +13,7 @@
                 <div class="col-xs-12 col-sm-8">
                     <h2><strong>{{ user.username }}</strong></h2>
                     <p><strong>Site Web : </strong> {{ user.website }} </p>
-                    <p><strong>Age : </strong> Inconnu </p>
+                    <p><strong>Age : </strong> {{user.getAge()}} ans </p>
                     <p><strong>Description : </strong> {{ user.description }} </p>
                         
                     </p>
@@ -24,7 +24,7 @@
 
                         <img src="{{path_form_comment | imagine_filter('user_show')}}" alt="" class="img-circle img-responsive">
                         <figcaption class="ratings">
-                            <p>Utilisateur
+                            <p>
                             <a href="#">
                                 <span class="fa fa-star"></span>
                             </a>

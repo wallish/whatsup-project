@@ -25,6 +25,8 @@ class AdminController extends Controller
 {
     public function indexAction()
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_index');
 
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
@@ -35,7 +37,7 @@ class AdminController extends Controller
         $annotations = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'signalement'),array('dateupdate' => 'desc'));
         $users = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array(),array('dateupdate' => 'desc'));
         $lookbooks = $em->getRepository('KnnfWhatsupBundle:Lookbook')->findAll();
-        
+        $bestvotes = $em->getRepository('KnnfWhatsupBundle:Annotation')->getVoteByArticle();
         return $this->render('KnnfWhatsupBundle:Admin:index.html.twig', array(
            'articles' => $articles,
          //  'users' => $users,
@@ -45,6 +47,7 @@ class AdminController extends Controller
            'annotations' => $annotations,
            'users' => $users,
            'lookbooks' => $lookbooks,
+           'bestvotes' => $bestvotes
         ));
     }
 
@@ -56,6 +59,8 @@ class AdminController extends Controller
 
     public function addUserAction(Request $request)
     {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_user_add');
         $entity = new User();
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('admin_add_user'),
@@ -80,6 +85,8 @@ class AdminController extends Controller
 
     public function edituserAction(Request $request, $id)
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_user_edit');
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
@@ -91,12 +98,20 @@ class AdminController extends Controller
             'action' => $this->generateUrl('admin_edit_user', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
+        
+        $userole = $em->getRepository('KnnfWhatsupBundle:Role')->find( $entity->getRole());
+        $role = $em->getRepository('KnnfWhatsupBundle:Role')->fetchPairs();
 
+        $editForm->add('role','entity', array('class' => 'KnnfWhatsupBundle:Role','property' => 'name','required'    => false));
         $editForm->add('submit', 'submit', array('label' => 'Update'));
+
 
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            //die(var_dump($editForm->getData()->getRole()->getId()));
+            //$entity->setRole($editForm->getData()->getRole()->getId());
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_edit_user', array('id' => $id)));
@@ -110,6 +125,8 @@ class AdminController extends Controller
 
     public function addArticleAction(Request $request,$id=null)
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_article_add');
         $entity = new Article();
         $form = $this->createForm(new ArticleType(), $entity, array(
             'action' => $this->generateUrl('admin_add_article'),
@@ -141,6 +158,8 @@ class AdminController extends Controller
 
     public function editArticleAction(Request $request, $id)
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_article_edit');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($id);
 
@@ -150,6 +169,7 @@ class AdminController extends Controller
             'action' => $this->generateUrl('admin_edit_article', array('id' => $entity->getId(),'path' => $entity->getAbsolutePath())),
             'method' => 'PUT',
         ));
+        
 
         if($entity->getSandbox()){
             $editForm->add('publish', 'submit', array('label' => 'Publier'));
@@ -158,7 +178,6 @@ class AdminController extends Controller
         else{
             $editForm->add('submit', 'submit', array('label' => 'Mettre à jour'));
         }
-
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -179,8 +198,10 @@ class AdminController extends Controller
         ));
     }
 
-        public function addcategoryAction(Request $request)
+    public function addcategoryAction(Request $request)
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_category_add');
         $entity = new Category();
 
         $form = $this->createForm(new CategoryType(), $entity, array(
@@ -193,8 +214,10 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $entity->setActivate(1);
+            
             $em->persist($entity);
             $em->flush();
 
@@ -212,6 +235,8 @@ class AdminController extends Controller
 
     public function editcategoryAction(Request $request, $id)
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_category_edit');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Category')->find($id);
 
@@ -239,6 +264,8 @@ class AdminController extends Controller
 
     public function addeventAction(Request $request)
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_event_add');
         $entity = new Event();
 
         $form = $this->createForm(new EventType(), $entity, array(
@@ -266,6 +293,8 @@ class AdminController extends Controller
 
     public function addorganigrammeAction(Request $request)
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_organigramme');
         $em = $this->getDoctrine()->getManager();
         $organigrammes = $em->getRepository('KnnfWhatsupBundle:organigramme')->findAll();
         //die(var_dump($organigrammes));
@@ -293,6 +322,7 @@ class AdminController extends Controller
  
     public function editeventAction(Request $request, $id)
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('KnnfWhatsupBundle:Event')->find($id);
@@ -323,6 +353,7 @@ class AdminController extends Controller
 
     public function editannotationAction(Request $request, $id)
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('KnnfWhatsupBundle:Annotation')->find($id);
@@ -358,6 +389,8 @@ class AdminController extends Controller
 
     public function articleAction()
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_article_index');
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array(),array('dateinsert' => 'desc'));
         //$like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$data['article_id'],'AnnotationType' => 'like'));
@@ -371,6 +404,8 @@ class AdminController extends Controller
 
     public function commentsAction()
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_comment_index');
         $em = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'comments'),array('dateinsert' => 'desc'));
         
@@ -382,6 +417,8 @@ class AdminController extends Controller
 
     public function userAction()
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_user_index');
 		$em = $this->getDoctrine()->getManager();
 		$users = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array(),array('dateinsert' => 'desc'));
 		
@@ -393,6 +430,9 @@ class AdminController extends Controller
 
     public function categoryAction()
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_category_index');
+
 		$em = $this->getDoctrine()->getManager();
 		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
 		
@@ -404,6 +444,9 @@ class AdminController extends Controller
 
     public function lookbookAction()
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_lookbook_index');
+
 		$em = $this->getDoctrine()->getManager();
 		$lookbooks = $em->getRepository('KnnfWhatsupBundle:lookbook')->findBy(array(),array('dateinsert' => 'desc'));
 		
@@ -415,6 +458,9 @@ class AdminController extends Controller
 
     public function eventAction()
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_event_index');
+
 		$em = $this->getDoctrine()->getManager();
 		$events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array(),array('dateinsert' => 'desc'));
 		
@@ -426,6 +472,9 @@ class AdminController extends Controller
 
     public function organigrammeAction()
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_organigramme_index');
+
         $em = $this->getDoctrine()->getManager();
         $organigramme = $em->getRepository('KnnfWhatsupBundle:organigramme')->findBy(array('id' => 1));
         
@@ -437,6 +486,9 @@ class AdminController extends Controller
 
     public function signalementAction()
     {
+         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_signalement_index');
+
         $em = $this->getDoctrine()->getManager();
         $signalements = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'signalement'),array('dateinsert' => 'desc'));
         return $this->render('KnnfWhatsupBundle:Admin:signalement.html.twig', array(
@@ -457,6 +509,35 @@ class AdminController extends Controller
 
      function to_slug($string){
         return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
+    }
+
+    public function checkAcl($user = null,$name=null)
+    {
+        if(!$name) die('Missing role name');
+
+        $em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository('KnnfWhatsupBundle:Role')->findBy(array('id' => ($user!= "anon.") ? $user->getRole():2));
+        $action = $em->getRepository('KnnfWhatsupBundle:Rights')->findBy(array('name' => $name));
+        $userRights = json_decode($role[0]->getRights());
+
+        
+
+
+        if(!in_array($action[0]->getId(), $userRights)) die('Access denied');
+            
+        /*}else{
+            $role = $em->getRepository('KnnfWhatsupBundle:Role')->findBy(array('id' => $user->getRole()));
+            $action = $em->getRepository('KnnfWhatsupBundle:Rights')->findBy(array('name' => $name));
+            
+            $userRights = json_decode($role->getRights());
+            
+            if(!in_array($action->getId(), $userRights)){
+                 // redirect
+                 die('Access denied');
+             }
+        }*/
+            
+        
     }
 
 }

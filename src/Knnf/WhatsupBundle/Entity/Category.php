@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Category
 {
 
-        public function __construct()
+    public function __construct()
     {
         $this->dateinsert = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
         $this->dateupdate = new \Datetime(); // Par défaut, la date de création est la date d'aujourd'hui
@@ -55,6 +55,7 @@ class Category
      */
     private $activate;
 
+
     /**
      * @var \DateTime
      *
@@ -69,11 +70,8 @@ class Category
      */
     private $dateupdate;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="activate", type="integer")
-     */
+
+
 
     /**
      * Get id
@@ -222,4 +220,7 @@ class Category
     {
         return $this->category;
     }
+
+
+     
 }

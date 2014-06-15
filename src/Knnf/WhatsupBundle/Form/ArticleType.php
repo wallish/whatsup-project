@@ -25,7 +25,7 @@ class ArticleType extends AbstractType
             //->add('dateupdate')
             //->add('activate')
             ->add('file','file',array('required' => false))
-            ->add('path')
+            ->add('path','text',array('required' => false))
             ->add('push','checkbox',array('required' => false))
             ->add('category','entity', array('class' => 'KnnfWhatsupBundle:Category','property' => 'name'))
             ->add('user','entity', array('class' => 'KnnfWhatsupBundle:User','property' => 'id'))
