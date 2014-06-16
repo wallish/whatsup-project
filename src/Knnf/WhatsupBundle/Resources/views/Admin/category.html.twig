@@ -20,7 +20,9 @@
 				
 				<div class="row">
 					<div class="col-12">
+                	{% if 35 in rights %}     
 					<button class="btn btn-default" onclick='window.location.href = "{{ url('admin_add_category')}}"'> Ajouter </a></button>
+					{% endif %}
 						<div class="widget-box">
 							<div class="widget-title">
 								<span class="icon"><i class="glyphicon glyphicon-user"></i></span>
@@ -43,6 +45,8 @@
 												<td>{{ category.name }}</td>
 												<td>{{ category.slug }}</td>
 												<td>
+                                            {% if 38 in rights %}     
+
 													{% if category.activate == 1 %}
 
 													<button class="btn btn-success btn-mini" onclick="activateCategory('{{ category.id }}')">
@@ -53,12 +57,21 @@
 														<i class="fa fa-edit"></i> Désactiver
 													</button>
 													{% endif %}
+											{% endif %}
+                                            {% if 36 in rights %}     
+
 													<button class="btn btn-info btn-mini" onclick='window.location.href = "{{ path('admin_edit_category', { 'id': category.id }) }}"'>
 														<i class="fa fa-edit"></i> Modifier
 													</button>
+											{% endif %}
+
+                                            {% if 37 in rights %}     
+
 													<button class="btn btn-danger btn-mini" onclick="deleteCategory('{{ category.id }}')">
 														<i class="fa fa-edit"></i> Supprimer
 													</button>
+											{% endif %}
+
 												</td>
 											</tr>
 											{% endfor %}

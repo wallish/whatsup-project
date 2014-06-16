@@ -21,7 +21,11 @@ class UserType extends AbstractType
             ->add('email')
             ->add('password')
             ->add('website')
-            ->add('birthday')
+             ->add('birthday','date',array('widget' => 'single_text',
+                                                'input' => 'datetime',
+                                                'format' => 'dd/MM/yyyy',
+                                                'attr' => array('class' => 'date')
+                                                ))
             ->add('photo')
             ->add('country')
             ->add('city')

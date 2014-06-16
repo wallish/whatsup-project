@@ -21,7 +21,7 @@
 				
 				<div class="row">
 					<div class="col-12">
-					<button class="btn btn-default" onclick='window.location.href = "{{ url('admin_add_article')}}"'> Ajouter </a></button>
+					{#<button class="btn btn-default" onclick='window.location.href = "{{ url('admin_add_article')}}"'> Ajouter </a></button>#}
 						<div class="widget-box">
 							<div class="widget-title">
 								<span class="icon"><i class="glyphicon glyphicon-user"></i></span>
@@ -49,14 +49,21 @@
 												<td>{{ comment.dateinsert|date('d-m-Y') }}</td>
 
 												<td>
+                                            {% if 31 in rights %}     
+
 													<a href="{{path('admin_edit_annotation',{'id':comment.id})}}">
 													<button class="btn btn-info btn-mini" >
-														<i class="fa fa-edit"></i> Edit
+														<i class="fa fa-edit"></i> Editer
 													</button>
 													</a>
+											{% endif %}
+
+                                            {% if 32 in rights %}     
+
 													<button class="btn btn-danger btn-mini" onclick="deleteAnnotation('{{ comment.id }}')">
 														<i class="fa fa-edit"></i> Supprimer
 													</button>
+											{% endif %}
 													<a href="{{path('admin_show_annotation',{'id':comment.id})}}" style="color:#fff">
 													<button class="btn btn-primary btn-mini" >
 														 Voir le commentaire

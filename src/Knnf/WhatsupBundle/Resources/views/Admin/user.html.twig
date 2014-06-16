@@ -55,6 +55,8 @@
 														<i class="fa fa-edit"></i> Voir la fiche
 													</button>
 													</a>
+                                            {% if 19 in rights %}     
+
 													{% if user.activate == 1 %}
 													<button class="btn btn-success btn-mini" onclick="activateUser('{{ user.id }}')">
 														<i class="fa fa-edit"></i> Activer
@@ -64,12 +66,21 @@
 														<i class="fa fa-edit"></i> Desactiver
 													</button>
 													{% endif %}
+											{% endif %}
+
+                                            {% if 17 in rights %}     
+
 													<button class="btn btn-info btn-mini" onclick='window.location.href = "{{ path('admin_edit_user', { 'id': user.id }) }}"'>
 														<i class="fa fa-edit"></i> Editer
 													</button>
+											{% endif %}
+
+                                            {% if 18 in rights %}     
+
 													<button class="btn btn-danger btn-mini" onclick="deleteUser('{{ user.id }}')">
 														<i class="fa fa-edit"></i> Supprimer
 													</button>
+											{% endif %}
 													
 												</td>
 											</tr>

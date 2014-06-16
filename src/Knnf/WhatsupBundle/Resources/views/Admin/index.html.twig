@@ -69,7 +69,17 @@
                                             <p>
                                                 <a href="#">{{article.title}}</a>
                                             </p>
-                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_article', { 'id': article.id }) }}"'>Editer</a> {% if article.activate != 1 %}<a href="#" class="btn btn-success btn-mini" onclick="activateArticle('{{ article.id }}')" >Publier</a>{% else %} <a href="#" class="btn btn-warning btn-mini" onclick="activateArticle('{{ article.id }}')" >Désactiver</a> {% endif %} <a href="#" class="btn btn-danger btn-mini" onclick="deleteArticle('{{ article.id }}')" >Supprimer</a>
+                                            <a href="{{path('article_show',{'slug':article.slug})}}" class="btn btn-primary btn-mini">Voir</a>
+                                            {% if 14 in rights %}     
+                                            <a href="#" class="btn btn-warning btn-mini" onclick='window.location.href = "{{ path('admin_edit_article', { 'id': article.id }) }}"'>Editer</a> 
+                                            {% endif %}
+                                            {% if 12 in rights %}     
+
+                                            {% if article.activate != 1 %}<a href="#" class="btn btn-success btn-mini" onclick="activateArticle('{{ article.id }}')" >Publier</a>{% else %} <a href="#" class="btn btn-warning btn-mini" onclick="activateArticle('{{ article.id }}')" >Désactiver</a> {% endif %} 
+                                            {% endif %}
+                                            {% if 13 in rights %}     
+                                            <a href="#" class="btn btn-danger btn-mini" onclick="deleteArticle('{{ article.id }}')" >Supprimer</a>
+                                            {% endif %}
                                         </div>
                                     </li>
                                     {% endfor %}
@@ -97,7 +107,19 @@
                                             <p>
                                                 <a href="{{path('event_show',{'id':event.id})}}">{{event.title}}</a>
                                             </p>
-                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': event.id }) }}"'>Editer</a> {% if event.activate != 1 %}<a href="#" class="btn btn-success btn-mini" onclick="activateEvent('{{ event.id }}')" >Publier</a>{% else %} <a href="#" class="btn btn-warning btn-mini" onclick="activateEvent('{{ event.id }}')" >Désactiver</a> {% endif %} <a href="#" class="btn btn-danger btn-mini" onclick="deleteEvent('{{ event.id }}')" >Supprimer</a>
+                                            {% if 53 in rights %}     
+
+                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_event', { 'id': event.id }) }}"'>Editer</a> 
+                                            {% endif %}
+                                            {% if 54 in rights %}     
+
+                                            {% if event.activate != 1 %}<a href="#" class="btn btn-success btn-mini" onclick="activateEvent('{{ event.id }}')" >Publier</a>{% else %} <a href="#" class="btn btn-warning btn-mini" onclick="activateEvent('{{ event.id }}')" >Désactiver</a> {% endif %} 
+                                            {% endif %}
+                                            {% if 55 in rights %}     
+
+                                            <a href="#" class="btn btn-danger btn-mini" onclick="deleteEvent('{{ event.id }}')" >Supprimer</a>
+                                            {% endif %}
+
                                         </div>
                                     </li>
                                     {% endfor %}
@@ -128,7 +150,14 @@
                                             <p>
                                                 <a href="#">{{annotation.AnnotationContent}}</a>
                                             </p>
-                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_annotation', { 'id': annotation.id }) }}"'>Editer</a>  <a href="#" class="btn btn-danger btn-mini" onclick="deleteAnnotation('{{ annotation.id }}')" >Supprimer</a> <a href="{{path('admin_show_annotation',{'id':annotation.id})}}" class="btn btn-primary btn-mini">Voir</a>
+                                            {% if 26 in rights %}     
+                                            <a href="#" class="btn btn-primary btn-mini" onclick='window.location.href = "{{ path('admin_edit_annotation', { 'id': annotation.id }) }}"'>Editer</a>
+                                            {% endif %}
+                                            {% if 27 in rights %}     
+                                              <a href="#" class="btn btn-danger btn-mini" onclick="deleteAnnotation('{{ annotation.id }}')" >Supprimer</a> 
+                                            {% endif %}
+
+                                              <a href="{{path('admin_show_annotation',{'id':annotation.id})}}" class="btn btn-primary btn-mini">Voir</a>
                                         </div>
                                     </li>
                                     {% endfor %}

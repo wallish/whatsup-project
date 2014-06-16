@@ -68,6 +68,13 @@ class Annotation
      */
     private $AnnotationContent;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="AnnotationRaison", type="text")
+     */
+    private $AnnotationRaison;
+
    
     /**
      * @var \DateTime
@@ -275,5 +282,28 @@ class Annotation
     public function getArticle()
     {
         return $this->article;
+    }
+
+    /**
+     * Set annotationRaisons
+     *
+     * @param string $annotationRaisons
+     * @return Annotation
+     */
+    public function setAnnotationRaison($annotationRaisons)
+    {
+        $this->AnnotationRaison = $annotationRaisons;
+
+        return $this;
+    }
+
+    /**
+     * Get AnnotationContent
+     *
+     * @return string 
+     */
+    public function getAnnotationRaison()
+    {
+        return $this->AnnotationRaison;
     }
 }

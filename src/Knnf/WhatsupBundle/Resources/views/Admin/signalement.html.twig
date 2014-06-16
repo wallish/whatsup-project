@@ -6,7 +6,7 @@
 	{% block content %}
 		<div id="content">
 			<div id="content-header">
-				<h1>Commentaire</h1>
+				<h1>Signalement</h1>
 				<div class="btn-group">
 					
 				</div>
@@ -14,7 +14,7 @@
 			
 			<div id="breadcrumb">
 				<a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
-				<a href="{{ path('admin_article')}}" class="current">Commentaire</a>
+				<a href="{{ path('admin_article')}}" class="current">Signalement</a>
 			</div>
 			
 			<div class="container-fluid">
@@ -25,7 +25,7 @@
 						<div class="widget-box">
 							<div class="widget-title">
 								<span class="icon"><i class="glyphicon glyphicon-user"></i></span>
-								<h5>LISTE DES COMMENTAIRE</h5><span title="{{count}} articles" class="label label-info tip-left">{{count}}</span>
+								<h5>LISTE DES SIGNALEMENTS</h5><span title="{{count}} articles" class="label label-info tip-left">{{count}}</span>
 							</div>
 							<div class="widget-content nopadding">
 								{# Tableau listing articles #}
@@ -48,17 +48,24 @@
 												<td>{{ signalement.dateinsert|date('d-m-Y') }}</td>
 
 												<td>
+                                            {% if 26 in rights %}     
+
 													<a href="{{path('admin_edit_annotation',{'id':signalement.id})}}">
 													<button class="btn btn-info btn-mini" >
 														<i class="fa fa-edit"></i> Modifier
 													</button>
 													</a>
+											{% endif %}
+                                            {% if 27 in rights %}     
+
 													<button class="btn btn-danger btn-mini" onclick="deleteAnnotation('{{ signalement.id }}')">
 														<i class="fa fa-edit"></i> Supprimer
 													</button>
+											{% endif %}
+
 													<a href="{{path('admin_show_annotation',{'id':signalement.id})}}" style="color:#fff">
 													<button class="btn btn-primary btn-mini" >
-														 Voir le commentaire
+														 Voir le signalement
 													</button>
 													</a>
 												</td>

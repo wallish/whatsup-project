@@ -47,14 +47,20 @@
 												<td><a href="{{path('user_show',{'id':lookbook.user.id})}}">{{ lookbook.user.username }}</td>
 												<td>{{ lookbook.title }}</td>
 												<td>
+                							{% if 51 in rights %}     
+
 													<button class="btn btn-success btn-mini" onclick="activateMedia('{{ lookbook.id }}')">
 														<i class="fa fa-edit"></i> Validate
 													</button>
+												{% endif %}
+                							{% if 50 in rights %}     
 													
 													<button class="btn btn-danger btn-mini" onclick="deleteMedia('{{ lookbook.id }}')">
 														<i class="fa fa-edit"></i> Delete
 													</button>
 												</td>
+											{% endif %}
+
 											</tr>
 											{% endfor %}
 										</tbody>

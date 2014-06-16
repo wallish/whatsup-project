@@ -16,7 +16,18 @@
 				<a href="{{ path('admin_index')}}" title="Go to Home" class="tip-bottom"><i class="glyphicon glyphicon-home"></i> Home</a>
 				<a href="{{ path('admin_article')}}" class="current">Articles</a>
 			</div>
-			
+			<form class="form-horizontal" role="form" >
+				<fieldset>
+				<legend>toto</legend>
+				<select  width="500px;">
+				  <option>1</option>
+				  <option>2</option>
+				  <option>3</option>
+				  <option>4</option>
+				  <option>5</option>
+				  </fieldset>
+				</select>
+			</form>
 			<div class="container-fluid">
 				
 				<div class="row">
@@ -52,6 +63,8 @@
 												<td>{{ article.views}}</td>
 												<td>{{ article.dateinsert|date('d-m-Y')  }}</td>
 												<td>
+                                            {% if 14 in rights %}     
+
 												{% if article.activate == 1 %}
 													<button class="btn btn-success btn-mini" onclick="activateArticle('{{ article.id }}')">
 														<i class="fa fa-edit"></i> Activer
@@ -61,13 +74,21 @@
 															<i class="fa fa-edit"></i> Désactiver
 														</button>
 												{% endif %}
+											{% endif %}
+
+                                            {% if 12 in rights %}     
 											
 													<button class="btn btn-info btn-mini" onclick='window.location.href = "{{ path('admin_edit_article', { 'id': article.id }) }}"'>
 														<i class="fa fa-edit"></i> Editer
 													</button>
+											{% endif %}
+
+                                            {% if 13 in rights %}     
+
 													<button class="btn btn-danger btn-mini" onclick="deleteArticle('{{ article.id }}')">
 														<i class="fa fa-edit"></i> Supprimer
 													</button>
+											{% endif %}
 												</td>
 											</tr>
 											{% endfor %}

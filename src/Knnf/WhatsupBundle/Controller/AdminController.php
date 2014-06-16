@@ -25,10 +25,13 @@ class AdminController extends Controller
 {
     public function indexAction()
     {
+        $em = $this->getDoctrine()->getManager();
+
         $user = $this->container->get('security.context')->getToken()->getUser();
         $this->checkAcl($user,'admin_index');
+        $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
 
-        $em = $this->getDoctrine()->getManager();
+
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
        // $users = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
         $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
@@ -47,7 +50,9 @@ class AdminController extends Controller
            'annotations' => $annotations,
            'users' => $users,
            'lookbooks' => $lookbooks,
-           'bestvotes' => $bestvotes
+           'bestvotes' => $bestvotes,
+           'rights' => json_decode($role[0]->getRights())
+
         ));
     }
 
@@ -389,15 +394,19 @@ class AdminController extends Controller
 
     public function articleAction()
     {
-         $user = $this->container->get('security.context')->getToken()->getUser();
-        $this->checkAcl($user,'admin_article_index');
         $em = $this->getDoctrine()->getManager();
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->checkAcl($user,'admin_article_index');
         $articles = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array(),array('dateinsert' => 'desc'));
+        $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
         //$like = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array("idArticle"=>$data['article_id'],'AnnotationType' => 'like'));
         //$foo = count($like);
         return $this->render('KnnfWhatsupBundle:Admin:article.html.twig', array(
            'articles' => $articles,
            'count' => count($articles),
+           'rights' => json_decode($role[0]->getRights())
+           
         ));
     }
 
@@ -407,11 +416,15 @@ class AdminController extends Controller
          $user = $this->container->get('security.context')->getToken()->getUser();
         $this->checkAcl($user,'admin_comment_index');
         $em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
+
         $comments = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'comments'),array('dateinsert' => 'desc'));
         
         return $this->render('KnnfWhatsupBundle:Admin:comments.html.twig', array(
            'comments' => $comments,
            'count' => count($comments),
+           'rights' => json_decode($role[0]->getRights())
+
         ));
     }
 
@@ -420,11 +433,15 @@ class AdminController extends Controller
          $user = $this->container->get('security.context')->getToken()->getUser();
         $this->checkAcl($user,'admin_user_index');
 		$em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
+
 		$users = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array(),array('dateinsert' => 'desc'));
 		
         return $this->render('KnnfWhatsupBundle:Admin:user.html.twig', array(
            'users' => $users,
            'count' => count($users),
+           'rights' => json_decode($role[0]->getRights())
+
         ));
     }
 
@@ -434,11 +451,15 @@ class AdminController extends Controller
         $this->checkAcl($user,'admin_category_index');
 
 		$em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
+
 		$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
 		
         return $this->render('KnnfWhatsupBundle:Admin:category.html.twig', array(
            'categories' => $categories,
            'count' => count($categories),
+           'rights' => json_decode($role[0]->getRights())
+
         ));
     }
 
@@ -448,11 +469,15 @@ class AdminController extends Controller
         $this->checkAcl($user,'admin_lookbook_index');
 
 		$em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
+
 		$lookbooks = $em->getRepository('KnnfWhatsupBundle:lookbook')->findBy(array(),array('dateinsert' => 'desc'));
 		
         return $this->render('KnnfWhatsupBundle:Admin:lookbook.html.twig', array(
            'lookbooks' => $lookbooks,
            'count' => count($lookbooks),
+           'rights' => json_decode($role[0]->getRights())
+
         ));
     }
 
@@ -462,11 +487,15 @@ class AdminController extends Controller
         $this->checkAcl($user,'admin_event_index');
 
 		$em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
+
 		$events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array(),array('dateinsert' => 'desc'));
 		
         return $this->render('KnnfWhatsupBundle:Admin:event.html.twig', array(
            'events' => $events,
            'count' => count($events),
+           'rights' => json_decode($role[0]->getRights())
+
         ));
     }
 
@@ -490,10 +519,14 @@ class AdminController extends Controller
         $this->checkAcl($user,'admin_signalement_index');
 
         $em = $this->getDoctrine()->getManager();
+        $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
+
         $signalements = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'signalement'),array('dateinsert' => 'desc'));
         return $this->render('KnnfWhatsupBundle:Admin:signalement.html.twig', array(
            'signalements' => $signalements,
            'count' => count($signalements),
+           'rights' => json_decode($role[0]->getRights())
+
         ));
     }
 

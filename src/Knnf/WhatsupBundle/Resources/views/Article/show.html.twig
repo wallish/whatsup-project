@@ -23,7 +23,7 @@
             {% else %}
             <button id="vote" type="button" class="btn btn-primary btn-xs"  onclick="addLike({{ article.id }})">Vote</button>
             {% endif %}
-            <button id="signalement" type="button" class="btn btn-danger btn-xs">Signaler</button>
+            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" >Signaler</button>
             {% endif %}
 
                 <div class="fb-share-button" data-href="{{current_url}}" data-type="button"></div>
@@ -39,11 +39,7 @@
             </div>
             <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
             <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-538783a56bb2832d"></script>
-            <script type="text/javascript">
-                addthis.sharecounters.getShareCounts('facebook', function(obj) {        
-                    console.log(obj)
-                });
-            </script>
+          
             <!-- AddThis Button END -->
             <div class="whatsup-article-author">
                 <div class="line"></div>
@@ -105,14 +101,36 @@
 
     </div>
 
-<div id="dialog-form" title="Signalement">
-<form>
-<fieldset>
-<label for="name">Raison du signalement</label>
-<input type="text" name="description" id="description" class="text ui-widget-content ui-corner-all">
-</fieldset>
-</form>
-</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Signaler l'article</h4>
+      </div>
+      <div class="modal-body" id="modal-body">
+       <form>
+        <fieldset>
+        <label for="name">Description du motif</label><br>
+        <input type="textarea" name="description" id="description" class="form-control"><br>
+        <label for="name">Raison du signalement</label><br>
+        <select name="select" class="form-control" width="50px">
+          <option value="Orthographes">Orthographes</option> 
+          <option value="Diffamation" >Diffamation</option>
+          <option value="Copyright">Copyright</option>
+          <option value="Autres" selected>Autres</option>
+        </select>
+        </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button id="signalementadd" type="button" class="btn btn-primary" onclick="addSignalement({{ article.id }})">Envoyer</input>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
         {% block javascripts %}
             <script>
 
@@ -132,10 +150,15 @@
                         data: {
                             article_id: id,
                             description: $('[name="description"]').val(),
+                            raison: $('[name="select"]').val(),
                             type: 'signalement',
                         },
                         success: function(){
-                            alert("success");
+                           // alert("success");
+                            $( "#modal-body" ).html('<div class="alert alert-success">Signalement envoyé</div>');
+                            $( "#signalementadd" ).remove();
+
+
                             //window.location.reload();
                         },
                         error:function(){
