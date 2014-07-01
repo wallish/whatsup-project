@@ -44,16 +44,20 @@
                                             <tr>
                                                 <td>{{ entity.name }}</td>
                                                  <td>
+                                                 {#}
                                                  <a href="{{ path('role_show', { 'id': entity.id }) }}">
                                                     <button class="btn btn-primary btn-mini">
                                                         <i class="fa fa-edit"></i> Voir
                                                     </button>
-                                                </a>
+                                                </a>{#}
                                                 <a href="{{ path('role_edit', { 'id': entity.id }) }}">
                                                     <button class="btn btn-warning btn-mini">
                                                         <i class="fa fa-edit"></i> Modifier
                                                     </button>
                                                 </a>
+                                                <button class="btn btn-danger btn-mini" onclick="deleteRole('{{ entity.id }}')">
+                                                        <i class="fa fa-edit"></i> Supprimer
+                                                    </button>
                                                 </td>
                                             </tr>
                                                
@@ -70,7 +74,25 @@
             </div>
             
         </div>
-
+        {% block javascripts %}
+            <script>
+                function deleteRole(id)
+                {
+                    $.ajax({
+                        url: "{{ path('role_delete2')}}",
+                        type: "post",
+                        data: {id : id},
+                        success: function(){
+                            alert("success");
+                            window.location.reload();
+                        },
+                        error:function(){
+                            alert("failure");
+                        }
+                    });
+                };
+            </script>
+        {% endblock %}
   
     {% endblock %}
 {% endblock %}

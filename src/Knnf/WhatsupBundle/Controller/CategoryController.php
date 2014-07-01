@@ -42,6 +42,7 @@ class CategoryController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('KnnfWhatsupBundle:Category')->findOneBy(array('slug' => $slug));
+        
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findBy(array('category' => $entity));
 
         if (!$entity ) throw $this->createNotFoundException('Unable to find Category entity.');

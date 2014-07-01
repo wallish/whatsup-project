@@ -54,7 +54,9 @@ class AnnotationController extends Controller
             $entity->setArticle($article[0]);
             $entity->setAnnotationType($data['type']);
             $entity->setAnnotationContent($data['description']);
-            $entity->setAnnotationRaison($data['raison']);
+            if(isset($data['raison']) && $data['raison'] != "")
+                $entity->setAnnotationRaison($data['raison']);
+    
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);

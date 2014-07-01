@@ -147,6 +147,7 @@ class AdminController extends Controller
             $entity->setSandbox($form->get('sandbox')->isClicked() ? '1' : '0');
             //if($entity->slug != null)
             $entity->setSlug($this->to_slug($entity->getTitle()));
+            $entity->setUser($user);
             
             $entity->upload();
             $em->persist($entity);
@@ -214,7 +215,7 @@ class AdminController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer','attr' => array('class' => 'btn btn-primary btn-sm')));
 
         $form->handleRequest($request);
 
@@ -252,7 +253,7 @@ class AdminController extends Controller
             'method' => 'PUT',
         ));
 
-        $editForm->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Mettre à jour','attr' => array('class' => 'btn btn-primary btn-sm')));
 
         $editForm->handleRequest($request);
 
@@ -278,7 +279,8 @@ class AdminController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Créer','attr' => array('class' => 'btn btn-primary btn-sm')));
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -341,7 +343,7 @@ class AdminController extends Controller
             'method' => 'PUT',
         ));
 
-        $editForm->add('submit', 'submit', array('label' => 'Mettre à jour'));
+        $editForm->add('submit', 'submit', array('label' => 'Mettre à jour','attr' => array('class' => 'btn btn-default')));
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -371,7 +373,7 @@ class AdminController extends Controller
             'method' => 'PUT',
         ));
 
-        $editForm->add('submit', 'submit', array('label' => 'Modifier'));
+        $editForm->add('submit', 'submit', array('label' => 'Modifier','attr' => array('class' => 'btn btn-default')));
 
         $editForm->handleRequest($request);
 
@@ -435,8 +437,7 @@ class AdminController extends Controller
 		$em = $this->getDoctrine()->getManager();
         $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => $user->getRole()));
 
-		$users = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array(),array('dateinsert' => 'desc'));
-		
+		$users = $em->getRepository('KnnfWhatsupBundle:User')->findAll();
         return $this->render('KnnfWhatsupBundle:Admin:user.html.twig', array(
            'users' => $users,
            'count' => count($users),
@@ -502,7 +503,7 @@ class AdminController extends Controller
     public function organigrammeAction()
     {
          $user = $this->container->get('security.context')->getToken()->getUser();
-        $this->checkAcl($user,'admin_organigramme_index');
+        //$this->checkAcl($user,'admin_organigramme_index');
 
         $em = $this->getDoctrine()->getManager();
         $organigramme = $em->getRepository('KnnfWhatsupBundle:organigramme')->findBy(array('id' => 1));

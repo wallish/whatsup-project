@@ -45,11 +45,25 @@ class UserController extends Controller
 
         $entity = $em->getRepository('KnnfWhatsupBundle:User')->find($id);
         $user = $em->getRepository("KnnfWhatsupBundle:User")->findBy(array("id" => $id));
-        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user),null,3);
+        $articles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user),array('dateinsert' => 'desc'));
         $nbarticles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user));
         //$likes = $em->getRepository("KnnfWhatsupBundle:Annotation")->findBy(array("user" => $user));
-
-
+        $likes = $em->getRepository('KnnfWhatsupBundle:Annotation')->getBestUserOfTheMonth();
+        $art="";
+        $art2="";
+        $art3="";
+         for ($i=0; $i < 4; $i++) { 
+            if($articles[$i] != null)
+                $art[] = $articles[$i];
+        }
+        for ($i=4; $i < 8; $i++) { 
+            if($articles[$i] != null)
+                $art2[] = $articles[$i];
+        }
+       for ($i=9; $i < 12; $i++) { 
+            if($articles[$i] != null)
+                $art3[] = $articles[$i];
+        }
         $query = $em->createQuery(
                 'SELECT art, sum(art.views) as totalviews
                 FROM KnnfWhatsupBundle:Article art
@@ -66,7 +80,11 @@ class UserController extends Controller
             'articles' => $articles,
             'user' => $user[0],
             'nbarticles' => count($nbarticles),
-            'totalviews' => $userview['totalviews']
+            'totalviews' => $userview['totalviews'],
+            'art' => $art,
+            'art2' => $art2,
+            'art3' => $art3,
+            'like' => $likes[0]['nombre']
         ));
     }
 
@@ -240,6 +258,22 @@ class UserController extends Controller
 
     }
 
+      public function delete2Action(Request $request,$id)
+    {
+            $data = $request->request->all();
+            if(!$id) die('Missing parameter');
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array('id' => $id));
+            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->changeArticleUser($user[0]->getId());
+            $em->remove($user[0]);
+            $em->flush();
+            die();
+
+        return $this->render('KnnfWhatsupBundle:User:delete.html.twig');
+        //return true;
+
+    }
+
     public function unsubscribeAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -279,8 +313,12 @@ class UserController extends Controller
         $entity = $em->getRepository('KnnfWhatsupBundle:Setting')->findBy(array('user' => $user->getId()));
         /*if($entity == null)
              $entity = new Setting();*/
-
-        $form = $this->createForm(new SettingType(), $entity[0], array(
+        $setting = null;
+        if($entity == null)
+            $setting;
+        else
+            $setting = $entity[0];
+        $form = $this->createForm(new SettingType(), $setting, array(
             'action' => $this->generateUrl('user_setting'),
             'method' => 'POST',
         ));

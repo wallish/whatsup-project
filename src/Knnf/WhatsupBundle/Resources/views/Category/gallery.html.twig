@@ -31,160 +31,48 @@
       <li class="item--big">
         
           <figure>
-            <div style="background-color:#DE4B39;color:#fff">{{lookbook.title}}</div>
+            <div style="background-color:#010101;color:#fff;opacity: 1;">{{lookbook.title}}</div>
             <img src="{{ tata | imagine_filter('lookbook_display') }}" alt="" />
             <figcaption class="img-caption">
             <a href="{{ path('user_show', { 'id': lookbook.user.id }) }}">
               {{lookbook.user.username}}
               </a>
-              <button id="signalement" type="button" class="btn btn-danger btn-xs">Signaler</button>
+            <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal" >Signaler</button>
             </figcaption>
           </figure>
           
       </li>
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Signaler l'image</h4>
+      </div>
+      <div class="modal-body" id="modal-body">
+       <form>
+        <fieldset>
+        <label for="name">Description du motif</label><br>
+        <input type="textarea" name="description" id="description" class="form-control"><br>
+        <label for="name">Raison du signalement</label><br>
+        <select name="select" class="form-control" width="50px">
+          <option value="Orthographes">Orthographe</option> 
+          <option value="Diffamation" >Diffamation</option>
+          <option value="Copyright">Copyright</option>
+          <option value="Autres" selected>Autres</option>
+        </select>
+        </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button id="signalementadd" type="button" class="btn btn-primary" onclick="addSignalement({{ lookbook.id }})">Envoyer</input>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
     {% endfor %}
-      {#<li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-2.jpg') }}" alt="" />
-            
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-3.jpg') }}" alt="" />
-            
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-4.jpg') }}" alt="" />
-            
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-5.jpg') }}" alt="" />
-            
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-6.jpg') }}" alt="" />
-           <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-7.jpg') }}" alt="" />
-            
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-8.jpg') }}" alt="" />
-            <img src="images/big-8.jpg" alt="" />
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-9.jpg') }}" alt="" />
-            
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-10.jpg') }}" alt="" />
-            
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-11.jpg') }}" alt="" />
-            
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>
-      <li class="item--big">
-        <a href="#">
-          <figure>
-            <img src="{{ asset('bundles/knnfwhatsup/s-gallery-master/images/big-12.jpg') }}" alt="" />
-            
-            <figcaption class="img-caption">
-              John Snow
-              <i><a href="#" id="signalement" style="color:red">Signaler</a></i>
-
-            </figcaption>
-          </figure>
-          </a>
-      </li>#}
+    
     </ul>
     <div class="controls" style="background-color:#010101">
       <span class="control icon-arrow-left" data-direction="previous"></span> 
@@ -195,6 +83,7 @@
     
   </div>
   
+
 
 
 
@@ -221,6 +110,7 @@
                 data: {
                     article_id: id,
                     description: $('[name="description"]').val(),
+                    type: "lookbook_signalement"
                 },
                 success: function(){
                     alert("success");

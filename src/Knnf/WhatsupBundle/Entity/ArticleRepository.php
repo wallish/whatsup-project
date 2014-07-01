@@ -106,10 +106,10 @@ class ArticleRepository extends EntityRepository
 
 
     public function changeArticleUser($id){
-    	$qb = $this->em->createQueryBuilder();
+    	$qb = $this->_em->createQueryBuilder();
 		$q = $qb->update('KnnfWhatsupBundle:Article','Article')
-		        ->set('Article.userid', '2')
-		        ->where('Article.userid = ?1')
+		        ->set('Article.user', '2')
+		        ->where('Article.user = ?1')
 		        ->setParameter(1, $id)
 		        ->getQuery();
 		$p = $q->execute();

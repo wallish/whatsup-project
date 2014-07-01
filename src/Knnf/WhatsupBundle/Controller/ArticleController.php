@@ -25,6 +25,7 @@ class ArticleController extends Controller
 
     public function indexAction()
     {
+        
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('KnnfWhatsupBundle:Article')->findAll();
         $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findAll();
@@ -217,7 +218,8 @@ class ArticleController extends Controller
             'userlikes' => count($userlikes),
             'current_url' => "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",
             'nbview' => $entity->getViews(),
-            'categories' => $categories
+            'categories' => $categories,
+            'url' => "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"
 
         ));
     }

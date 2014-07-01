@@ -444,3 +444,14 @@ a .whatsup-slider-caption:hover {color:#ccc; text-decoration: none;}
 	opacity: 1;
 }
 
+#fos_user_registration_form > div, #fos_user_profile_form > div {margin-bottom:5px;}
+#fos_user_profile_form > div > input, #fos_user_profile_form > div > textarea,#fos_user_registration_form > div > input, #fos_user_registration_form > div > textarea {border-radius:5px;}
+#fos_user_registration_form textarea, #fos_user_profile_form textarea {width:500px;}
+#fos_user_registration_form label, #fos_user_profile_form label {width:200px;padding-left:10px; float: left;}
+
+.fos_user_profile_edit {margin:20px 0;}
+.whatsup-singlearticle-left {padding-left:10px;}
+.whatsup-article-comments textarea {width:680px;}
+
+
+

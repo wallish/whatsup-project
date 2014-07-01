@@ -9,6 +9,9 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
+        /*for($i=0;$i<60;$i++)
+            echo $i.",";
+        die();*/
         $em = $this->getDoctrine()->getManager();
         $favory1 = null;
         $favory2 = null;
@@ -30,6 +33,11 @@ class IndexController extends Controller
         */
         $articles1 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'),array('dateinsert' => 'desc'));
         $articles2 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'),array('dateinsert' => 'desc'));
+   
+        for ($i=4; $i < 8; $i++) { 
+            if($articles2[$i] != null)
+                $bar[] = $articles2[$i];
+        }
         $articles3 = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'activate' => '1'),array('dateinsert' => 'desc'));
         //die(var_dump($this->container->get('security.context')->getToken()->getUser()));
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -51,10 +59,12 @@ class IndexController extends Controller
         $events = $em->getRepository('KnnfWhatsupBundle:Event')->findAll();
 		$lookbooks = $em->getRepository('KnnfWhatsupBundle:Lookbook')->findBy(array(),array('dateinsert' => 'DESC'),2);
         $musiques = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('category' => 5,'activate' => '1','sandbox' => 0),array('dateinsert' => 'desc'),2);
-        $pushs = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'push' => 1,'activate' => '1'));
-    	
+        $pushs = $em->getRepository('KnnfWhatsupBundle:Article')->findBy(array('sandbox' => 0,'push' => 1,'activate' => '1'),array('dateinsert' => 'desc'),2);
+        $categories2 = $em->getRepository('KnnfWhatsupBundle:Category')->getCategory();
+        
         return $this->render('KnnfWhatsupBundle:Index:index.html.twig',array(
-    		'categories' => $categories,
+            'categories' => $categories,
+    		'categories2' => $categories,
             'articles' => $articles1,
             'articles1' => $articles1,
             'events' => $events,
@@ -64,6 +74,7 @@ class IndexController extends Controller
             'favory1' => $favory1,
             'favory2' => $favory2,
             'favory3' => $favory3,
+            'bar' => $bar
         ));
 
     }
@@ -71,9 +82,12 @@ class IndexController extends Controller
     public function menuAction()
     {
     	$em = $this->getDoctrine()->getManager();
-    	$categories = $em->getRepository('KnnfWhatsupBundle:Category')->findBy(array('activate' => 1,'category' => null));
+      //  $categories = $em->getRepository('KnnfWhatsupBundle:Category')->findBy(array('activate' => 1,'category' => null));
+        $categories = $em->getRepository('KnnfWhatsupBundle:Category')->getCategory();
+        $categories2 = $em->getRepository('KnnfWhatsupBundle:Category')->getSubcategory();
     	return $this->render('KnnfWhatsupBundle:Index:menu.html.twig',array(
-    		'categories' => $categories,
+            'categories' => $categories,
+    		'categories2' => $categories2,
 
     	));
     }
@@ -88,33 +102,6 @@ class IndexController extends Controller
         ));
     }
 
-    public function todoAction(){
-        die('
-            add gestion des droits <br/>
-            add google analytics<br/>
-            add organigramme front<br/><br/>
-            add ordre catégorie menu <br/><br/>
-
-            liste des articles <br/>
-            liste des events <br/><br/>
-
-            liste des articles user<br/>
-            liste des events user<br/>
-            liste des lookbooks user<br/><br/>
-
-            fix bug edit article user<br/>
-            fix bug edit event user<br/>
-            fix bug edit user user<br/>
-            fix bug organigramme back<br/><br/>
-
-            fix responsive menu<br/>
-            fix responsive agenda<br/>
-            fix responsive footer<br/><br/>
-            fix register view<br/>
-            fix login view<br/><br/>
-            fix datepicker color <br/>
-            replace datepicker <br/>
-            ');
-    }
+  
 
 }

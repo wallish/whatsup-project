@@ -77,6 +77,8 @@
             </div>
             {% else %}
                 <h2><strong>Commentaires</strong></h2>
+            <div class="fb-comments" data-href="{{url}}" data-numposts="5" data-colorscheme="light"></div>
+                
                 {{ render(controller("KnnfWhatsupBundle:Article:comment", {"article_id": article.id} )) }}
                 <div class="connect">
                     <a href="{{ path('fos_user_security_login') }}" title="connecte-toi">Connecte-toi</a> ou <a href="{{ path('registration') }}" title="inscris-toi">Inscris-toi</a> pour poster un commentaire.
@@ -116,7 +118,7 @@
         <input type="textarea" name="description" id="description" class="form-control"><br>
         <label for="name">Raison du signalement</label><br>
         <select name="select" class="form-control" width="50px">
-          <option value="Orthographes">Orthographes</option> 
+          <option value="Orthographes">Orthographe</option> 
           <option value="Diffamation" >Diffamation</option>
           <option value="Copyright">Copyright</option>
           <option value="Autres" selected>Autres</option>

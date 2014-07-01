@@ -2,12 +2,14 @@
 
 {% block body %}
     {% block content %}
+            
+
     <center>
         <div class="whatsup-article-author-profil">
             <img src="/whatsup/web/uploads/documents/{{ entity.path }}" class="whatsup-image"  />
         </div>
     </center>
-
+    <center><div > {{entity.title}}</div></center>
     <div class="whatsup-article-author">
         <div class="line"></div>
         <div class="row">
@@ -17,9 +19,9 @@
             </div>
             <div class="col-md-10">
                 <div class="whatsup-username"><a href="{{path('user_show',{'id': user.id})}}">{{user.username}}</a></div>
-                <div > articles</div>
-                <div > commentaires</div>
-                <div id="like"> likes</div>
+                <div > {{nbarticles}} articles</div>
+                <div > {{comment}} commentaires</div>
+                <div id="like"> {{like}} likes</div>
                
             </div>
             

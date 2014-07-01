@@ -16,6 +16,9 @@ use Knnf\WhatsupBundle\Form\RoleType;
  */
 class RoleController extends Controller
 {
+    protected function _getRepository(){
+        return $this->getDoctrine()->getRepository('KnnfWhatsupBundle:Role');
+    }
 
     /**
      * Lists all Role entities.
@@ -48,7 +51,7 @@ class RoleController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('role_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('role'));
         }
 
         return $this->render('KnnfWhatsupBundle:Role:new.html.twig', array(
@@ -179,6 +182,8 @@ class RoleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+        //die(var_dump(($entity->getRights())));
+
             $entity->setRights(json_encode($entity->getRights()));
             $em->flush();
 
@@ -230,5 +235,22 @@ class RoleController extends Controller
             ->add('submit', 'submit', array('label' => 'Supprimer','attr' => array('class' => 'btn btn-danger')))
             ->getForm()
         ;
+    }
+
+
+       //Suppression d'une catégorie
+    public function delete2Action(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $data = $request->request->all();
+            if(!$data['id']) die('Missing parameter');
+            /*$em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('KnnfWhatsupBundle:Article')->find($data['id']);*/
+            $article = $this->_getRepository()->delete($data['id']);
+        }
+
+        return $this->render('KnnfWhatsupBundle:Role:delete.html.twig');
+        //return true;
+
     }
 }

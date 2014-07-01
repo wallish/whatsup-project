@@ -41,13 +41,23 @@ class LookbookController extends Controller
 
         $entity = $em->getRepository('KnnfWhatsupBundle:Lookbook')->find($id);
         $user = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array('id' => $entity->getUser()->getId()));
-
+        $lookbook = $em->getRepository("KnnfWhatsupBundle:Lookbook")->findBy(array("user" => $user),array('dateinsert' => 'desc'));
+        $nbarticles = $em->getRepository("KnnfWhatsupBundle:Article")->findBy(array("user" => $user));
+        //$likes = $em->getRepository("KnnfWhatsupBundle:Annotation")->findBy(array("user" => $user));
+        $likes = $em->getRepository('KnnfWhatsupBundle:Annotation')->getBestUserOfTheMonth2(array('id' => $entity->getUser()->getId()));
+        $comment = $em->getRepository('KnnfWhatsupBundle:Annotation')->getComment(array('id' => $entity->getUser()->getId()));
+       /* $userlikes = $em->getRepository('KnnfWhatsupBundle:Annotation')->findBy(array('AnnotationType' => 'like','user' => $entity->getUser()));
+        die(count($userlikes));*/
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Lookbook entity.');
         }
         return $this->render('KnnfWhatsupBundle:Lookbook:show.html.twig', array(
             'entity'      => $entity,
             'user' => $user[0],
+            'nbarticles' => count($nbarticles),
+            'like' => $likes[0]['nombre'],
+            'comment' => $comment[0]['nombre']
+
         ));
     }
 

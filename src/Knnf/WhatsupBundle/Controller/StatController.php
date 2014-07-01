@@ -16,7 +16,8 @@ class StatController extends Controller
         $dailySignalement = $em->getRepository('KnnfWhatsupBundle:Annotation')->getDailySignalement();
         $totalUser = $em->getRepository('KnnfWhatsupBundle:User')->getTotalSubscription();
         $getCategoryView = $em->getRepository('KnnfWhatsupBundle:Article')->getCategoryView();
-        
+        $user_month = $em->getRepository('KnnfWhatsupBundle:Annotation')->getBestUserOfTheMonth3();
+        $bar = $em->getRepository('KnnfWhatsupBundle:User')->findBy(array('id' => $user_month[0]['idUser']));
         $categoryMostView = $em->getRepository('KnnfWhatsupBundle:Category')->findBy(array('id' => $getCategoryView[0]['categoryid']));
         return $this->render('KnnfWhatsupBundle:Stat:index.html.twig',array(
          'dailyComment' =>  $dailyComment[0] ,
@@ -26,6 +27,7 @@ class StatController extends Controller
          'totalUser' =>  $totalUser[0] ,
          'getCategoryView' =>  $getCategoryView[0]['views'] ,
          'categoryMostView' =>  $categoryMostView[0] ,
+         'user' => $bar[0]
 
         ));
     }

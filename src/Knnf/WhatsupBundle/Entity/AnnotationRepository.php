@@ -46,6 +46,73 @@ class AnnotationRepository extends EntityRepository
         return $q;
     }
 
+    public function getBestArticleOfTheMonth($category = null)
+    {
+    	$now =  '2014-06-01 00:00:00';
+    	$now2 = '2014-06-28 00:00:00';
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('annotation.idArticle,count(annotation.idArticle) as nombre')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->andWhere('annotation.dateinsert > (:dateinsert)')
+	            ->andWhere('annotation.dateinsert < (:dateinsert2)')
+	            ->setParameter('AnnotationType', 'like')
+	            ->setParameter('dateinsert', $now)
+	            ->setParameter('dateinsert2', $now2);
+	     
+	     return $q->getQuery()->getResult();
+    }
+
+    public function getBestUserOfTheMonth($category = null)
+    {
+    	$now =  '2014-06-01 00:00:00';
+    	$now2 = '2014-06-28 00:00:00';
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('count(annotation.idUser) as nombre')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->andWhere('annotation.dateinsert > (:dateinsert)')
+	            ->andWhere('annotation.dateinsert < (:dateinsert2)')
+	            ->setParameter('AnnotationType', 'like')
+	            ->setParameter('dateinsert', $now)
+	            ->setParameter('dateinsert2', $now2);
+	     
+	     return $q->getQuery()->getResult();
+    }
+
+     public function getBestUserOfTheMonth3($category = null)
+    {
+    	$now =  '2014-06-01 00:00:00';
+    	$now2 = '2014-06-28 00:00:00';
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('annotation.idUser')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->andWhere('annotation.dateinsert > (:dateinsert)')
+	            ->andWhere('annotation.dateinsert < (:dateinsert2)')
+	            ->groupBy('annotation.idUser')
+	            ->setParameter('AnnotationType', 'like')
+	            ->setParameter('dateinsert', $now)
+	            ->setParameter('dateinsert2', $now2);
+	     
+	     return $q->getQuery()->getResult();
+    }
+
+       public function getBestUserOfTheMonth2($id = null)
+    {
+    	$now =  '2014-06-01 00:00:00';
+    	$now2 = '2014-06-28 00:00:00';
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('count(annotation.idUser) as nombre')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->andWhere('annotation.idUser = (:user)')
+	            ->setParameter('AnnotationType', 'like')
+	            ->setParameter('user', $id);
+	     
+	     return $q->getQuery()->getResult();
+    }
+
     public function getDailyComment()
     {
     	$now = date('Y-m-d 00:00:00');
@@ -59,6 +126,20 @@ class AnnotationRepository extends EntityRepository
 	            ->setParameter('AnnotationType', 'comments')
 	            ->setParameter('dateinsert', $now)
 	            ->setParameter('dateinsert2', $now2);
+	     
+	     return $q->getQuery()->getResult();
+
+    }
+
+	public function getComment($id=null)
+    {
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('count(annotation.idArticle) as nombre')
+	            ->from('KnnfWhatsupBundle:Annotation','annotation')
+	            ->where('annotation.AnnotationType = (:AnnotationType)')
+	            ->andWhere('annotation.idUser = (:user)')
+	            ->setParameter('AnnotationType', 'comments')
+	            ->setParameter('user', $id);
 	     
 	     return $q->getQuery()->getResult();
 

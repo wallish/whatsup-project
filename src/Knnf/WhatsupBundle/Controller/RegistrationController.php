@@ -10,6 +10,7 @@ use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Knnf\WhatsupBundle\Entity\User;
+use Knnf\WhatsupBundle\Entity\Role;
 
 
 class RegistrationController extends BaseController
@@ -32,12 +33,16 @@ class RegistrationController extends BaseController
         $form->setData($user);
     
         if ('POST' === $request->getMethod()) {
+            $foo = $form->getData();
             $form->bind($request);
-    
             if ($form->isValid()) {
+
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
                 $user->upload();
+                  $em = $this->getDoctrine()->getManager();
+                    $role = $em->getRepository("KnnfWhatsupBundle:Role")->findBy(array("id" => 2));
+                $user->setRole($role[0]);
                 $userManager->updateUser($user);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_registration_confirmed');

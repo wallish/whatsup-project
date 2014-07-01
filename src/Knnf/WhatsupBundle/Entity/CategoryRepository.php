@@ -50,4 +50,27 @@ class CategoryRepository extends EntityRepository
 
 		return $data;
 	}
+
+    public function getSubcategory()
+    {
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('category')
+	            ->from('KnnfWhatsupBundle:Category','category')
+	            ->where('category.category > 0');
+	     
+	     return $q->getQuery()->getResult();
+
+    }
+
+   public function getCategory()
+    {
+    	$q = $this->_em->createQueryBuilder()
+	            ->select('category')
+	            ->from('KnnfWhatsupBundle:Category','category')
+	            ->where('category.category IS NULL')
+	            ->andWhere('category.activate = 1');
+	     
+	     return $q->getQuery()->getResult();
+
+    }
 }

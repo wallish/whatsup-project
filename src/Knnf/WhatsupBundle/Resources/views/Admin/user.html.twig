@@ -47,7 +47,6 @@
 												<td>{{ user.firstname }}</td>
 												<td>{{ user.lastname }}</td>
 												<td>{{ user.username }}</td>
-												<td>{{ user.role.name }}</td>
 												<td>{{ user.email }}</td>
 												<td>
 													<a href="{{path('user_show',{'id':user.id})}}">
@@ -100,21 +99,7 @@
 		
 		{% block javascripts %}
 			<script>
-				function deleteUser(id)
-				{
-					$.ajax({
-						url: "{{ path('user_delete')}}",
-						type: "post",
-						data: {id : id},
-						success: function(){
-							alert("success");
-							window.location.reload();
-						},
-						error:function(){
-							alert("failure");
-						}
-					});
-				};
+			
 
 				function activateUser(id)
 				{

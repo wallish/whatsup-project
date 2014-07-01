@@ -107,7 +107,7 @@
     padding: 0 0 0 32px;
 }
 
-
+@media screen and (max-width: 750px) { .whatsup-footer{ display :none; } }
     </style>
    
  </head>
@@ -160,7 +160,7 @@
                         <div >
                             <a href="#">Accueil</a>
                         </div>
-                        <div ><a href="{{ path('category_show', { 'slug': 'technologies' }) }}">Technologies</a></div>
+                        <div ><a href="{{ path('category_show', { 'slug': 'Films' }) }}">Films</a></div>
                     </div>
                     <div class="col-md-4">
                         <div ><a href="{{ path('category_show', { 'slug': 'musique' }) }}">Musique</a></div>
@@ -169,13 +169,13 @@
                     </div>
                     <div class="col-md-4">
                         <div ><a href="{{ path('category_show', { 'slug': 'cinoche' }) }}">Cinema</a></div>
-                        <div ><a href="{{ path('category_show', { 'slug': 'sortie' }) }}">Sorties</a></div>
+                        <div ><a href="{{ path('category_show', { 'slug': 'sorties' }) }}">Sorties</a></div>
                         <div ><a href="{{ path('category_show', { 'slug': 'musique' }) }}">Divers</a></div>
                     </div>
                 </div>
                 <div class="col-md-2" style="text-align:center;">
                   
-                <img src="{{asset('bundles/knnfwhatsup/img/logo_whatsup.png')}}" width="100%" height="100%;">
+                <img src="{{asset('bundles/knnfwhatsup/img/logo3.png')}}" width="100%" height="100%;">
                 </div>
                 <div class="col-md-5">
                     <div class="box-head">

@@ -29,9 +29,12 @@ user_update:
     requirements: { _method: post|put }
 
 user_delete:
-    pattern:  /delete/
+    pattern:  /delete/{id}
     defaults: { _controller: "KnnfWhatsupBundle:User:delete" }
-    requirements: { _method: post|delete }
+
+user_delete2:
+    pattern:  /delete2/{id}
+    defaults: { _controller: "KnnfWhatsupBundle:User:delete2" }
 
 user_activate:
     pattern:  /activate/

@@ -22,4 +22,13 @@ class RoleRepository extends EntityRepository
 
 		return $data;
 	}
+
+	public function delete($id){
+		if(!$id) die('Missing parameter');
+
+		$em = $this->getEntityManager();
+        $article = $em->getRepository('KnnfWhatsupBundle:Role')->find($id);
+        $em->remove($article);
+        $em->flush();
+	}
 }
